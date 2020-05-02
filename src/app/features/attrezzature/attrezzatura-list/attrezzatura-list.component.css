@@ -1,0 +1,43 @@
+@media screen and (max-width: 960px) {
+    
+    .emaildata {        
+        display: none
+    }   
+}
+
+table tr:hover{
+    cursor: pointer;
+    background: #b4b4b433;
+}
+
+table th {
+    font-weight: bold;
+    font-size: 0.9rem;  
+    color: #000
+}
+
+table {
+    width: 100%
+}
+
+#tableClienti td{
+    cursor: pointer
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
+}
+
+.mb40{
+    margin-bottom: 40px
+}
+
+.action .mat-icon{
+    float: right;
+}

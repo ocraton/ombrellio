@@ -1,0 +1,15 @@
+.titlemansionedetail{
+    color: #fff;
+    padding: 10px;
+    background: #673ab7
+}
+
+.valmiddle {
+    vertical-align: middle;
+}
+
+#btnmobile, #btnmobiledel {display: none}
+#btndesktop, #btndesktopdel {display: block}
+#btndesktopdel {
+    background: crimson
+}

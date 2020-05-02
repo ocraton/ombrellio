@@ -1,0 +1,16 @@
+<h3 class="titlemansionedetail mat-elevation-z3"> 
+  <mat-icon class="icon valmiddle mr5 ">business_center</mat-icon>
+  {{ mansione.denominazione }}
+  <button mat-button id="btnmobile" (click)="close()" 
+          mat-raised-button color="primary">Chiudi</button>
+</h3>
+<mat-dialog-content>
+  <mat-list>       
+      <mat-list-item><mat-icon class="icon mr5">description</mat-icon> {{ mansione.descrizione }}</mat-list-item><mat-divider></mat-divider>      
+    <mat-divider></mat-divider>    
+   </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions>    
+  <button class="mat-raised-button mt20 w-100" id="btndesktop" (click)="close()" 
+          mat-raised-button color="primary">Chiudi</button>
+</mat-dialog-actions>

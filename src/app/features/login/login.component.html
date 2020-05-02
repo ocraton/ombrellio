@@ -1,0 +1,50 @@
+<div class="wrapper centered login-page">
+    <div class="vh-centered">
+        <mat-card class="mat-card">
+            <mat-card-title class="app-name text-center" 
+                            style="font-weight: normal">
+                DocFire
+            </mat-card-title>
+            <mat-card-content>  
+                <br>
+                <div *ngIf="(authState | async).errorMsg != null" class="errormsg">                                                              
+                    <p *ngIf="(authState | async).errorMsg.error.error.status_code == 403">
+                        Email o Password non corretta
+                    </p>
+                    <p *ngFor="let itemErr of (authState | async).errorMsg.error.error.errors | keyvalue">
+                        {{ itemErr.key }}: {{ itemErr.value }}
+                    </p>
+                </div>  
+                <form *ngIf="!(authState | async).loading" class="login-form" 
+                        #f="ngForm" (ngSubmit)="onLogin(f)">
+                        <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
+                            <div fxFlexFill>
+                                <mat-form-field class="w-100">
+                                    <input matInput type="text" 
+                                    required placeholder="Email" [ngModel] name="email">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
+                            <div fxFlexFill>
+                                <mat-form-field class="w-100">
+                                    <input matInput type="password" 
+                                    required placeholder="Password" [ngModel] name="password">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="mt20" fxFlex  fxLayout="row" fxLayout.lt-md="column">
+                            <div fxFlexFill>
+                                <button mat-raised-button color="primary" 
+                                class="w-100" type="submit" [disabled]="f.invalid" >Login                                 
+                                </button>
+                            </div>
+                        </div>              
+                </form>
+                <div fxLayout="row" fxLayoutAlign="center" >
+                    <mat-spinner style="margin: 0 auto" *ngIf="(authState | async).loading"></mat-spinner>
+                </div> 
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

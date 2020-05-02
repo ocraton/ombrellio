@@ -1,0 +1,99 @@
+<div fxLayout="row" fxFlex>
+  <h2 *ngIf="editMode; else creanuovo">Modifica Risorsa Umana</h2>
+  <ng-template #creanuovo><h2>Crea nuova Risorsa Umana</h2> </ng-template>
+ 
+  <form [formGroup]="risorsaumanaForm" (ngSubmit)="onSave()" 
+        #formDirective="ngForm"
+        class="form-container">
+
+           
+        <mat-form-field class="form-container" *ngIf="aziende">
+          <mat-label>Azienda</mat-label>
+          <mat-select formControlName="azienda_id" >
+            <mat-option *ngFor="let azienda of aziende" [value]="azienda.id">
+              {{ azienda.ragione_sociale }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Nome" formControlName="nome">
+          <mat-error *ngIf="!risorsaumanaForm.get('nome').valid && risorsaumanaForm.get('nome').touched">
+          Nome obbligatorio
+          </mat-error> 
+        </mat-form-field>
+    
+        <mat-form-field>
+          <input matInput placeholder="Cognome" formControlName="cognome">
+          <mat-error *ngIf="!risorsaumanaForm.get('cognome').valid && risorsaumanaForm.get('cognome').touched">
+          Cognome obbligatorio
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Codice Fiscale" formControlName="c_fiscale">
+          <mat-error *ngIf="!risorsaumanaForm.get('c_fiscale').valid && risorsaumanaForm.get('c_fiscale').touched">
+          Inserisci un formato Codice Fiscale corretto
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="!risorsaumanaForm.get('email').valid && risorsaumanaForm.get('email').touched">
+          Inserisci un formato email corretto
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Cellulare" formControlName="cellulare">
+          <mat-error *ngIf="!risorsaumanaForm.get('cellulare').valid && risorsaumanaForm.get('cellulare').touched">
+          Inserisci un formato cellulare corretto
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="data_nascita" 
+            placeholder="Data di Nascita" readonly
+            formControlName="data_nascita">
+          <mat-datepicker-toggle matSuffix [for]="data_nascita"></mat-datepicker-toggle>
+          <mat-datepicker #data_nascita disabled="false" color="primary"></mat-datepicker>
+          <mat-error *ngIf="!risorsaumanaForm.get('data_nascita').valid && risorsaumanaForm.get('data_nascita').touched">
+          Inserisci un formato data corretto
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Città" formControlName="citta">            
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Indirizzo" formControlName="indirizzo">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Provincia" formControlName="provincia">            
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="CAP" formControlName="cap">
+          <mat-error *ngIf="!risorsaumanaForm.get('cap').valid && risorsaumanaForm.get('cap').touched">
+          Inserisci un formato cap corretto
+          </mat-error>
+        </mat-form-field>
+
+        <br>
+        <div *ngIf="(risorsaumanaState | async).error != null" class="errormsg">                                                              
+          <p *ngFor="let itemErr of (risorsaumanaState | async).error.error.error.errors | keyvalue">
+              {{ itemErr.value }}
+          </p>
+        </div>  
+        <button mat-raised-button color="primary"
+            *ngIf="!(risorsaumanaState | async).loading" 
+            class="w-100" type="submit"
+            [disabled]="!risorsaumanaForm.valid">
+          Salva                                 
+        </button>        
+        <mat-spinner style="margin: 0 auto" *ngIf="(risorsaumanaState | async).loading"></mat-spinner>              
+  </form>
+  <br>
+</div>

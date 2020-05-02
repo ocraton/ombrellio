@@ -1,0 +1,34 @@
+<div fxLayout="row" fxFlex>
+    <h2 *ngIf="editMode; else creanuovo">Modifica attrezzatura</h2>
+    <ng-template #creanuovo><h2>Crea nuova attrezzatura</h2> </ng-template>
+  
+    <form [formGroup]="attrezzaturaForm" (ngSubmit)="onSave()" 
+          #formDirective="ngForm"
+          class="form-container">
+                
+          <mat-form-field>
+            <input matInput placeholder="Denominazione" formControlName="denominazione">
+            <mat-error *ngIf="!attrezzaturaForm.get('denominazione').valid && attrezzaturaForm.get('denominazione').touched">
+              Denominazione obbligatorio
+            </mat-error> 
+          </mat-form-field>
+
+          <br>
+          <div *ngIf="(attrezzaturaState | async).error != null" class="errormsg">                                                              
+            <p *ngFor="let itemErr of (attrezzaturaState | async).error.error.error.errors | keyvalue">
+                {{ itemErr.value }}
+            </p>
+          </div>  
+          <button mat-raised-button color="primary"
+              *ngIf="!(attrezzaturaState | async).loading" 
+              class="w-100" type="submit"
+              [disabled]="!attrezzaturaForm.valid">
+            Salva                                 
+          </button>        
+          <mat-spinner style="margin: 0 auto" *ngIf="(attrezzaturaState | async).loading"></mat-spinner>
+        
+          
+    </form>
+  
+  </div>
+  

@@ -1,0 +1,15 @@
+<div fxLayout="row" fxFlex>
+  <h2><mat-icon class="icon mr5 valmiddle">group</mat-icon>     
+      Risorse Umane 
+      <span class="ovalbadge">
+          {{ (risorsaumanaState | async).risorseumane.total }}
+      </span> 
+      <button mat-button style="float: right;"
+      mat-raised-button color="primary"
+      routerLink="/user/risorseumane/new">Nuovo 
+      <mat-icon class="icon">add</mat-icon></button>   
+  </h2>
+  
+  <app-risorseumane-list></app-risorseumane-list>
+  
+  </div>

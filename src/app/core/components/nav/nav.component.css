@@ -1,0 +1,55 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+/*.active {
+  background-color: #28E8D9;
+}
+*/
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#sidebar {
+  width: 250px;
+  position: fixed;
+  top: 56px;
+  bottom: 0;
+  background: #fff;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+  z-index: 999;
+  -ms-overflow-y: auto;
+  overflow-y: auto;
+}
+
+.nested-menu .nested {
+  list-style-type: none;
+}
+.nested-menu .submenu {
+  display: none;
+  height: 0;
+}
+.nested-menu .expand.submenu {
+  display: block;
+  list-style-type: none;
+  height: auto;
+  margin: 0;
+}
+.nested .expand.submenu li a {
+  padding: 10px;
+  display: block;
+}
+
+
+
+
+
+
+
+
