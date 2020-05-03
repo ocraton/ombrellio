@@ -12,36 +12,8 @@
       <a mat-list-item routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: true}" routerLink="/user/dashboard">
         <mat-icon class="icon mr15" color="primary">dashboard</mat-icon> Dashboard</a>
-        <a mat-list-item routerLinkActive="active" routerLink="/user/aziende">
-          <mat-icon class="icon mr15" color="primary">domain</mat-icon> Aziende</a>
-        <a mat-list-item routerLinkActive="active" routerLink="/user/risorseumane">
-          <mat-icon class="icon mr15" color="primary">group</mat-icon> Risorse Umane  </a>
-        <div class="nested-menu">
-          <a mat-list-item (click)="addExpandClass('pages')">
-              <mat-icon class="sidenav-icon mr15" color="primary">business_center</mat-icon>
-              Mansioni
-              <mat-icon class="sidenav-icon mr15" color="primary">add</mat-icon>
-          </a>
-          <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
-              <li>
-                <a mat-list-item routerLinkActive="active" routerLink="/user/mansioni">
-                  <mat-icon class="sidenav-icon mr15" color="primary">business_center</mat-icon>
-                  Gestione Mansioni
-                </a>
-              </li>
-              <li>
-                <a mat-list-item routerLinkActive="active" routerLink="/user/requisiti">
-                    <mat-icon class="sidenav-icon mr15" color="primary">assignment_ind</mat-icon>
-                    Requisiti
-                </a>
-              </li>
-          </ul>
-        </div>
-        <a mat-list-item routerLinkActive="active" routerLink="/user/attrezzature">
-          <mat-icon class="icon mr15" color="primary">build</mat-icon> Attrezzature
-        </a>
-        <a mat-list-item routerLinkActive="active" routerLink="/user/sostanze">
-          <mat-icon class="icon mr15" color="primary">opacity</mat-icon> Sostanze  </a>
+        <a mat-list-item routerLinkActive="active" routerLink="/user/chalets">
+          <mat-icon class="icon mr15" color="primary">store</mat-icon> Chalet</a>
         <a mat-list-item  (click)="onLogout()">
           <mat-icon class="icon mr15" color="primary">logout</mat-icon> Logout</a>
     </mat-nav-list>
@@ -56,7 +28,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span style="cursor: pointer;" routerLink="/">DocFire</span>
+      <span style="cursor: pointer;" routerLink="/">ombrel.io</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="container">

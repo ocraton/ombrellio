@@ -2,15 +2,15 @@
 
     <div class="cardListItem" >
         <mat-card class="mat-card-info">
-            <mat-progress-bar mode="indeterminate" *ngIf="(aziendaState | async).loading"></mat-progress-bar>
-            <mat-card-header *ngIf="!(aziendaState | async).loading">
-                <div mat-card-avatar><mat-icon class="icon-lg">domain</mat-icon> </div>
+            <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
+            <mat-card-header *ngIf="!(chaletState | async).loading">
+                <div mat-card-avatar><mat-icon class="icon-lg">store</mat-icon> </div>
                 <mat-card-title>
-                  {{ (aziendaState | async).aziendeCount }}
-                </mat-card-title> 
-                <mat-card-subtitle>Aziende</mat-card-subtitle>
+                  {{ (chaletState | async).chaletsCount }}
+                </mat-card-title>
+                <mat-card-subtitle>Chalet</mat-card-subtitle>
             </mat-card-header>
         </mat-card>
-    </div>     
+    </div>
 
 </div>

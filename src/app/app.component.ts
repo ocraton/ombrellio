@@ -8,7 +8,7 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  title = 'docfire';
+  title = 'ombrel.io';
 
   constructor(private authService: AuthService) {}
 

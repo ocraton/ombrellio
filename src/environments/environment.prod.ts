@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "AIzaSyC6VEIFoBsd4sRN3KWpwt1J7_Wnds7XDhc",
-    authDomain: "document-manager-c7e20.firebaseapp.com",
-    databaseURL: "https://document-manager-c7e20.firebaseio.com",
-    projectId: "document-manager-c7e20",
-    storageBucket: "document-manager-c7e20.appspot.com",
-    messagingSenderId: "90650196989",
-    appId: "1:90650196989:web:b69370f2459b305a5bb794",
-    measurementId: "G-GQ67B7P9MQ"
+    apiKey: "AIzaSyDPZ_gC2LIPqHd_IBvcx4SRTiP12Qb2VPI",
+    authDomain: "ombrellio.firebaseapp.com",
+    databaseURL: "https://ombrellio.firebaseio.com",
+    projectId: "ombrellio",
+    storageBucket: "ombrellio.appspot.com",
+    messagingSenderId: "747422293637",
+    appId: "1:747422293637:web:3299adb0ac90641d8853ec",
+    measurementId: "G-L1R1J8Y25R"
   }
 };

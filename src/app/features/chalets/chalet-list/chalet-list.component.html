@@ -1,0 +1,43 @@
+<mat-form-field>
+  <input matInput placeholder="Cerca" #term (keyup)="search(term.value)">
+</mat-form-field>
+
+<div fxLayout="row" fxFlex *ngIf="!(chaletState | async).loading">
+
+  <mat-paginator #paginator
+    *ngIf="chaletListParam.event != 'search'"
+    class="mat-elevation-z8"
+    [length]="(chaletState | async).chaletsCount"
+    [pageSize]="chaletListParam.pageSize"
+    [pageIndex]="chaletListParam.pageIndex"
+    (page)="handlePage($event)">
+  </mat-paginator>
+
+  <table mat-table [dataSource]="(chaletState | async).chalet"
+        id="tableChalets" class="mat-elevation-z8 mb40">
+      <ng-container matColumnDef="ragione_sociale">
+          <th mat-header-cell *matHeaderCellDef> Ragione Sociale </th>
+          <td mat-cell *matCellDef="let element"> {{ element.ragione_sociale }}  </td>
+      </ng-container>
+      <ng-container matColumnDef="created_at">
+          <th mat-header-cell *matHeaderCellDef> Creato il </th>
+          <td mat-cell *matCellDef="let element"> {{ element.created_at?.toDate() | date: 'dd/MM/yyyy' }}  </td>
+      </ng-container>
+      <ng-container matColumnDef="action" >
+            <th mat-header-cell *matHeaderCellDef class="action"> </th>
+            <td mat-cell *matCellDef="let element" class="action">
+                <mat-icon (click)="$event.stopPropagation();deleteChalet(element)"
+                class="icon mr5 valmiddle">delete</mat-icon>
+                <mat-icon (click)="$event.stopPropagation();editChalet(element)"
+                class="icon mr5 valmiddle">edit</mat-icon>
+            </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="onRowClicked(row)">
+      </tr>
+  </table>
+</div>
+<div fxLayout="row" fxFlex >
+  <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
+</div>

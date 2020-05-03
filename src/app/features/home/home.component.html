@@ -2,24 +2,24 @@
   <div class="vh-centered">
     <mat-card class="text-center">
         <div class="text-center">
-            <h2 class="app-name" style="font-weight: normal">docManager</h2>
+            <h2 class="app-name" style="font-weight: normal">ombrel.io</h2>
         </div>
-      <img mat-card-image src="https://lh3.googleusercontent.com/d/1HRyCbyCBMWV05pYgN0EHTWN_5U4mYUOg=s220?authuser=0" style="width: 200px">
-      <mat-card-actions> 
-              <ng-template [ngIf]="!(isAuth$ | async)">      
-                  <button mat-raised-button color="primary" 
+      <img mat-card-image src="http://drive.google.com/uc?export=view&id=15B1cSUxT_JTjjo00Kh7IF9d26Fb5dPVV" SameSite=None style="width: 200px">
+      <mat-card-actions>
+              <ng-template [ngIf]="!(isAuth$ | async)">
+                  <button mat-raised-button color="primary"
                   class="w-80" routerLink="/login" >LOGIN </button>
               </ng-template>
-              <ng-template [ngIf]="isAuth$ | async">      
-                  <button mat-raised-button color="primary" 
+              <ng-template [ngIf]="isAuth$ | async">
+                  <button mat-raised-button color="primary"
                   class="w-80" routerLink="/user" > DASHBOARD <mat-icon class="icon mr15">home</mat-icon></button>
                   <br><br>
                 <button mat-raised-button color="accent"
                   style="cursor: pointer;"
-                  (click)="onLogout()" 
-                  class="w-80" > LOGOUT <mat-icon class="icon mr15">logout</mat-icon></button>                  
-              </ng-template>   
-                  <br><br><br>                  
+                  (click)="onLogout()"
+                  class="w-80" > LOGOUT <mat-icon class="icon mr15">logout</mat-icon></button>
+              </ng-template>
+                  <br><br><br>
       </mat-card-actions>
     </mat-card>
 </div>

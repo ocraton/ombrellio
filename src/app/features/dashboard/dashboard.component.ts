@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromAzienda from '../aziende/store/azienda.reducers';
-import * as AziendaActions from '../aziende/store/azienda.actions';
+import * as fromChalet from '../chalets/store/chalet.reducers';
+import * as ChaletActions from '../chalets/store/chalet.actions';
 
 
 @Component({
@@ -13,13 +13,13 @@ import * as AziendaActions from '../aziende/store/azienda.actions';
 })
 export class DashboardComponent implements OnInit {
 
-  aziendaState: Observable<fromAzienda.State>;
+  chaletState: Observable<fromChalet.State>;
 
-  constructor(private storeAzienda: Store<fromAzienda.FeatureState>) { }
+  constructor(private storeChalet: Store<fromChalet.FeatureState>) { }
 
   ngOnInit() {
-    this.storeAzienda.dispatch(new AziendaActions.FetchCountAziende);
-    this.aziendaState = this.storeAzienda.select('aziende');
+    this.storeChalet.dispatch(new ChaletActions.FetchCountChalets);
+    this.chaletState = this.storeChalet.select('chalets');
   }
 
 }

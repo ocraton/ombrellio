@@ -30,13 +30,8 @@ import { ClienteDetailComponent } from '../features/clienti/cliente-detail/clien
 import { ClienteDeleteComponent } from '../features/clienti/cliente-delete/cliente-delete.component';
 import { RisorseumaneDeleteComponent } from '../features/risorseumane/risorseumane-delete/risorseumane-delete.component';
 import { RisorseumaneDetailComponent } from '../features/risorseumane/risorseumane-detail/risorseumane-detail.component';
-import { MansioneDeleteComponent } from '../features/mansioni/mansione-delete/mansione-delete.component';
-import { MansioneDetailComponent } from '../features/mansioni/mansione-detail/mansione-detail.component';
-import { AttrezzaturaDetailComponent } from '../features/attrezzature/attrezzatura-detail/attrezzatura-detail.component';
-import { AttrezzaturaDeleteComponent } from '../features/attrezzature/attrezzatura-delete/attrezzatura-delete.component';
-import { RequisitoDeleteComponent } from '../features/requisiti/requisito-delete/requisito-delete.component';
-import { RequisitoDetailComponent } from '../features/requisiti/requisito-detail/requisito-detail.component';
 import { AziendaDeleteComponent } from '../features/aziende/azienda-delete/azienda-delete.component';
+import { ChaletDeleteComponent } from '../features/chalets/chalet-delete/chalet-delete.component';
 
 @NgModule({
   declarations: [],
@@ -91,11 +86,8 @@ import { AziendaDeleteComponent } from '../features/aziende/azienda-delete/azien
     MatTabsModule
   ],
   entryComponents: [ClienteDetailComponent, ClienteDeleteComponent,
-                    AziendaDeleteComponent,
+                    AziendaDeleteComponent, ChaletDeleteComponent,
                     RisorseumaneDetailComponent, RisorseumaneDeleteComponent,
-                    MansioneDetailComponent, MansioneDeleteComponent,
-                    RequisitoDetailComponent, RequisitoDeleteComponent,
-                    AttrezzaturaDetailComponent, AttrezzaturaDeleteComponent,
                     ],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,
               {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},

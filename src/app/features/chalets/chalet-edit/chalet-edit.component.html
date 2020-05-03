@@ -1,0 +1,49 @@
+<div fxLayout="row" fxFlex>
+  <h2 *ngIf="editMode; else creanuovo">Modifica Chalet</h2>
+  <ng-template #creanuovo><h2>Nuova Chalet</h2> </ng-template>
+
+  <form [formGroup]="chaletForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+        <mat-form-field>
+          <input matInput placeholder="Ragione Sociale" formControlName="ragione_sociale" appCapitalizeCase>
+          <mat-error *ngIf="!chaletForm.get('ragione_sociale').valid && chaletForm.get('ragione_sociale').touched">
+            Ragione Sociale obbligatorio
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Codice Accesso" formControlName="codice_accesso" appCapitalizeCase>
+          <mat-error *ngIf="!chaletForm.get('codice_accesso').valid && chaletForm.get('codice_accesso').touched">
+            Codice Accesso obbligatorio
+          </mat-error>
+        </mat-form-field>
+        <br>
+        <br>
+        <mat-divider></mat-divider>
+        <h4>Indirizzo</h4>
+          <div [formGroup]="indirizzo">
+            <mat-form-field>
+              <input matInput placeholder="provincia" formControlName="provincia">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="citta" formControlName="citta">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="via" formControlName="via">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="civico" formControlName="civico">
+            </mat-form-field>
+          </div>
+        <br>
+
+        <button mat-raised-button color="primary"
+            *ngIf="!(chaletState | async).loading"
+            class="w-100" type="submit"
+            [disabled]="!chaletForm.valid">
+          Salva
+        </button>
+        <mat-spinner style="margin: 0 auto" *ngIf="(chaletState | async).loading"></mat-spinner>
+  </form>
+  <br>
+</div>
