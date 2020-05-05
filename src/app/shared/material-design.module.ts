@@ -26,11 +26,6 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ClienteDetailComponent } from '../features/clienti/cliente-detail/cliente-detail.component';
-import { ClienteDeleteComponent } from '../features/clienti/cliente-delete/cliente-delete.component';
-import { RisorseumaneDeleteComponent } from '../features/risorseumane/risorseumane-delete/risorseumane-delete.component';
-import { RisorseumaneDetailComponent } from '../features/risorseumane/risorseumane-detail/risorseumane-detail.component';
-import { AziendaDeleteComponent } from '../features/aziende/azienda-delete/azienda-delete.component';
 import { ChaletDeleteComponent } from '../features/chalets/chalet-delete/chalet-delete.component';
 
 @NgModule({
@@ -85,10 +80,7 @@ import { ChaletDeleteComponent } from '../features/chalets/chalet-delete/chalet-
     MatNativeDateModule,
     MatTabsModule
   ],
-  entryComponents: [ClienteDetailComponent, ClienteDeleteComponent,
-                    AziendaDeleteComponent, ChaletDeleteComponent,
-                    RisorseumaneDetailComponent, RisorseumaneDeleteComponent,
-                    ],
+  entryComponents: [ChaletDeleteComponent],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,
               {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
             ]

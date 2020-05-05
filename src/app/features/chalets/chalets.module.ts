@@ -14,8 +14,6 @@ import { ChaletDetailComponent } from './chalet-detail/chalet-detail.component';
 import { ChaletEditComponent } from './chalet-edit/chalet-edit.component';
 import { ChaletDeleteComponent } from './chalet-delete/chalet-delete.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DocumentiComponent } from './components/documenti/documenti.component';
-import { RisorseumaneListComponent } from '../risorseumane/risorseumane-list/risorseumane-list.component';
 
 
 @NgModule({
@@ -23,7 +21,6 @@ import { RisorseumaneListComponent } from '../risorseumane/risorseumane-list/ris
     ChaletsComponent,
     ChaletListComponent,
     ChaletDetailComponent,
-    DocumentiComponent,
     ChaletDetailComponent,
     ChaletEditComponent,
     ChaletDeleteComponent

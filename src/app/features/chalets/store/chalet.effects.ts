@@ -13,8 +13,8 @@ export class ChaletEffects {
   @Effect()
   chaletsFetch$ = this.actions$.pipe(
     ofType(ChaletActions.FETCH_CHALETS),
-    switchMap((action: ChaletActions.FetchChalets) => {
-      return this.chaletsService.getAll(action.payload)
+    switchMap(() => {
+      return this.chaletsService.getAll()
     }),
     map((chalet: Chalet[]) => {
       return {
@@ -48,6 +48,19 @@ export class ChaletEffects {
     map(countChalets => {
       return { type: ChaletActions.SET_COUNT_CHALETS, payload: countChalets['count'] };
     }
+    )
+  );
+
+  @Effect({ dispatch: false })
+  updateChalet$ = this.actions$.pipe(
+    ofType(ChaletActions.UPDATE_CHALET),
+    map((action: ChaletActions.CreateChalet) => action.payload),
+    switchMap((chalet: Chalet) =>
+      this.chaletsService.updateChalet(chalet).then(
+        () => { new ChaletActions.UpdateChaletSuccess('success') }
+      ).catch(
+        error => { new ChaletActions.UpdateChaletFail(error) }
+      )
     )
   );
 

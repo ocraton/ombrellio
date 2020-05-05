@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromChalet from '../store/chalet.reducers';
 import * as ChaletActions from '../store/chalet.actions';
@@ -8,6 +8,7 @@ import { Chalet } from '../chalet.model';
 import { Observable } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as fromApp from '../../../store/app.reducers';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-risorseumane-edit',
@@ -30,8 +31,7 @@ export class ChaletEditComponent implements OnInit {
               private router: Router,
               private store: Store<fromChalet.FeatureState>,
               private _snackBar: MatSnackBar,
-              private fb: FormBuilder,
-              private storeChalet: Store<fromChalet.FeatureState>) { }
+              private fb: FormBuilder) { }
 
   ngOnInit() {
     this.route.params
@@ -49,21 +49,19 @@ export class ChaletEditComponent implements OnInit {
 
   onSave() {
     this.chalet = this.chaletForm.value
+    this.chalet.id = this.id.toString();
     this.chalet.utente_uid = this.authUID
     this.chalet.created_at = new Date()
     if (this.editMode) {
-      this.store.dispatch(new ChaletActions.UpdateChalet({
-        index: this.id,
-        updateChalet: this.chalet
-      }));
+      this.store.dispatch(new ChaletActions.UpdateChalet(this.chalet));
     } else {
       this.store.dispatch(new ChaletActions.CreateChalet(this.chalet));
     }
     this.store.select('chalets').subscribe(
       (chalet) => {
         if(!(chalet.error != null)) {
-          this.editMode ? this.showSuccessMessage("Chalet salvata con successo") :
-                          this.showSuccessMessage("Chalet creata con successo")
+          this.editMode ? this.showSuccessMessage("Chalet salvato con successo") :
+                          this.showSuccessMessage("Chalet creato con successo")
         }
       }
     ).unsubscribe()
@@ -71,31 +69,42 @@ export class ChaletEditComponent implements OnInit {
 
   initForm() {
 
-    // if (this.editMode) {
-    //   this.store.select('chalets')
-    //   .pipe(take(1))
-    //   .subscribe((chaletState: fromChalet.State) => {
-    //     chaletState.chalet.map(
-    //       (c) => {
-    //         if(c.id == this.id.toString()) {
-    //           chaletId = c.id;
-    //           ragione_sociale = c.ragione_sociale;
-    //           email = c.email;
-    //         }
-    //       }
-    //     )
-    //   });
-    // }
+    let ragione_sociale = '';
+    let telefono = '';
+    let codice_accesso = '';
+    let indirizzo = {
+      provincia: '',
+      citta: '',
+      via: '',
+      civico: ''
+    }
+
+    if (this.editMode) {
+      this.store.select('chalets')
+      .pipe(take(1))
+      .subscribe((chaletState: fromChalet.State) => {
+        chaletState.chalet.map(
+          (c) => {
+            if(c.id == this.id.toString()) {
+              ragione_sociale = c.ragione_sociale;
+              telefono = c.telefono;
+              codice_accesso = c.codice_accesso;
+              indirizzo = c.indirizzo;
+            }
+          }
+        )
+      });
+    }
 
     this.chaletForm = this.fb.group({
-      'ragione_sociale': ['', Validators.compose([ Validators.required, Validators.minLength(3) ])],
-      'telefono': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      'codice_accesso': ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      'ragione_sociale': [ragione_sociale, Validators.compose([ Validators.required, Validators.minLength(3) ])],
+      'telefono': [telefono, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'codice_accesso': [codice_accesso, Validators.compose([Validators.required, Validators.minLength(6)])],
       indirizzo: this.fb.group({
-        'provincia': ['', Validators.compose([Validators.required, Validators.minLength(2) ])],
-        'citta': ['', Validators.compose([Validators.required, Validators.minLength(2) ])],
-        'via': ['', Validators.compose([Validators.required, Validators.minLength(2) ])],
-        'civico': ['', Validators.compose([ Validators.required ])]
+        'provincia': [indirizzo.provincia, Validators.compose([Validators.required, Validators.minLength(2) ])],
+        'citta': [indirizzo.citta, Validators.compose([Validators.required, Validators.minLength(2) ])],
+        'via': [indirizzo.via, Validators.compose([Validators.required, Validators.minLength(2) ])],
+        'civico': [indirizzo.civico, Validators.compose([ Validators.required ])]
       })
     });
     this.indirizzo = this.chaletForm.get('indirizzo') as FormGroup

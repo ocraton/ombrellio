@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Chalet } from './chalet.model';
+import { Ombrellone } from './ombrelloni.model';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducers';
 import * as fromAuth from '../login/store/auth.reducers';
@@ -14,7 +14,7 @@ import { Auth } from 'src/app/core/model/auth.model';
 
 @Injectable()
 
-export class ChaletsService {
+export class OmbrelloniService {
 
     authUID: string;
 
@@ -23,48 +23,48 @@ export class ChaletsService {
                   this.store.select(fromApp.getAuthUID).subscribe(res => this.authUID = res);
                 }
 
-    getAll(): Observable<Chalet[]> {
+    getAll(): Observable<Ombrellone[]> {
 
-      let chalets = this.db.collection<Chalet>('chalet');
+      let ombrelloni = this.db.collection<Ombrellone>('ombrellone');
 
-      chalets = this.db.collection<Chalet>('chalet', ref =>
+      ombrelloni = this.db.collection<Ombrellone>('ombrellone', ref =>
         ref.where('utente_uid', '==', this.authUID)
           .orderBy('created_at', 'desc').limit(2)
       );
 
-      return chalets.snapshotChanges().pipe(
+      return ombrelloni.snapshotChanges().pipe(
                 map((actions => actions.map(a => {
-                  const data = a.payload.doc.data() as Chalet;
+                  const data = a.payload.doc.data() as Ombrellone;
                   const id = a.payload.doc.id;
                   return { id, ...data };
                 })))
               );
     }
 
-    getChalet(idChalet: string): Observable<Chalet> {
-        const ref = this.db.doc<Chalet>('chalet/' + idChalet);
+    getOmbrellone(idOmbrellone: string): Observable<Ombrellone> {
+        const ref = this.db.doc<Ombrellone>('ombrellone/' + idOmbrellone);
         return ref.valueChanges();
     }
 
-    getCountChalets() {
+    getCountOmbrelloni() {
         return this.db.collection('utenti')
                 .doc(this.authUID)
                 .collection('--stats--')
-                .doc('countchalet')
+                .doc('countombrellone')
                 .valueChanges();
 
     }
 
-    createChalet(chalet: Chalet) {
-      return this.db.collection('chalet').add(chalet);
+    createOmbrellone(ombrellone: Ombrellone) {
+      return this.db.collection('ombrellone').add(ombrellone);
     }
 
-    updateChalet(chalet: Chalet) {
-      return this.db.collection('chalet').doc(chalet.id).update(chalet)
+    updateOmbrellone(ombrellone: Ombrellone) {
+      return this.db.collection('ombrellone').doc(ombrellone.id).update(ombrellone)
     }
 
-    deleteChalet(chaletId) {
-      return this.db.collection('chalet').doc(chaletId).delete();
+    deleteOmbrellone(ombrelloneId) {
+      return this.db.collection('ombrellone').doc(ombrelloneId).delete();
     }
 
 }

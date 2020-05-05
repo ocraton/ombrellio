@@ -1,43 +1,92 @@
-<mat-form-field>
-  <input matInput placeholder="Cerca" #term (keyup)="search(term.value)">
-</mat-form-field>
+<div *ngIf="!(chaletState | async).loading">
+  <div  *ngIf="(chaletState | async).chalet[0]">
 
-<div fxLayout="row" fxFlex *ngIf="!(chaletState | async).loading">
+       <h2> <span style="color: #673AB7">
+        {{ (chaletState | async).chalet[0].ragione_sociale }}
+      </span>
+        <button
+        *ngIf="(chaletState | async).chalet[0] as element"
+        (click)="editChalet(element)"
+        mat-fab class="mat-button-bottom-r"
+        color="primary" aria-label="Modifica">
+          <mat-icon>edit</mat-icon>
+        </button>
+    </h2>
+          <div class="mb20 mt20 cardList">
+            <div class="cardListItem">
+              <mat-card>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <mat-icon class="icon-lg" color="primary">vpn_key</mat-icon>
+                  </div>
+                  <mat-card-title>
+                    Codice Ombrelloni
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                      <br>
+                      <span style="font-size: 2rem;" style="font-size:2rem;color: #673AB7">
+                        {{ (chaletState | async).chalet[0].codice_accesso }}
+                      </span>
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+            <br>
+            <div class="cardListItem">
+              <mat-card>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <mat-icon class="icon-lg" color="primary">place</mat-icon>
+                  </div>
+                  <mat-card-title>
+                    Indirizzo
+                  </mat-card-title>
+                  <mat-card-subtitle style="font-size: 1rem;">
+                    {{ (chaletState | async).chalet[0].indirizzo.via }},
+                    n. {{ (chaletState | async).chalet[0].indirizzo.civico }} |
+                    {{ (chaletState | async).chalet[0].indirizzo.citta }} |
+                    ( {{ (chaletState | async).chalet[0].indirizzo.provincia }})
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+            <br>
+            <div class="cardListItem">
+              <mat-card>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <mat-icon class="icon-lg" color="primary">phone</mat-icon>
+                  </div>
+                  <mat-card-title>
+                    Telefono
+                  </mat-card-title>
+                  <mat-card-subtitle style="font-size: 1rem;">
+                    {{ (chaletState | async).chalet[0].telefono }} <br>
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
 
-  <mat-paginator #paginator
-    *ngIf="chaletListParam.event != 'search'"
-    class="mat-elevation-z8"
-    [length]="(chaletState | async).chaletsCount"
-    [pageSize]="chaletListParam.pageSize"
-    [pageIndex]="chaletListParam.pageIndex"
-    (page)="handlePage($event)">
-  </mat-paginator>
+      <mat-card class="cardcreanuovo" *ngIf="!(chaletState | async).chalet[0]">
+          <h2>Non hai ancora creato uno Chalet!</h2>
+          <br>
+        <button
+          mat-button
+          mat-raised-button
+          color="primary"
+          routerLink="/user/chalets/new">
+          Crea Nuovo<mat-icon class="icon">add</mat-icon>
+        </button>
+      </mat-card>
 
-  <table mat-table [dataSource]="(chaletState | async).chalet"
-        id="tableChalets" class="mat-elevation-z8 mb40">
-      <ng-container matColumnDef="ragione_sociale">
-          <th mat-header-cell *matHeaderCellDef> Ragione Sociale </th>
-          <td mat-cell *matCellDef="let element"> {{ element.ragione_sociale }}  </td>
-      </ng-container>
-      <ng-container matColumnDef="created_at">
-          <th mat-header-cell *matHeaderCellDef> Creato il </th>
-          <td mat-cell *matCellDef="let element"> {{ element.created_at?.toDate() | date: 'dd/MM/yyyy' }}  </td>
-      </ng-container>
-      <ng-container matColumnDef="action" >
-            <th mat-header-cell *matHeaderCellDef class="action"> </th>
-            <td mat-cell *matCellDef="let element" class="action">
-                <mat-icon (click)="$event.stopPropagation();deleteChalet(element)"
-                class="icon mr5 valmiddle">delete</mat-icon>
-                <mat-icon (click)="$event.stopPropagation();editChalet(element)"
-                class="icon mr5 valmiddle">edit</mat-icon>
-            </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-      (click)="onRowClicked(row)">
-      </tr>
-  </table>
+  </div>
 </div>
-<div fxLayout="row" fxFlex >
+<div>
   <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
 </div>
+
+
+
+
+

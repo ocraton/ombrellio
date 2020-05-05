@@ -1,7 +1,7 @@
-<div *ngIf="!(chaletState | async).loading">
+<div *ngIf="!(ombrelloneState | async).loading">
 
-    <h2>Chalet: <span style="color: #673AB7">
-        {{ (chaletState | async).chalet['ragione_sociale'] }}
+    <h2>Ombrellone: <span style="color: #673AB7">
+        {{ (ombrelloneState | async).ombrellone['ragione_sociale'] }}
       </span> </h2>
 
         <div class="mattabheader">
@@ -16,10 +16,10 @@
                     Indirizzo
                   </mat-card-title>
                   <mat-card-subtitle>
-                    Provincia: {{ (chaletState | async).chalet['indirizzo']?.provincia }} <br>
-                    Citta: {{ (chaletState | async).chalet['indirizzo']?.citta }} <br>
-                    Via: {{ (chaletState | async).chalet['indirizzo']?.via }} <br>
-                    Civico: {{ (chaletState | async).chalet['indirizzo']?.civico }}
+                    Provincia: {{ (ombrelloneState | async).ombrellone['indirizzo']?.provincia }} <br>
+                    Citta: {{ (ombrelloneState | async).ombrellone['indirizzo']?.citta }} <br>
+                    Via: {{ (ombrelloneState | async).ombrellone['indirizzo']?.via }} <br>
+                    Civico: {{ (ombrelloneState | async).ombrellone['indirizzo']?.civico }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -34,7 +34,7 @@
                     Contatti
                   </mat-card-title>
                   <mat-card-subtitle>
-                    Telefono: {{ (chaletState | async).chalet['telefono'] }} <br>
+                    Telefono: {{ (ombrelloneState | async).ombrellone['telefono'] }} <br>
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -46,5 +46,5 @@
 </div>
 <div fxLayout="row" fxFlex>
   <br>
-  <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="(ombrelloneState | async).loading"></mat-progress-bar>
 </div>

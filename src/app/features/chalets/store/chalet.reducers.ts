@@ -30,7 +30,7 @@ export function chaletReducer(state = initialState, action: ChaletActions.Chalet
     case (ChaletActions.FETCH_CHALET):
       return {
         ...state,
-        chalet: action.payload,
+        chalet: action,
         loading: true
       };
     case (ChaletActions.FETCH_COUNT_CHALETS):
@@ -80,14 +80,14 @@ export function chaletReducer(state = initialState, action: ChaletActions.Chalet
         ...state,
         loading: true
       };
-    case (ChaletActions.UPDATE_CHALETS_SUCCESS):
+    case (ChaletActions.UPDATE_CHALET_SUCCESS):
       return {
         ...state,
         chalet: action.payload,
         loading: false,
         error: null
       };
-    case (ChaletActions.UPDATE_CHALETS_FAIL):
+    case (ChaletActions.UPDATE_CHALET_FAIL):
       return {
         ...state,
         loading: false,

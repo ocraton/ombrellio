@@ -5,12 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { ClientiModule } from './features/clienti/clienti.module';
-
-import { RisorseumaneModule } from './features/risorseumane/risorseumane.module';
-import { AziendeModule } from './features/aziende/aziende.module';
 import { ChaletsModule } from './features/chalets/chalets.module';
-import { DashboardModule } from './features/dashboard/dashboard.module';
 import { NotFoundModule } from './features/not-found/not-found.module';
 import { HomeModule } from './features/home/home.module';
 import { LoginModule } from './features/login/login.module';
@@ -21,6 +16,7 @@ import { AuthService } from './core/services/auth.service';
 import { reducers } from './store/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
+import { OmbrelloniModule } from './features/ombrelloni/ombrelloni.module';
 
 
 @NgModule({
@@ -34,11 +30,8 @@ import { environment } from '../environments/environment.prod';
     FormsModule,
     HttpClientModule,
     CoreModule,
-    DashboardModule,
-    ClientiModule,
-    RisorseumaneModule,
-    AziendeModule,
     ChaletsModule,
+    OmbrelloniModule,
     HomeModule,
     LoginModule,
     AppRoutingModule,

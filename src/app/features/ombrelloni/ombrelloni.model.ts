@@ -1,4 +1,4 @@
-export class Chalet {
+export class Ombrellone {
 
     public id: string;
     public utente_uid: string;

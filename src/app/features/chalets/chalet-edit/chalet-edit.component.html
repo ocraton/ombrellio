@@ -12,14 +12,19 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Codice Accesso" formControlName="codice_accesso" appCapitalizeCase>
+          <input matInput placeholder="Codice Accesso" formControlName="codice_accesso" >
           <mat-error *ngIf="!chaletForm.get('codice_accesso').valid && chaletForm.get('codice_accesso').touched">
             Codice Accesso obbligatorio
           </mat-error>
         </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Telefono" formControlName="telefono" >
+          <mat-error *ngIf="!chaletForm.get('telefono').valid && chaletForm.get('telefono').touched">
+            Telefono obbligatorio
+          </mat-error>
+        </mat-form-field>
         <br>
         <br>
-        <mat-divider></mat-divider>
         <h4>Indirizzo</h4>
           <div [formGroup]="indirizzo">
             <mat-form-field>
