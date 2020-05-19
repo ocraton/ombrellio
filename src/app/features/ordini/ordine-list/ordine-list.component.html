@@ -1,0 +1,14 @@
+<div *ngIf="!(ordineState | async).loading">
+  <div class="mb20 mt20 cardList">
+
+    <app-ordine-edit
+    *ngFor="let ordineel of (ordineState | async).ordine"
+    [ordine]="ordineel"
+    ></app-ordine-edit>
+
+  </div>
+</div>
+<div>
+  <mat-progress-bar mode="indeterminate" *ngIf="(ordineState | async).loading"></mat-progress-bar>
+</div>
+

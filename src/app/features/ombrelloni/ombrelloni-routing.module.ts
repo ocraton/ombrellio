@@ -7,14 +7,14 @@ import { AuthGuard } from '../login/auth-guard.service';
 import { OmbrelloneDetailComponent } from './ombrellone-detail/ombrellone-detail.component';
 
 const ombrelloniRoutes: Routes = [
-    { path: 'user', component: UserdashboardLayoutComponent,
-      children: [
-        { path: '', component: OmbrelloniComponent, canActivate: [AuthGuard] },
-        { path: 'ombrelloni', component: OmbrelloniComponent, canActivate: [AuthGuard]},
-        { path: 'ombrelloni/:id', component: OmbrelloneDetailComponent, canActivate: [AuthGuard] },
-      ]
-    }
-  ];
+  {
+    path: 'user', component: UserdashboardLayoutComponent,
+    children: [
+      { path: 'ombrelloni', component: OmbrelloniComponent, canActivate: [AuthGuard] },
+      { path: 'ombrelloni/:id', component: OmbrelloneDetailComponent, canActivate: [AuthGuard] },
+    ]
+  }
+];
 
 @NgModule({
   imports: [

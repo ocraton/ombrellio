@@ -1,3 +1,4 @@
+import { DatesService } from './services/dates.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from './services/translate.service';
@@ -11,6 +12,6 @@ const COMPONENTS = [ ];
   imports: [
     CommonModule
   ],
-  providers: [TranslateService]
+  providers: [TranslateService, DatesService]
 })
 export class SharedModule { }

@@ -12,7 +12,6 @@ import { chaletReducer } from './store/chalet.reducers';
 import { ChaletsService } from './chalets.service';
 import { ChaletDetailComponent } from './chalet-detail/chalet-detail.component';
 import { ChaletEditComponent } from './chalet-edit/chalet-edit.component';
-import { ChaletDeleteComponent } from './chalet-delete/chalet-delete.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -22,8 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ChaletListComponent,
     ChaletDetailComponent,
     ChaletDetailComponent,
-    ChaletEditComponent,
-    ChaletDeleteComponent
+    ChaletEditComponent
   ],
   imports: [
     CommonModule,

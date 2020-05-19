@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatToolbarModule,
   MatCheckboxModule,
@@ -26,13 +25,12 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ChaletDeleteComponent } from '../features/chalets/chalet-delete/chalet-delete.component';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatCheckboxModule,
@@ -54,10 +52,11 @@ import { ChaletDeleteComponent } from '../features/chalets/chalet-delete/chalet-
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule
   ],
   exports: [
-    BrowserAnimationsModule,
     MatToolbarModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -78,9 +77,11 @@ import { ChaletDeleteComponent } from '../features/chalets/chalet-delete/chalet-
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule
   ],
-  entryComponents: [ChaletDeleteComponent],
+  entryComponents: [],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,
               {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
             ]

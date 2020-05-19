@@ -20,7 +20,7 @@ const initialState: State = {
   error: null
 };
 
-export function chaletReducer(state = initialState, action: ChaletActions.Chaletctions) {
+export function chaletReducer(state = initialState, action: ChaletActions.ChaletActions) {
   switch (action.type) {
     case (ChaletActions.FETCH_CHALETS):
       return {

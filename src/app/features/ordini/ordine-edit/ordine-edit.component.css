@@ -1,0 +1,79 @@
+.phoneheadcard{
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #fff;
+}
+.orarioOrdine{
+  color: #0500fb;
+  font-size: 1rem;
+}
+
+.callPhone{
+  text-decoration: none;
+  color: #673bb7;
+}
+
+.quantitatxt{
+  font-weight: bold;
+}
+
+.example-card {
+  max-width: 600px;
+  min-width: 350px;
+  padding: 0px;
+}
+
+.example-card .mat-card-title {
+  font-size: 2rem;
+}
+
+.mat-card-header{
+  padding: 16px 16px 0px 16px;
+  border-radius: 4px 4px 0px 0px;
+  color: #fff;
+}
+
+.headerOrder{
+  background: #26C6DA;
+}
+
+.headerOrderAnnullato{
+  background: #d36158;
+}
+
+.headerOrderVerificato{
+  background: #45cc47;
+}
+
+.mat-card-content, .mat-card-actions{
+  padding: 16px 16px 0px 16px;
+  font-size: 1rem;
+}
+
+.colorverified{
+  background: #26C6DA;
+}
+
+.w-100{
+  width: 100%;
+}
+.mb10{
+  margin-bottom: 10px;
+}
+.mb20{
+  margin-bottom: 20px;
+}
+
+  /* Item sizing */
+  .cardListItem {
+    flex: 0 1 calc(33.3% - 32px);
+    margin-bottom: 20px;
+  }
+  /* medium size viewport */
+  @media screen and (max-width: 959px) {
+    /* Item sizing */
+    .cardListItem {
+      flex: 0 1 calc(50% - 32px);
+    }
+  }
+

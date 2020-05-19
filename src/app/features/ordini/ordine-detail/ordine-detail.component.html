@@ -1,0 +1,50 @@
+<div *ngIf="!(ordineState | async).loading">
+
+    <h2>Ordine: <span style="color: #673AB7">
+        {{ (ordineState | async).ordine['ragione_sociale'] }}
+      </span> </h2>
+
+        <div class="mattabheader">
+          <div class="mb20 mt20 cardList">
+            <div class="cardListItem">
+              <mat-card>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <mat-icon class="icon-lg" color="primary">place</mat-icon>
+                  </div>
+                  <mat-card-title>
+                    Indirizzo
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                    Provincia: {{ (ordineState | async).ordine['indirizzo']?.provincia }} <br>
+                    Citta: {{ (ordineState | async).ordine['indirizzo']?.citta }} <br>
+                    Via: {{ (ordineState | async).ordine['indirizzo']?.via }} <br>
+                    Civico: {{ (ordineState | async).ordine['indirizzo']?.civico }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+            <div class="cardListItem">
+              <mat-card>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <mat-icon class="icon-lg" color="primary">contacts</mat-icon>
+                  </div>
+                  <mat-card-title>
+                    Contatti
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                    Telefono: {{ (ordineState | async).ordine['telefono'] }} <br>
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+
+
+</div>
+<div fxLayout="row" fxFlex>
+  <br>
+  <mat-progress-bar mode="indeterminate" *ngIf="(ordineState | async).loading"></mat-progress-bar>
+</div>

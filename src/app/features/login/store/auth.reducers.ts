@@ -9,7 +9,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  auth: { email: '', password: '', uid: ''},
+  auth: { email: '', password: '', uid: '', chaletUID: ''},
   authenticated: false,
   loading: false,
   errorMsg: null
@@ -24,13 +24,14 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
         errorMsg: null
       };
     }
-    case (AuthActions.LOGIN_SUCCESS): {      
+    case (AuthActions.LOGIN_SUCCESS): {
       return {
         ...state,
         auth: {
-          email: action.payload.email,          
+          email: action.payload.email,
           password: action.payload.password,
-          uid: action.payload.uid,  
+          uid: action.payload.uid,
+          chaletUID: action.payload.chaletUID
         },
         authenticated: true,
         loading: false,

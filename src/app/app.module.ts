@@ -1,3 +1,4 @@
+import { OrdiniModule } from './features/ordini/ordini.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { reducers } from './store/app.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
 import { OmbrelloniModule } from './features/ombrelloni/ombrelloni.module';
+import { SubscriptionService } from './core/services/subscription.service';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { OmbrelloniModule } from './features/ombrelloni/ombrelloni.module';
     FormsModule,
     HttpClientModule,
     CoreModule,
+    OrdiniModule,
     ChaletsModule,
     OmbrelloniModule,
     HomeModule,
@@ -43,7 +46,7 @@ import { OmbrelloniModule } from './features/ombrelloni/ombrelloni.module';
     }),
     EffectsModule.forRoot([AuthEffects])
   ],
-  providers: [AuthService],
+  providers: [AuthService, SubscriptionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

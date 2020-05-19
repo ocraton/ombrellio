@@ -1,0 +1,56 @@
+<div class="cardListItem">
+    <mat-card class="example-card">
+      <mat-card-header [ngClass]="{'headerOrder' : !ordine.annullato && !ordine.verificato,
+                                   'headerOrderAnnullato': ordine.annullato,
+                                   'headerOrderVerificato': ordine.verificato && !ordine.annullato}">
+        <div mat-card-avatar>
+          <mat-icon class="icon" style="font-size: 2rem;">beach_access</mat-icon>
+        </div>
+        <mat-card-title>
+          {{ ordine.numero_ombrellone }}
+          <div class="orarioOrdine">Arrivato alle: {{ ordine.created_at['seconds'] * 1000 | date: 'H:mm' }}</div>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <span class="phoneheadcard">Telefono: <a class="callPhone" href="tel:{{ ordine.numero_telefono }}">{{ ordine.numero_telefono }}</a></span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-selection-list (selectionChange)="onSelectionConsegnato($event.option)">
+          <mat-list-option [disabled]="ordine.annullato || ordine.completato"
+            *ngFor="let prodotto of ordine.contenuto;"
+            [selected]="prodotto.consegnato"
+            [value]="prodotto">
+            <p>
+              <span style="font-weight: bold;" >( {{ prodotto.quantita }} ) </span>
+              <span> {{ prodotto.nome_prodotto }}</span>
+            </p>
+          </mat-list-option>
+        </mat-selection-list>
+        <br />
+        <mat-slide-toggle
+          class="mb20" [disabled]="ordine.annullato || ordine.completato"
+          [checked]="ordine.verificato"
+          (change)="onChangeVerificato($event)">Verificato</mat-slide-toggle>
+
+          <button *ngIf="!ordine.annullato && !ordine.completato"
+          mat-raised-button
+          color="primary"
+          (click)="chiudiOrdine()"
+          class="w-100 mb20"> COMPLETATO </button>
+
+          <button *ngIf="ordine.annullato || ordine.completato"
+          mat-stroked-button
+          color="primary"
+          (click)="recuperaOrdine()"
+          class="w-100 mb20"> RECUPERA </button>
+
+          <button
+          mat-raised-button
+          color="warn"
+          (click)="annullaOrdine()"
+          class="w-100 mb20" > ANNULLA </button>
+
+        <br>
+      </mat-card-content>
+    </mat-card>
+</div>

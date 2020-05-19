@@ -16,7 +16,7 @@ export class AuthEffects {
   authSignin = this.actions$.pipe(
     ofType(AuthActions.LOGIN),
     map((action: AuthActions.Login) => action.payload),
-    switchMap((authData: { email: string, password: string, uid: string }) => {
+    switchMap((authData: { email: string, password: string, uid: string, chaletUID: string }) => {
       return this.authService.login(authData)
         .then(() => {
           return new AuthActions.LogInSuccess(authData);

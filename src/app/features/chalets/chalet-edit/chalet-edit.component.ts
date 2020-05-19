@@ -11,7 +11,7 @@ import * as fromApp from '../../../store/app.reducers';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-risorseumane-edit',
+  selector: 'app-chalet-edit',
   templateUrl: './chalet-edit.component.html',
   styleUrls: ['./chalet-edit.component.css']
 })
@@ -39,9 +39,9 @@ export class ChaletEditComponent implements OnInit {
       (params: Params) => {
         this.id = params.id;
         this.editMode = params['id'] != null;
-        this.initForm();
       }
     );
+    this.initForm();
     this.chaletState = this.store.select('chalets');
     this.store.select(fromApp.getAuthUID).subscribe(res => this.authUID = res);
   }

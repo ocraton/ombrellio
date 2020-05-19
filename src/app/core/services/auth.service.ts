@@ -7,7 +7,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as fromApp from '../../store/app.reducers';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { switchMap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +23,11 @@ export class AuthService {
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.auth = {
-            email: user.email,
-            password: '',
-            uid: user.uid
-        };
+        this.auth = { email: user.email, password: '', uid: user.uid, chaletUID: '' };
         this.store.dispatch(new AuthActions.LogInSuccess(this.auth));
         this.router.navigate(['/user']);
       } else {
-        this.logout();
+        this.store.dispatch(new AuthActions.Logout());
         this.router.navigate(['/login']);
       }
     });
@@ -42,7 +38,7 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut()
   }
 
 }

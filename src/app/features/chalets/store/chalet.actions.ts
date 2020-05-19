@@ -95,7 +95,7 @@ export class FetchCountChalets implements Action {
 
 
 
-export type Chaletctions = SetChalets
+export type ChaletActions = SetChalets
   | SetChalet
   | SetCountChalets
   | CreateChalet

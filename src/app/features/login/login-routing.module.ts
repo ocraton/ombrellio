@@ -5,13 +5,13 @@ import { LoginComponent } from './login.component';
 import { LoginLayoutComponent } from '../../core/components/login-layout/login-layout.component';
 
 const loginRoutes: Routes = [
-    {
-      path: 'login', component: LoginLayoutComponent,
-      children: [
-        {path: '', component: LoginComponent}
-      ]
-    }    
-  ];
+  {
+    path: 'login', component: LoginLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent }
+    ]
+  }
+];
 
 @NgModule({
   imports: [
@@ -21,4 +21,4 @@ const loginRoutes: Routes = [
   providers: []
 })
 
-export class LoginRoutingModule {}
+export class LoginRoutingModule { }

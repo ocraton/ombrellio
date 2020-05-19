@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
-import * as fromAuth from '../../../features/login/store/auth.reducers';
 import * as AuthActions from '../../../features/login/store/auth.actions';
 
 @Component({
