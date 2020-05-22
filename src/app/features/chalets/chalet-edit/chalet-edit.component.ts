@@ -1,4 +1,3 @@
-import { UpdateChaletSuccess } from './../../../../../.history/src/app/features/chalet/store/chalet.actions_20200503112740';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
