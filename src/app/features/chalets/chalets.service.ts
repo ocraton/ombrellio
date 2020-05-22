@@ -36,31 +36,12 @@ export class ChaletsService {
               );
     }
 
-    getChalet(idChalet: string): Observable<Chalet> {
-        const ref = this.db.doc<Chalet>('chalet/' + idChalet);
-        return ref.valueChanges();
-    }
-
-    getCountChalets() {
-        return this.db.collection('utenti')
-                .doc(this.authUID)
-                .collection('--stats--')
-                .doc('countchalet')
-                .valueChanges();
-
-    }
-
-    createChalet(chalet: Chalet) {
-      return this.db.collection('chalet').add(chalet);
-    }
 
     updateChalet(chalet: Chalet) {
-      return this.db.collection('chalet').doc(chalet.id).update(chalet)
+      return this.db.doc(`chalet/${chalet.id}`).update(chalet)
     }
 
-    deleteChalet(chaletId) {
-      return this.db.collection('chalet').doc(chaletId).delete();
-    }
+
 
 }
 

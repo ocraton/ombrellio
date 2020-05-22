@@ -7,14 +7,6 @@
             </mat-card-title>
             <mat-card-content>
                 <br>
-                <div *ngIf="(authState | async).errorMsg != null" class="errormsg">
-                    <p *ngIf="(authState | async).errorMsg.error.error.status_code == 403">
-                        Email o Password non corretta
-                    </p>
-                    <p *ngFor="let itemErr of (authState | async).errorMsg.error.error.errors | keyvalue">
-                        {{ itemErr.key }}: {{ itemErr.value }}
-                    </p>
-                </div>
                 <form *ngIf="!(authState | async).loading" class="login-form"
                         #f="ngForm" (ngSubmit)="onLogin(f)">
                         <div fxFlex  fxlayout="row" fxlayout.lt-md="column">

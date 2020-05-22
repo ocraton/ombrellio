@@ -61,3 +61,4 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
 
 export const getIsAuth = (state: State) => state.authenticated;
 export const getAuthUID = (state: State) => state.auth.uid;
+export const getAuthChaletUID = (state: State) => state.auth.chaletUID;

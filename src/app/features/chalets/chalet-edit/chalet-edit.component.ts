@@ -1,3 +1,4 @@
+import { UpdateChaletSuccess } from './../../../../../.history/src/app/features/chalet/store/chalet.actions_20200503112740';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -52,16 +53,11 @@ export class ChaletEditComponent implements OnInit {
     this.chalet.id = this.id.toString();
     this.chalet.utente_uid = this.authUID
     this.chalet.created_at = new Date()
-    if (this.editMode) {
-      this.store.dispatch(new ChaletActions.UpdateChalet(this.chalet));
-    } else {
-      this.store.dispatch(new ChaletActions.CreateChalet(this.chalet));
-    }
-    this.store.select('chalets').subscribe(
-      (chalet) => {
+    this.store.dispatch(new ChaletActions.UpdateChalet(this.chalet))
+    this.store.select('chalets')
+      .subscribe(chalet => {
         if(!(chalet.error != null)) {
-          this.editMode ? this.showSuccessMessage("Chalet salvato con successo") :
-                          this.showSuccessMessage("Chalet creato con successo")
+          this.showSuccessMessage("Chalet salvato con successo")
         }
       }
     ).unsubscribe()
@@ -79,22 +75,21 @@ export class ChaletEditComponent implements OnInit {
       civico: ''
     }
 
-    if (this.editMode) {
-      this.store.select('chalets')
-      .pipe(take(1))
-      .subscribe((chaletState: fromChalet.State) => {
-        chaletState.chalet.map(
-          (c) => {
-            if(c.id == this.id.toString()) {
-              ragione_sociale = c.ragione_sociale;
-              telefono = c.telefono;
-              codice_accesso = c.codice_accesso;
-              indirizzo = c.indirizzo;
-            }
+    this.store.select('chalets')
+    .pipe(take(1))
+    .subscribe((chaletState: fromChalet.State) => {
+      chaletState.chalet.map(
+        (c) => {
+          if(c.id == this.id.toString()) {
+            ragione_sociale = c.ragione_sociale;
+            telefono = c.telefono;
+            codice_accesso = c.codice_accesso;
+            indirizzo = c.indirizzo;
           }
-        )
-      });
-    }
+        }
+      )
+    }).unsubscribe();
+
 
     this.chaletForm = this.fb.group({
       'ragione_sociale': [ragione_sociale, Validators.compose([ Validators.required, Validators.minLength(3) ])],

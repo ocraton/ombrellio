@@ -3,20 +3,23 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Ordine } from './ordini.model';
-import { Store } from '@ngrx/store';
-import * as fromApp from '../../store/app.reducers';
 import { DatesService } from 'src/app/shared/services/dates.service';
+import * as fromApp from '../../store/app.reducers';
+import { Store } from '@ngrx/store';
+
 
 @Injectable()
 
 export class OrdiniService {
 
+    chaletUID: string;
     authUID: string;
-    chaletUID = 'BVeEExuNq1M6hgacXNCk';
 
     constructor(private db: AngularFirestore,
-                private store: Store<fromApp.AppState>,
-                private dateservice: DatesService) { }
+      private dateservice: DatesService,
+      private store: Store<fromApp.AppState>) {
+      this.store.select(fromApp.getAuthChaletUID).subscribe(res => this.chaletUID = res);
+    }
 
     getAll(orderType = ''): Observable<Ordine[]> {
 

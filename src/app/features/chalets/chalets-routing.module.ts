@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ChaletsComponent } from './chalets.component';
 import { UserdashboardLayoutComponent } from 'src/app/core/components/userdashboard-layout/userdashboard-layout.component';
 import { AuthGuard } from '../login/auth-guard.service';
-import { ChaletDetailComponent } from './chalet-detail/chalet-detail.component';
 import { ChaletEditComponent } from './chalet-edit/chalet-edit.component';
 
 const chaletsRoutes: Routes = [
@@ -13,7 +12,6 @@ const chaletsRoutes: Routes = [
     children: [
       { path: 'chalets', component: ChaletsComponent, canActivate: [AuthGuard] },
       { path: 'chalets/new', component: ChaletEditComponent, canActivate: [AuthGuard] },
-      { path: 'chalets/:id', component: ChaletDetailComponent, canActivate: [AuthGuard] },
       { path: 'chalets/:id/edit', component: ChaletEditComponent, canActivate: [AuthGuard] },
     ]
   }

@@ -12,10 +12,10 @@ export class DatesService {
       const day = today.getDate();
       const month = today.getMonth() + 1;
       const year = today.getFullYear();
-      const datebase = `${year}-${month}-${day}`;
+      const datebase = `${month}/${day}/${year}`;
 
-      let dateStart = new Date(datebase + ' 00:00:00 GMT+0200');
-      let dateEnd = new Date(datebase + ' 23:59:59 GMT+0200');
+      let dateStart = new Date(datebase + " 00:00:00");
+      let dateEnd = new Date(datebase + " 23:59:00");
 
       return {dateStart, dateEnd}
     }

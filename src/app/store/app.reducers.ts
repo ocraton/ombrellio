@@ -13,4 +13,5 @@ export const reducers: ActionReducerMap<AppState> = {
 export const getAuthState = createFeatureSelector<fromAuth.State>('auth');
 export const getIsAuth = createSelector(getAuthState, fromAuth.getIsAuth);
 export const getAuthUID = createSelector(getAuthState, fromAuth.getAuthUID);
+export const getAuthChaletUID = createSelector(getAuthState, fromAuth.getAuthChaletUID);
 

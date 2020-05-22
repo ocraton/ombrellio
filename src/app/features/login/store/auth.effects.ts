@@ -1,3 +1,4 @@
+import { FetchChalet } from './../../chalets/store/chalet.actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
@@ -11,6 +12,9 @@ import { from } from 'rxjs';
 
 @Injectable()
 export class AuthEffects {
+
+  constructor(private actions$: Actions,
+              private authService: AuthService ) { }
 
   @Effect()
   authSignin = this.actions$.pipe(
@@ -35,9 +39,6 @@ export class AuthEffects {
     })
   );
 
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService
-  ) {}
+
 
 }

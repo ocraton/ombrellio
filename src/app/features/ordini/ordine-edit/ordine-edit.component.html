@@ -36,7 +36,7 @@
           mat-raised-button
           color="primary"
           (click)="chiudiOrdine()"
-          class="w-100 mb20"> COMPLETATO </button>
+          class="w-100 mb30"> COMPLETATO </button>
 
           <button *ngIf="ordine.annullato || ordine.completato"
           mat-stroked-button
@@ -46,7 +46,7 @@
 
           <button
           mat-raised-button
-          color="warn"
+          color="warn" *ngIf="!ordine.annullato"
           (click)="annullaOrdine()"
           class="w-100 mb20" > ANNULLA </button>
 

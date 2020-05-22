@@ -33,6 +33,7 @@
   color: #fff;
 }
 
+
 .headerOrder{
   background: #26C6DA;
 }
@@ -63,7 +64,12 @@
 .mb20{
   margin-bottom: 20px;
 }
-
+.mb30{
+  margin-bottom: 30px;
+}
+.mb40{
+  margin-bottom: 40px;
+}
   /* Item sizing */
   .cardListItem {
     flex: 0 1 calc(33.3% - 32px);
