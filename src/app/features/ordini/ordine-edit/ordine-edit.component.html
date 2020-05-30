@@ -11,7 +11,7 @@
           <div class="orarioOrdine">
             Arrivato alle: {{ ordine.created_at['seconds'] * 1000 | date: 'H:mm' }}
             <mat-chip-list style="float:right;margin-right: -10px;">
-            <mat-chip color="primary" >
+            <mat-chip style="background: #fff;" >
               €
               {{ ordine.prezzo_totale }}</mat-chip>
             </mat-chip-list>

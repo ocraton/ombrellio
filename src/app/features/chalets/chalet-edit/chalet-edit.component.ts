@@ -24,6 +24,8 @@ export class ChaletEditComponent implements OnInit {
   chaletState: Observable<fromChalet.State>;
   authUID: string;
   indirizzo: FormGroup;
+  caOrigin:string = '';
+  showAdvise = false
 
   @ViewChild('formDirective') formDirective;
 
@@ -46,6 +48,10 @@ export class ChaletEditComponent implements OnInit {
     this.store.select(fromApp.getAuthUID).subscribe(res => this.authUID = res);
   }
 
+  onKeyChange() {
+        (this.chaletForm.get('codice_accesso').value == this.caOrigin)
+          ? this.showAdvise = false : this.showAdvise = true
+  }
 
   onSave() {
     this.chalet = this.chaletForm.value
@@ -83,6 +89,7 @@ export class ChaletEditComponent implements OnInit {
             ragione_sociale = c.ragione_sociale;
             telefono = c.telefono;
             codice_accesso = c.codice_accesso;
+            this.caOrigin = codice_accesso;
             indirizzo = c.indirizzo;
           }
         }

@@ -12,11 +12,18 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Codice Accesso" formControlName="codice_accesso" >
+          <input matInput
+          (keyup)="onKeyChange()"
+          placeholder="Codice Accesso"
+          formControlName="codice_accesso" >
           <mat-error *ngIf="!chaletForm.get('codice_accesso').valid && chaletForm.get('codice_accesso').touched">
             Codice Accesso obbligatorio
           </mat-error>
         </mat-form-field>
+        <p class="showChangeCodiceChalet" *ngIf="showAdvise">
+          Attenzione! Cambiando codice chalet impedirai a tutti quelli
+          che hanno il codice "{{ caOrigin }}" di effettuare ordini
+        </p>
         <mat-form-field>
           <input matInput placeholder="Telefono" formControlName="telefono" >
           <mat-error *ngIf="!chaletForm.get('telefono').valid && chaletForm.get('telefono').touched">
