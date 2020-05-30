@@ -1,5 +1,9 @@
   <h2>
-    <mat-icon class="icon mr5 valmiddle">layers_clear</mat-icon>
+    <mat-icon
+    [matBadge]="(ordineState | async).ordine.length"
+    matBadgeColor="warn"
+    [matBadgeHidden]="!visibleCounter"
+     class="icon mr5 valmiddle">layers_clear</mat-icon>
     Annullati del
     <span style="color: #673AB7">
       {{ today | date: 'dd/MM/yyyy'}}

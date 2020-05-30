@@ -16,7 +16,9 @@ import {
   MatSelectModule,
   MatSnackBarModule,
   MatNativeDateModule,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatExpansionModule,
+  MatChipsModule
 } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -54,7 +56,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatNativeDateModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatChipsModule
   ],
   exports: [
     MatToolbarModule,
@@ -79,7 +83,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatNativeDateModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatExpansionModule,
+    MatChipsModule
   ],
   entryComponents: [],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,

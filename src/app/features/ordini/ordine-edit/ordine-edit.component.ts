@@ -14,7 +14,7 @@ export class OrdineEditComponent implements OnInit {
 
   @Input() ordine: Ordine;
   ordineState: Observable<fromOrdine.State>;
-
+  panelOpenState = false;
 
   constructor(private store: Store<fromOrdine.FeatureState>) { }
 

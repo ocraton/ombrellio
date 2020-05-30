@@ -10,6 +10,11 @@ export const FETCH_COUNT_ORDINI = '[Ordini] Fetch_count_ordini';
 export const UPDATE_ORDINE = '[Ordini] Update_ordini';
 export const UPDATE_ORDINE_SUCCESS = '[Ordini] Update_ordini_success';
 export const UPDATE_ORDINE_FAIL = '[Ordini] Update_ordini_fail';
+export const FILTER_ORDINI = '[Ordini] Filter_ordini';
+export const FILTER_ORDINI_SUCCESS = '[Ordini] Filter_ordini_success';
+export const FILTER_ORDINI_FAIL = '[Ordini] Filter_ordini_fail';
+
+
 
 export class SetOrdini implements Action {
   readonly type = SET_ORDINI;
@@ -56,6 +61,12 @@ export class UpdateOrdineFail implements Action {
   constructor(public payload: string) { }
 }
 
+export class FilterOrdini implements Action {
+  readonly type = FILTER_ORDINI;
+  constructor(public payload: number) { }
+}
+
+
 
 export type Ordinections = SetOrdini
   | SetOrdine
@@ -65,4 +76,5 @@ export type Ordinections = SetOrdini
   | FetchCountOrdini
   | UpdateOrdine
   | UpdateOrdineSuccess
-  | UpdateOrdineFail;
+  | UpdateOrdineFail
+  | FilterOrdini;

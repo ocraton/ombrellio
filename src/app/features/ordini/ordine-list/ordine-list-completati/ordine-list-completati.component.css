@@ -7,6 +7,9 @@
 .mb20{
   margin-bottom: 20px;
 }
+.mr10{
+  margin-right: 10px;
+}
 
  .cardList {
     display: flex;
@@ -14,6 +17,15 @@
     flex-wrap: wrap;
     justify-content: flex-start;
   }
+
+ .searchInput {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+
   /* Column Gap */
   .cardList > * {
     box-sizing: border-box;

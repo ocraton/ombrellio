@@ -1,16 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import * as fromOrdine from './store/ordine.reducers';
+import { SubscriptionService } from 'src/app/core/services/subscription.service';
 
 @Component({
   selector: 'app-ordini',
   templateUrl: './ordini.component.html',
   styleUrls: ['./ordini.component.css']
 })
-export class OrdiniComponent implements OnInit {
+export class OrdiniComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(private store: Store<fromOrdine.FeatureState>,
+    private subService: SubscriptionService) { }
 
+  ordineState: Observable<fromOrdine.State>;
   today: Date = new Date();
+  visibleCounter = false;
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.ordineState = this.store.select('ordini')
+    this.ordineState.subscribe(res =>
+      this.visibleCounter = (res.ordine.length > 0) ?  true : false)
+   }
+
+  ngOnDestroy(): void {
+    this.subService.unsubscribeComponent$.next();
+  }
 
 }

@@ -1,12 +1,40 @@
   <h2>
-    <mat-icon class="icon mr5 valmiddle">local_library</mat-icon>
+    <mat-icon
+    [matBadge]="(ordineState | async).ordine.length"
+    matBadgeColor="warn"
+    [matBadgeHidden]="!visibleCounter"
+    style="margin-right: 15px"
+    class="icon mr5 valmiddle">local_library</mat-icon>
     Completati del
     <span style="color: #673AB7">
       {{ today | date: 'dd/MM/yyyy'}}
     </span>
   </h2>
 
+<mat-form-field class="mt20" style="width:100%">
+        <input matInput #searchbox
+          placeholder="Numero Ombrellone"
+          #term style="width:100%" >
+        <button class="mr10"
+          (click)="filterOrdine(term.value)"
+          matSuffix mat-stroked-button
+          [disabled]="searched"
+          color="primary">
+          cerca
+          <mat-icon>search</mat-icon>
+        </button>
+        <button
+          (click)="filterReset()"
+          matSuffix mat-stroked-button
+          color="primary">
+          reset
+          <mat-icon>restore_page</mat-icon>
+        </button>
+</mat-form-field>
+
+
   <div *ngIf="!(ordineState | async).loading">
+
   <div class="mb20 mt20 cardList">
 
     <app-ordine-edit

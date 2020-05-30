@@ -33,6 +33,14 @@
   color: #fff;
 }
 
+.descriptionNote{
+  margin-left: -60px;
+  margin-top: 5px;
+}
+
+::ng-deep .mat-card-header-text{
+  width: 100%;
+}
 
 .headerOrder{
   background: #26C6DA;

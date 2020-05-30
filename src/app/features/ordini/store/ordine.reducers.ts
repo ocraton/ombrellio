@@ -60,20 +60,18 @@ export function ordineReducer(state = initialState, action: OrdineActions.Ordine
     case (OrdineActions.UPDATE_ORDINE):
       return {
         ...state,
-        // loading: true
       };
     case (OrdineActions.UPDATE_ORDINE_SUCCESS):
       return {
         ...state,
         ordine: action.payload,
-        // loading: false,
         error: null
       };
-    case (OrdineActions.UPDATE_ORDINE_FAIL):
+    case (OrdineActions.FILTER_ORDINI):
       return {
         ...state,
-        // loading: false,
-        error: action.payload
+        ordine: state.ordine.filter(function (item) { return item.numero_ombrellone == action.payload }) ,
+        loading: false,
       };
     default:
       return state;

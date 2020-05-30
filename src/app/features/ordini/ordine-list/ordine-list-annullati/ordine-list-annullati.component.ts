@@ -16,6 +16,7 @@ export class OrdineListAnnullatiComponent implements OnInit, OnDestroy {
 
   ordineState: Observable<fromOrdine.State>;
   today: Date = new Date();
+  visibleCounter = false;
 
   constructor(private store: Store<fromOrdine.FeatureState>,
               private subService: SubscriptionService) { }
@@ -23,6 +24,8 @@ export class OrdineListAnnullatiComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.dispatch(new OrdineActions.FetchOrdini({ orderType: 'a' }));
     this.ordineState = this.store.select('ordini');
+    this.ordineState.subscribe(res =>
+      this.visibleCounter = (res.ordine.length > 0) ? true : false)
   }
 
   ngOnDestroy(): void {

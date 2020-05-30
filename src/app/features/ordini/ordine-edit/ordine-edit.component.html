@@ -8,13 +8,40 @@
         </div>
         <mat-card-title>
           {{ ordine.numero_ombrellone }}
-          <div class="orarioOrdine">Arrivato alle: {{ ordine.created_at['seconds'] * 1000 | date: 'H:mm' }}</div>
+          <div class="orarioOrdine">
+            Arrivato alle: {{ ordine.created_at['seconds'] * 1000 | date: 'H:mm' }}
+            <mat-chip-list style="float:right;margin-right: -10px;">
+            <mat-chip color="primary" >
+              €
+              {{ ordine.prezzo_totale }}</mat-chip>
+            </mat-chip-list>
+          </div>
         </mat-card-title>
         <mat-card-subtitle>
           <span class="phoneheadcard">Telefono: <a class="callPhone" href="tel:{{ ordine.numero_telefono }}">{{ ordine.numero_telefono }}</a></span>
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
+
+
+        <mat-expansion-panel *ngIf="ordine.note != '' && ordine.note != null"
+            style="border: 1px solid #673ab7;"
+            class="mat-elevation-z0"
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>comment</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description class="descriptionNote"
+              *ngIf="panelOpenState == false">
+              {{ ordine.note | slice:0:15 }}...
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>{{ ordine.note }}</p>
+        </mat-expansion-panel>
+
+
         <mat-selection-list (selectionChange)="onSelectionConsegnato($event.option)">
           <mat-list-option [disabled]="ordine.annullato || ordine.completato"
             *ngFor="let prodotto of ordine.contenuto;"
