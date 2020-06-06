@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import * as fromOrdine from './store/ordine.reducers';
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
+import { ClockService } from 'src/app/shared/services/clock.service';
 
 @Component({
   selector: 'app-ordini',
@@ -12,14 +13,18 @@ import { SubscriptionService } from 'src/app/core/services/subscription.service'
 })
 export class OrdiniComponent implements OnInit, OnDestroy {
 
-  constructor(private store: Store<fromOrdine.FeatureState>,
-    private subService: SubscriptionService) { }
-
   ordineState: Observable<fromOrdine.State>;
-  today: Date = new Date();
+  today: string;
   visibleCounter = false;
 
+  constructor(private store: Store<fromOrdine.FeatureState>,
+              private subService: SubscriptionService,
+              private clockService: ClockService) { }
+
   ngOnInit() {
+    this.clockService.time.subscribe((now: Date) =>
+      this.today = now.toISOString()
+    );
     this.ordineState = this.store.select('ordini')
     this.ordineState.subscribe(res =>
       this.visibleCounter = (res.ordine.length > 0) ?  true : false)

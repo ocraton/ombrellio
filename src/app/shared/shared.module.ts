@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from './services/translate.service';
 import { CapitalizedTextDirective } from './directive/CapitalizedText.directive';
+import { ClockService } from './services/clock.service';
 
 const COMPONENTS = [ ];
 
@@ -12,6 +13,6 @@ const COMPONENTS = [ ];
   imports: [
     CommonModule
   ],
-  providers: [TranslateService, DatesService]
+  providers: [TranslateService, DatesService, ClockService]
 })
 export class SharedModule { }
