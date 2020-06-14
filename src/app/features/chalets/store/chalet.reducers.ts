@@ -40,13 +40,31 @@ export function chaletReducer(state = initialState, action: ChaletActions.Chalet
         ...state,
         loading: true
       };
-    case (ChaletActions.UPDATE_CHALET_SUCCESS): 
+    case (ChaletActions.UPDATE_CHALET_SUCCESS):
       return {
         ...state,
         loading: false,
         error: null
       };
     case (ChaletActions.UPDATE_CHALET_FAIL):
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+
+    case (ChaletActions.CREATE_CHALET):
+      return {
+        ...state,
+        loading: true
+      };
+    case (ChaletActions.CREATE_CHALET_SUCCESS):
+      return {
+        ...state,
+        loading: false,
+        error: null
+      };
+    case (ChaletActions.CREATE_CHALET_FAIL):
       return {
         ...state,
         loading: false,

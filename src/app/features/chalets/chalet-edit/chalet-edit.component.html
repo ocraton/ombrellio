@@ -31,7 +31,6 @@
           </mat-error>
         </mat-form-field>
         <br>
-        <br>
         <h4>Indirizzo</h4>
           <div [formGroup]="indirizzo">
             <mat-form-field>
@@ -40,15 +39,24 @@
             <mat-form-field>
               <input matInput placeholder="citta" formControlName="citta">
             </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="via" formControlName="via">
+            <br>
+            <mat-form-field style="width:100%">
+              <input matInput placeholder="via" formControlName="via" style="width:100%">
             </mat-form-field>
+            <br>
             <mat-form-field>
               <input matInput placeholder="civico" formControlName="civico">
             </mat-form-field>
           </div>
         <br>
-
+        <br>
+        <mat-form-field *ngIf="!editMode">
+          <input matInput placeholder="Numero Ombrelloni" formControlName="numero_ombrelloni" >
+          <mat-error *ngIf="!chaletForm.get('numero_ombrelloni').valid && chaletForm.get('numero_ombrelloni').touched">
+            Numero ombrelloni obbligatorio / soglia massima 400 ombrelloni
+          </mat-error>
+        </mat-form-field>
+        <br>
         <button mat-raised-button color="primary"
             *ngIf="!(chaletState | async).loading"
             class="w-100" type="submit"

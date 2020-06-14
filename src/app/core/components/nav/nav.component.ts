@@ -20,11 +20,13 @@ export class NavComponent implements OnInit {
 
   isAuth$: Observable<boolean>;
   public showMenu: string;
+  chaletUID = '';
 
   constructor(private breakpointObserver: BreakpointObserver,
               private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
+    this.store.select(fromApp.getAuthChaletUID).subscribe(res => this.chaletUID = res);
     this.isAuth$ = this.store.select(fromApp.getIsAuth);
     this.showMenu = '';
   }

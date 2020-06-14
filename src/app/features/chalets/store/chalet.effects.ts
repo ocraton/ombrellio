@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { switchMap, map, mergeMap, catchError, takeUntil } from 'rxjs/operators';
+import { switchMap, map, takeUntil } from 'rxjs/operators';
 import * as ChaletActions from './chalet.actions';
 import { ChaletsService } from '../chalets.service';
 import { Chalet } from '../chalet.model';
@@ -28,6 +28,20 @@ export class ChaletEffects {
       };
     })
   );
+
+  @Effect()
+  createChalet$ = this.actions$.pipe(
+    ofType(ChaletActions.CREATE_CHALET),
+    map((action: ChaletActions.CreateChalet) => action.payload),
+    switchMap((payload) =>
+      this.chaletsService.createChalet(payload.chalet, payload.numeroOmbrelloni).then(
+        res => new ChaletActions.CreateChaletSuccess()
+      ).catch(
+        error => new ChaletActions.CreateChaletFail(error)
+      )
+    )
+  );
+
 
   @Effect()
   updateChalet$ = this.actions$.pipe(

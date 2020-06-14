@@ -46,6 +46,16 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
         errorMsg: action.payload.errorMsg
       };
     }
+    case (AuthActions.SET_CHALET_UID): {
+      return {
+        ...state,
+        loading: false,
+        auth: {
+          ...state.auth,
+          chaletUID: action.payload
+        }
+      };
+    }
     case (AuthActions.LOGOUT):
       return {
         ...state,

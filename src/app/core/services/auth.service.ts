@@ -1,4 +1,4 @@
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Auth } from '../model/auth.model';
@@ -31,10 +31,13 @@ export class AuthService {
           this.db.doc('utenti/'+user.uid).valueChanges().pipe(
             takeUntil(this.subService.unsubscribe$)
           ).subscribe(utente => {
-              this.auth = { email: user.email, password: '', uid: user.uid, chaletUID: '' };
-              this.auth.chaletUID = utente['chalet_uid']
+              this.auth = { email: user.email, password: '', uid: user.uid, chaletUID: utente['chalet_uid'] };
+              if(utente['chalet_uid'] != ''){
+                this.router.navigate(['/user']);
+              } else {
+                this.router.navigate(['/user/chalets']);
+              }
               this.store.dispatch(new AuthActions.LogInSuccess(this.auth))
-              this.router.navigate(['/user']);
             }
           )
       } else {

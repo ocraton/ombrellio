@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromChalet from '../store/chalet.reducers';
 import * as ChaletActions from '../store/chalet.actions';
@@ -49,23 +49,32 @@ export class ChaletEditComponent implements OnInit {
   }
 
   onKeyChange() {
-        (this.chaletForm.get('codice_accesso').value == this.caOrigin)
-          ? this.showAdvise = false : this.showAdvise = true
+    (this.chaletForm.get('codice_accesso').value == this.caOrigin || this.caOrigin == '')
+        ? this.showAdvise = false : this.showAdvise = true
   }
 
   onSave() {
-    this.chalet = this.chaletForm.value
-    this.chalet.id = this.id.toString();
+    this.chalet = this.chaletForm.value;
+    (this.editMode) ? this.chalet.id = this.id.toString() : this.chalet.id = null;
     this.chalet.utente_uid = this.authUID
     this.chalet.created_at = new Date()
-    this.store.dispatch(new ChaletActions.UpdateChalet(this.chalet))
+    if (this.editMode) {
+      this.store.dispatch(new ChaletActions.UpdateChalet(this.chalet))
+    } else {
+      let numeroOmbrelloni: number = this.chaletForm.get('numero_ombrelloni').value
+      this.store.dispatch(new ChaletActions.CreateChalet({
+        chalet: this.chalet,
+        numeroOmbrelloni: numeroOmbrelloni
+      }));
+    }
     this.store.select('chalets')
       .subscribe(chalet => {
-        if(!(chalet.error != null)) {
-          this.showSuccessMessage("Chalet salvato con successo")
+        if (!(chalet.error != null)) {
+          this.editMode ? this.showSuccessMessage("Chalet salvato con successo") :
+            this.showSuccessMessage("Chalet creato con successo")
         }
       }
-    ).unsubscribe()
+      ).unsubscribe()
   }
 
   initForm() {
@@ -79,22 +88,25 @@ export class ChaletEditComponent implements OnInit {
       via: '',
       civico: ''
     }
+    let numero_ombrelloni = 0;
 
-    this.store.select('chalets')
-    .pipe(take(1))
-    .subscribe((chaletState: fromChalet.State) => {
-      chaletState.chalet.map(
-        (c) => {
-          if(c.id == this.id.toString()) {
-            ragione_sociale = c.ragione_sociale;
-            telefono = c.telefono;
-            codice_accesso = c.codice_accesso;
-            this.caOrigin = codice_accesso;
-            indirizzo = c.indirizzo;
+    if (this.editMode) {
+      this.store.select('chalets')
+      .pipe(take(1))
+      .subscribe((chaletState: fromChalet.State) => {
+        chaletState.chalet.map(
+          (c) => {
+            if(c.id == this.id.toString()) {
+              ragione_sociale = c.ragione_sociale;
+              telefono = c.telefono;
+              codice_accesso = c.codice_accesso;
+              this.caOrigin = codice_accesso;
+              indirizzo = c.indirizzo;
+            }
           }
-        }
-      )
-    }).unsubscribe();
+        )
+      }).unsubscribe();
+    }
 
 
     this.chaletForm = this.fb.group({
@@ -108,6 +120,11 @@ export class ChaletEditComponent implements OnInit {
         'civico': [indirizzo.civico, Validators.compose([ Validators.required ])]
       })
     });
+    if (!this.editMode) {
+      this.chaletForm.addControl('numero_ombrelloni', new FormControl(
+        '', [Validators.compose([Validators.required, Validators.min(1), Validators.max(400), Validators.pattern('^[1-9][0-9]*$')])]
+      ))
+    }
     this.indirizzo = this.chaletForm.get('indirizzo') as FormGroup
   }
 
@@ -121,9 +138,14 @@ export class ChaletEditComponent implements OnInit {
       duration: 10000,
       horizontalPosition: 'end'
     });
-    snackBarRef.onAction().subscribe(()=>
-      this.editMode ? null : this.router.navigate(['../'], {relativeTo: this.route})
-    );
+    if (!this.editMode) {
+      snackBarRef = this._snackBar.open(message, 'OK', {
+        duration: 5000,
+        horizontalPosition: 'end'
+      });
+      this.router.navigate(['/user/chalets']);
+    }
+
   }
 
 

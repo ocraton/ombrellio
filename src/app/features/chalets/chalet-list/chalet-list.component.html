@@ -1,5 +1,5 @@
 <div *ngIf="!(chaletState | async).loading">
-  <div  *ngIf="(chaletState | async).chalet[0]">
+  <div *ngIf="(chaletState | async).chalet[0]">
 
        <h2> <span style="color: #673AB7">
         {{ (chaletState | async).chalet[0].ragione_sociale }}
@@ -67,25 +67,22 @@
               </mat-card>
             </div>
           </div>
-
-      <mat-card class="cardcreanuovo" *ngIf="!(chaletState | async).chalet[0]">
-          <h2>Non hai ancora creato uno Chalet!</h2>
-          <br>
-        <button
-          mat-button
-          mat-raised-button
-          color="primary"
-          routerLink="/user/chalets/new">
-          Crea Nuovo<mat-icon class="icon">add</mat-icon>
-        </button>
-      </mat-card>
-
   </div>
 </div>
 <div>
   <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
 </div>
-
+<mat-card class="cardcreanuovo" *ngIf="!(chaletState | async).chalet[0]">
+    <h2>Non hai ancora creato uno Chalet!</h2>
+    <br>
+  <button
+    mat-button
+    mat-raised-button
+    color="primary"
+    routerLink="/user/chalets/new">
+    Crea Nuovo<mat-icon class="icon">add</mat-icon>
+  </button>
+</mat-card>
 
 
 
