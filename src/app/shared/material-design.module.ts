@@ -29,6 +29,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [],
   imports: [
@@ -58,7 +59,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatExpansionModule,
-    MatChipsModule
+    MatChipsModule,
+    DragDropModule
   ],
   exports: [
     MatToolbarModule,
@@ -85,7 +87,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatExpansionModule,
-    MatChipsModule
+    MatChipsModule,
+    DragDropModule
   ],
   entryComponents: [],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,

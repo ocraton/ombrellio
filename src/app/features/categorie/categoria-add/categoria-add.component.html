@@ -1,0 +1,18 @@
+<form [formGroup]="categoriaForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+  <mat-form-field style="width:100%">
+    <input #termcat matInput formControlName="nome">
+    <mat-error *ngIf="!categoriaForm.get('nome').valid && categoriaForm.get('nome').touched">
+      Categoria obbligatorio / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <button
+    mat-raised-button
+    *ngIf="!(categoriaState | async).loading"
+    [disabled]="!categoriaForm.valid"
+    color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+  </form>

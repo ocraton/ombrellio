@@ -1,3 +1,4 @@
+import { CategorieModule } from './features/categorie/categorie.module';
 import { OrdiniModule } from './features/ordini/ordini.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -35,6 +36,7 @@ import { SubscriptionService } from './core/services/subscription.service';
     OrdiniModule,
     ChaletsModule,
     OmbrelloniModule,
+    CategorieModule,
     HomeModule,
     LoginModule,
     AppRoutingModule,

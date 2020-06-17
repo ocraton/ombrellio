@@ -1,0 +1,40 @@
+
+  <div class="mb20 mt20 gridCategorie">
+    <div class="pCol4">
+        <h4>Aggiungi Categoria</h4>
+        <app-categoria-add
+        *ngIf="(categoriaState | async).categoria.length <= 20; else nomoreaddcat"
+        [lastCategoria]="(categoriaState | async).categoria.length">
+        </app-categoria-add>
+        <ng-template #nomoreaddcat>
+        <mat-card>
+          <span class="maxCatLimit">
+            hai raggiunto il numero massimo di categorie
+          </span>
+        </mat-card>
+      </ng-template>
+    </div>
+    <div class="pCol8">
+      <h4>Ordina la lista trascinando gli elementi</h4>
+      <div *ngIf="!(categoriaState | async).loading">
+      <div *ngIf="(categoriaState | async).categoria.length > 0; else nocategories" >
+          <div cdkDropList class="categorie-list" (cdkDropListDropped)="drop($event)">
+            <div class="categoria-box" *ngFor="let categoriaItem of categorie" cdkDrag>
+              {{ categoriaItem.ordinamento }} -
+              {{ categoriaItem.nome }}
+            </div>
+          </div>
+      </div>
+      <ng-template #nocategories>
+        <mat-card><i>nessuna categoria presente</i></mat-card>
+      </ng-template>
+      </div>
+      <div>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="(categoriaState | async).loading"
+        ></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+
