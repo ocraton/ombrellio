@@ -12,13 +12,17 @@ import { CategoriaEffects } from './store/categoria.effects';
 import { categoriaReducer } from './store/categoria.reducers';
 import { CategorieService } from './categorie.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CategoriaEditComponent } from './categoria-edit/categoria-edit.component';
+import { CategoriaDeleteComponent } from './categoria-delete/categoria-delete.component';
 
 
 @NgModule({
   declarations: [
     CategorieComponent,
     CategoriaListComponent,
-    CategoriaAddComponent
+    CategoriaAddComponent,
+    CategoriaEditComponent,
+    CategoriaDeleteComponent
   ],
   imports: [
     CommonModule,

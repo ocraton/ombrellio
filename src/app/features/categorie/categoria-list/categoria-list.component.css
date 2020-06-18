@@ -2,6 +2,7 @@
 .mb20{ margin-bottom: 20px }
 .mt20{ margin-top: 20px }
 .maxCatLimit{ font-style: italic; color: red;}
+.catListText{font-size:1rem}
 
 .gridCategorie{
   width: 100%;
@@ -10,14 +11,15 @@
   box-sizing: border-box;
 }
 
-.pCol4{
-  width: 30%;
+
+.pCol5{
+  width: 40%;
   padding: 20px;
   box-sizing: border-box;
 }
 
-.pCol8{
-  width: 70%;
+.pCol7{
+  width: 60%;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -33,7 +35,7 @@
 }
 
 .categoria-box {
-  padding: 20px 10px;
+  padding: 12px 10px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;

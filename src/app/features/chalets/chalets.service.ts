@@ -2,7 +2,7 @@ import * as AuthActions from '../login/store/auth.actions';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Chalet } from './chalet.model';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducers';
@@ -38,29 +38,28 @@ export class ChaletsService {
     }
 
     createChalet(chalet, numOmbrelloni) {
-
+      delete chalet.id;
       return this.db.collection('chalet').add(chalet)
-        .then((chalet) => {
+        .then((chaletItem) => {
 
             for(let i = 1; i<=numOmbrelloni; i++){
-              this.db.collection(`chalet/${chalet.id}/ombrelloni`).add({
+              this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
                 'numero': i
               })
             }
-            this.db.collection('chalet').doc(chalet.id).update({
-              'id': chalet.id
-            })
             this.db.collection('utenti').doc(this.authUID).update({
-              'chalet_uid': chalet.id
+              'chalet_uid': chaletItem.id
             })
 
-            this.store.dispatch(new AuthActions.SetChaletUID(chalet.id))
+            this.store.dispatch(new AuthActions.SetChaletUID(chaletItem.id))
         });
 
     }
 
     updateChalet(chalet: Chalet) {
-      return this.db.doc(`chalet/${chalet.id}`).update(chalet)
+      let id = chalet.id;
+      delete chalet.id;
+      return this.db.doc(`chalet/${id}`).update(chalet)
     }
 
 

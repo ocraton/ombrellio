@@ -30,6 +30,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CategoriaEditComponent } from '../features/categorie/categoria-edit/categoria-edit.component';
+import { CategoriaDeleteComponent } from '../features/categorie/categoria-delete/categoria-delete.component';
 @NgModule({
   declarations: [],
   imports: [
@@ -90,7 +92,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatChipsModule,
     DragDropModule
   ],
-  entryComponents: [],
+  entryComponents: [CategoriaEditComponent, CategoriaDeleteComponent],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,
               {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
             ]

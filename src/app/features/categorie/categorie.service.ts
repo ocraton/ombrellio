@@ -39,12 +39,18 @@ export class CategorieService {
     }
 
     updateCategorie(categorie: Categoria[]){
-
       categorie.forEach(cat => {
           this.db.doc(`chalet/${this.chaletUID}/categorie/${cat.id}`)
             .update({ ordinamento: cat.ordinamento })
       })
       return this.db.collection(`chalet/${this.chaletUID}/categorie`).valueChanges()
+    }
+
+    updateCategoria(categoria: Categoria){
+      this.db.doc(`chalet/${this.chaletUID}/categorie/${categoria.id}`)
+        .set({ nome: categoria.nome }, { merge: true })
+
+      return this.db.doc(`chalet/${this.chaletUID}/categorie/${categoria.id}`).valueChanges()
     }
 
 }

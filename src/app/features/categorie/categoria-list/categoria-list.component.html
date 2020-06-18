@@ -1,27 +1,40 @@
 
   <div class="mb20 mt20 gridCategorie">
-    <div class="pCol4">
-        <h4>Aggiungi Categoria</h4>
+    <div class="pCol5">
+        <h3>Aggiungi Categoria ({{ (categoriaState | async).categoria.length }})</h3>
         <app-categoria-add
-        *ngIf="(categoriaState | async).categoria.length <= 20; else nomoreaddcat"
+        *ngIf="(categoriaState | async).categoria.length < 20; else nomoreaddcat"
         [lastCategoria]="(categoriaState | async).categoria.length">
         </app-categoria-add>
         <ng-template #nomoreaddcat>
         <mat-card>
           <span class="maxCatLimit">
-            hai raggiunto il numero massimo di categorie
+            Hai raggiunto il numero massimo di categorie.
           </span>
         </mat-card>
       </ng-template>
     </div>
-    <div class="pCol8">
-      <h4>Ordina la lista trascinando gli elementi</h4>
-      <div *ngIf="!(categoriaState | async).loading">
+    <div class="pCol7">
+      <h3>Ordina le categorie trascinando gli elementi</h3>
+      <div *ngIf="!(categoriaState | async).loading" class="scrollListCat">
       <div *ngIf="(categoriaState | async).categoria.length > 0; else nocategories" >
           <div cdkDropList class="categorie-list" (cdkDropListDropped)="drop($event)">
-            <div class="categoria-box" *ngFor="let categoriaItem of categorie" cdkDrag>
-              {{ categoriaItem.ordinamento }} -
-              {{ categoriaItem.nome }}
+            <div class="categoria-box" *ngFor="let categoriaItem of categorie" cdkDrag cdkDragLockAxis="y">
+              <span class="catListText">
+                {{ categoriaItem.ordinamento }} - {{ categoriaItem.nome }}
+              </span>
+              <mat-action-list>
+              <button mat-icon-button
+                color="primary"
+                (click)="editCateogoria(categoriaItem)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button
+                color="primary"
+                (click)="deleteCateogoria(categoriaItem)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              </mat-action-list>
             </div>
           </div>
       </div>

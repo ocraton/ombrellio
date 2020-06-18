@@ -1,3 +1,4 @@
+import { Categoria } from './../categoria.model';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -5,10 +6,12 @@ import { Observable } from 'rxjs';
 import * as fromCategoria from '../store/categoria.reducers';
 import * as CategoriaActions from '../store/categoria.actions';
 
-import { Categoria } from '../categoria.model';
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { take } from 'rxjs/operators';
+import { TranslateService } from 'src/app/shared/services/translate.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { CategoriaEditComponent } from '../categoria-edit/categoria-edit.component';
+import { CategoriaDeleteComponent } from '../categoria-delete/categoria-delete.component';
 
 @Component({
   selector: 'app-categoria-list',
@@ -21,7 +24,9 @@ export class CategoriaListComponent implements OnInit {
   categorie: Categoria[] = [];
 
   constructor(private store: Store<fromCategoria.FeatureState>,
-              private subService: SubscriptionService) { }
+              private subService: SubscriptionService,
+              private paginatorIntl: TranslateService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.store.dispatch(new CategoriaActions.FetchCategorie);
@@ -35,6 +40,24 @@ export class CategoriaListComponent implements OnInit {
       return catItem.ordinamento = index+1
     })
     this.store.dispatch(new CategoriaActions.UpdateCategorie(this.categorie));
+  }
+
+  editCateogoria(categoria) {
+    const dialogConfigDel = new MatDialogConfig();
+    dialogConfigDel.disableClose = true;
+    dialogConfigDel.autoFocus = true;
+    dialogConfigDel.width = '30rem';
+    dialogConfigDel.data = categoria;
+    this.dialog.open(CategoriaEditComponent, dialogConfigDel);
+  }
+
+  deleteCateogoria(categoria) {
+    const dialogConfigDel = new MatDialogConfig();
+    dialogConfigDel.disableClose = true;
+    dialogConfigDel.autoFocus = true;
+    dialogConfigDel.width = '30rem';
+    dialogConfigDel.data = categoria;
+    this.dialog.open(CategoriaDeleteComponent, dialogConfigDel);
   }
 
   ngOnDestroy(): void {
