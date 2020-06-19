@@ -16,27 +16,35 @@ import { CategoriaListComponent } from '../categoria-list/categoria-list.compone
 })
 export class CategoriaDeleteComponent implements OnInit {
 
-  categoriaForm: FormGroup;
   categoria: Categoria;
+  categorie: Categoria[];
   categoriaState: Observable<fromCategoria.State>;
   @Input() lastCategoria: number;
-  @ViewChild('formDirective') formDirective;
 
   constructor(private store: Store<fromCategoria.FeatureState>,
-              private fb: FormBuilder,
-              private _snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<CategoriaListComponent>,
               @Inject(MAT_DIALOG_DATA) data: Categoria) {
                 this.categoria = data;
               }
 
   ngOnInit() {
+    this.store.dispatch(new CategoriaActions.FetchCategoriaProdotti(this.categoria))
+    this.categoriaState = this.store.select('categorie')
+    this.categoriaState.subscribe(res => this.categorie = res.categoria)
   }
 
   onDelete() {
-    // this.categoria.nome = this.categoriaForm.get('nome').value;
-    // this.store.dispatch(new CategoriaActions.UpdateCategoria(this.categoria));
-    // this.categoriaForm.markAsUntouched();
+    this.store.dispatch(new CategoriaActions.DeleteCategoria(this.categoria));
+      this.categorie.map( (c, index) => {
+        if (c.id == this.categoria.id) {
+          this.categorie.splice(index, 1);
+          }
+        }
+      )
+    this.categorie.map((catItem, index) => {
+      return catItem.ordinamento = index + 1
+    })
+    this.store.dispatch(new CategoriaActions.UpdateCategorie(this.categorie));
     this.dialogRef.close();
   }
 

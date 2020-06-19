@@ -1,4 +1,7 @@
 .editNomeCat{font-size: 1.2rem;}
+.pardeletecatadvise{font-size: 1.2rem;font-style: italic;}
+.iconpardeletecatadvise{font-size: 4rem;}
+
 .form-container {
     display: flex;
     flex-direction: column;

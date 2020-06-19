@@ -1,10 +1,10 @@
+import { Categoria } from './../categoria.model';
 import { UpdateChaletSuccess } from './../../chalets/store/chalet.actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap, map, takeUntil, debounceTime, catchError } from 'rxjs/operators';
 import * as CategoriaActions from './categoria.actions';
 import { CategorieService } from '../categorie.service';
-import { Categoria } from '../categoria.model';
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
 
 @Injectable()
@@ -65,5 +65,35 @@ export class CategoriaEffects {
           new CategoriaActions.UpdateCategoriaFail('error'))
       )
     ));
+
+  @Effect()
+  categoriaProdottiFetch$ = this.actions$.pipe(
+    ofType(CategoriaActions.FETCH_CATEGORIA_PRODOTTI),
+    switchMap((categoria: Categoria) => {
+      return this.categorieService.getCategoriaProdotti(categoria).pipe(
+        takeUntil(this.subService.unsubscribe$)
+      )
+    }),
+    map((res) => {
+      let canDelete = true;
+      if (res.length > 0) canDelete = false;
+      return { type: CategoriaActions.FETCH_CATEGORIA_PRODOTTI_SUCCESS, payload: canDelete };
+    })
+  );
+
+  @Effect()
+  deleteCategoria$ = this.actions$.pipe(
+    ofType(CategoriaActions.DELETE_CATEGORIA),
+    map((action: CategoriaActions.DeleteCategoria) => action.payload),
+    switchMap((categoria) =>
+      this.categorieService.deleteCategoria(categoria).then(
+        res => new CategoriaActions.DeleteCategoriaSuccess('success')
+      ).catch(
+        error => new CategoriaActions.DeleteCategoriaFail(error)
+      )
+    )
+  );
+
+
 
 }

@@ -53,5 +53,15 @@ export class CategorieService {
       return this.db.doc(`chalet/${this.chaletUID}/categorie/${categoria.id}`).valueChanges()
     }
 
+    getCategoriaProdotti(categoria) {
+      return this.db.collection(`chalet/${this.chaletUID}/prodotti`, ref =>
+        ref.where('categoria_uid', '==', categoria.payload.id).limit(1)
+      ).valueChanges()
+    }
+
+    deleteCategoria(categoria){
+      return this.db.doc(`chalet/${this.chaletUID}/categorie/${categoria.id}`).delete()
+    }
+
 }
 

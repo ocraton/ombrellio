@@ -1,6 +1,6 @@
+import { Categoria } from './../categoria.model';
 import * as CategoriaActions from './categoria.actions';
 import * as fromApp from '../../../store/app.reducers';
-import { Categoria } from '../categoria.model';
 
 export interface FeatureState extends fromApp.AppState {
   categorie: State
@@ -8,12 +8,16 @@ export interface FeatureState extends fromApp.AppState {
 
 export interface State {
   categoria: Categoria[],
+  canDelete: boolean,
+  canDeleteLoading: boolean,
   loading: boolean,
   error: any | null;
 }
 
 const initialState: State = {
   categoria: [],
+  canDelete: false,
+  canDeleteLoading: false,
   loading: true,
   error: null
 };
@@ -31,6 +35,19 @@ export function categoriaReducer(state = initialState, action: CategoriaActions.
         ...state,
         categoria: action.payload,
         loading: false
+      };
+
+    case (CategoriaActions.FETCH_CATEGORIA_PRODOTTI):
+      return {
+        ...state,
+        canDeleteLoading: true
+      };
+
+    case (CategoriaActions.FETCH_CATEGORIA_PRODOTTI_SUCCESS):
+      return {
+        ...state,
+        canDelete: action.payload,
+        canDeleteLoading: false
       };
 
     case (CategoriaActions.UPDATE_CATEGORIA):
@@ -81,6 +98,25 @@ export function categoriaReducer(state = initialState, action: CategoriaActions.
         error: null
       };
     case (CategoriaActions.CREATE_CATEGORIA_FAIL):
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+
+    case (CategoriaActions.DELETE_CATEGORIA):
+      return {
+        ...state,
+        loading: true
+      };
+
+    case (CategoriaActions.DELETE_CATEGORIA_SUCCESS):
+      return {
+        ...state,
+        loading: false,
+        error: null
+      };
+    case (CategoriaActions.DELETE_CATEGORIA_FAIL):
       return {
         ...state,
         loading: false,
