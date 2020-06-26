@@ -1,0 +1,72 @@
+<mat-expansion-panel (opened)="onOpencategoriaPanel()"
+[ngClass]="{'visibilityOffCat': !categoria.visibile}">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <h3 class="titleCategory">{{ categoria.nome }} </h3>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+ <ng-template matExpansionPanelContent>
+    <div *ngIf="!(prodottoState | async).loading">
+      <mat-list *ngIf="(prodottoState | async).prodotto.length > 0; else noProdotticategoria">
+        <mat-list-item class="prodottiListItem"
+          *ngFor="let prodottoItem of (prodottoState | async).prodotto"
+          [ngClass]="{'visibilityOnProd' : prodottoItem.visibile || prodottoItem.visibile == undefined,
+                                   'visibilityOffProd': !prodottoItem.visibile}">
+          <h3 matLine class="prodottoTitle"> {{ prodottoItem.nome }} </h3>
+          <p matLine> {{ prodottoItem.descrizione }} </p>
+          <p matLine class="demo-2"> {{ prodottoItem.prezzo }} € </p>
+          <button mat-icon-button
+            color="primary"
+            (click)="editProdotto(prodottoItem)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button
+            color="primary"
+            (click)="deleteProdotto(prodottoItem)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button
+            *ngIf="prodottoItem.visibile || prodottoItem.visibile == undefined; else buttonInvisibile"
+            color="primary"
+            (click)="onChangeProdottoVisibile(prodottoItem, false)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <ng-template #buttonInvisibile>
+            <button mat-icon-button
+              color="primary"
+              (click)="onChangeProdottoVisibile(prodottoItem,true)">
+              <mat-icon>visibility_off</mat-icon>
+            </button>
+          </ng-template>
+        </mat-list-item>
+      </mat-list>
+      <ng-template #noProdotticategoria>
+        <p class="noProductAdvise">
+          Non ci sono prodotti in questa categoria
+        </p>
+          <br><br>
+      </ng-template>
+      <mat-action-row>
+          <button
+            *ngIf="(prodottoState | async).prodotto.length <= 60; else numMaxProdotti"
+            mat-button
+            mat-raised-button
+            color="primary"
+            (click)="addProdotto(categoria.id)">
+            Aggiungi Prodotto <mat-icon class="icon">add</mat-icon>
+          </button>
+          <ng-template #numMaxProdotti>
+            <p class="noProductAdvise">
+              Hai raggiunto il numero massimo di prodotti in questa categoria
+            </p>
+          </ng-template>
+    </mat-action-row>
+
+  </div>
+  <mat-progress-bar mode="indeterminate" *ngIf="(prodottoState | async).loading"></mat-progress-bar>
+  </ng-template>
+</mat-expansion-panel>
+
+
+
+

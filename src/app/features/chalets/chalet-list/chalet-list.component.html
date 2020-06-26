@@ -68,10 +68,6 @@
             </div>
           </div>
   </div>
-</div>
-<div>
-  <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
-</div>
 <mat-card class="cardcreanuovo" *ngIf="!(chaletState | async).chalet[0]">
     <h2>Non hai ancora creato uno Chalet!</h2>
     <br>
@@ -83,6 +79,11 @@
     Crea Nuovo<mat-icon class="icon">add</mat-icon>
   </button>
 </mat-card>
+</div>
+<div>
+  <mat-progress-bar mode="indeterminate" *ngIf="(chaletState | async).loading"></mat-progress-bar>
+</div>
+
 
 
 

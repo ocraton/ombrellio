@@ -31,6 +31,7 @@ export class CategoriaAddComponent implements OnInit {
   onSave() {
     this.categoria = this.categoriaForm.value;
     this.categoria.ordinamento = this.lastCategoria+1;
+    this.categoria.visibile = true;
     this.store.dispatch(new CategoriaActions.CreateCategoria(this.categoria));
     this.formDirective.resetForm();
     this.categoriaForm.reset();

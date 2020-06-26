@@ -25,7 +25,6 @@ export class CategoriaListComponent implements OnInit {
 
   constructor(private store: Store<fromCategoria.FeatureState>,
               private subService: SubscriptionService,
-              private paginatorIntl: TranslateService,
               private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -58,6 +57,11 @@ export class CategoriaListComponent implements OnInit {
     dialogConfigDel.width = '30rem';
     dialogConfigDel.data = categoria;
     this.dialog.open(CategoriaDeleteComponent, dialogConfigDel);
+  }
+
+  onChangeCategoriaVisibile(categoria, visibile) {
+    categoria.visibile = visibile;
+    this.store.dispatch(new CategoriaActions.UpdateCategoria(categoria));
   }
 
   ngOnDestroy(): void {

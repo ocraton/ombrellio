@@ -1,0 +1,33 @@
+  <h2>
+    <mat-icon class="icon mr5 valmiddle">fastfood</mat-icon>
+    Prodotti
+  </h2>
+
+<div *ngIf="!(prodottoState | async).prodottiCategorieLoading">
+  <div *ngIf="(prodottoState | async).prodottoExist.length > 0">
+    <div class="mb20 mt20 cardList">
+          <mat-accordion>
+              <app-prodotto-list
+                *ngFor="let itemCat of (prodottoState | async).prodottiCategorie"
+                [categoria]="itemCat"></app-prodotto-list>
+          </mat-accordion>
+    </div>
+  </div>
+  <mat-card class="cardcreanuovo" *ngIf="(prodottoState | async).prodottoExist.length == 0">
+    <h2>Prima di creare i prodotti crea le Categorie
+      <i>(antipasti, primi, secondi ecc...)</i></h2>
+    <br>
+  <button
+    mat-button
+    mat-raised-button
+    color="primary"
+    routerLink="/user/categorie">
+    Crea Categorie<mat-icon class="icon">add</mat-icon>
+  </button>
+</mat-card>
+</div>
+<div>
+  <mat-progress-bar mode="indeterminate" *ngIf="(prodottoState | async).prodottiCategorieLoading"></mat-progress-bar>
+</div>
+
+

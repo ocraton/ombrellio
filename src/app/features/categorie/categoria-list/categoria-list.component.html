@@ -19,7 +19,9 @@
       <div *ngIf="!(categoriaState | async).loading" class="scrollListCat">
       <div *ngIf="(categoriaState | async).categoria.length > 0; else nocategories" >
           <div cdkDropList class="categorie-list" (cdkDropListDropped)="drop($event)">
-            <div class="categoria-box" *ngFor="let categoriaItem of categorie" cdkDrag cdkDragLockAxis="y">
+            <div [ngClass]="{'categoria-box-not-visibile': !categoriaItem.visibile,
+                              'categoria-box': categoriaItem.visibile}"
+             *ngFor="let categoriaItem of categorie" cdkDrag cdkDragLockAxis="y">
               <span class="catListText">
                 {{ categoriaItem.ordinamento }} - {{ categoriaItem.nome }}
               </span>
@@ -34,6 +36,19 @@
                 (click)="deleteCateogoria(categoriaItem)">
                 <mat-icon>delete</mat-icon>
               </button>
+                <button mat-icon-button
+                  *ngIf="categoriaItem.visibile || categoriaItem.visibile == undefined; else buttonInvisibile"
+                  color="primary"
+                  (click)="onChangeCategoriaVisibile(categoriaItem, false)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <ng-template #buttonInvisibile>
+                  <button mat-icon-button
+                    color="primary"
+                    (click)="onChangeCategoriaVisibile(categoriaItem,true)">
+                    <mat-icon>visibility_off</mat-icon>
+                  </button>
+                </ng-template>
               </mat-action-list>
             </div>
           </div>

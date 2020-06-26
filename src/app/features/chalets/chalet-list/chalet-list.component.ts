@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -14,9 +14,8 @@ import { SubscriptionService } from 'src/app/core/services/subscription.service'
   templateUrl: './chalet-list.component.html',
   styleUrls: ['./chalet-list.component.css']
 })
-export class ChaletListComponent implements OnInit {
+export class ChaletListComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['ragione_sociale', 'created_at', 'action'];
   chaletState: Observable<fromChalet.State>;
   chalet: Chalet = null;
 

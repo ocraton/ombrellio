@@ -44,7 +44,7 @@ export class ChaletsService {
 
             for(let i = 1; i<=numOmbrelloni; i++){
               this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
-                'numero': i
+                'numero': i.toString()
               })
             }
             this.db.collection('utenti').doc(this.authUID).update({

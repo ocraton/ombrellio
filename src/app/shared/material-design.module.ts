@@ -32,6 +32,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CategoriaEditComponent } from '../features/categorie/categoria-edit/categoria-edit.component';
 import { CategoriaDeleteComponent } from '../features/categorie/categoria-delete/categoria-delete.component';
+import { ProdottoEditComponent } from '../features/prodotti/prodotto-edit/prodotto-edit.component';
+import { ProdottoDeleteComponent } from '../features/prodotti/prodotto-delete/prodotto-delete.component';
+import { ProdottoAddComponent } from '../features/prodotti/prodotto-add/prodotto-add.component';
 @NgModule({
   declarations: [],
   imports: [
@@ -92,7 +95,9 @@ import { CategoriaDeleteComponent } from '../features/categorie/categoria-delete
     MatChipsModule,
     DragDropModule
   ],
-  entryComponents: [CategoriaEditComponent, CategoriaDeleteComponent],
+  entryComponents: [CategoriaEditComponent, CategoriaDeleteComponent,
+                    ProdottoEditComponent, ProdottoDeleteComponent,
+                    ProdottoAddComponent],
   providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,
               {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
             ]

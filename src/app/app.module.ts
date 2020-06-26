@@ -20,6 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment.prod';
 import { OmbrelloniModule } from './features/ombrelloni/ombrelloni.module';
 import { SubscriptionService } from './core/services/subscription.service';
+import { ProdottiModule } from './features/prodotti/prodotti.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { SubscriptionService } from './core/services/subscription.service';
     ChaletsModule,
     OmbrelloniModule,
     CategorieModule,
+    ProdottiModule,
     HomeModule,
     LoginModule,
     AppRoutingModule,

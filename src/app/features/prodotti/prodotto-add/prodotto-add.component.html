@@ -1,0 +1,35 @@
+<mat-dialog-content>
+  <h2>Aggiungi Prodotto</h2>
+  <form [formGroup]="prodottoForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input matInput formControlName="nome"
+    placeholder="Nome" class="fieldAddProd">
+    <mat-error *ngIf="!prodottoForm.get('nome').valid && prodottoForm.get('nome').touched">
+      Inserire Nome / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input  matInput formControlName="descrizione" placeholder="Descrizione" class="fieldAddProd">
+    <mat-error *ngIf="!prodottoForm.get('descrizione').valid && prodottoForm.get('descrizione').touched">
+      Inserire Descrizione / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input  matInput formControlName="prezzo" placeholder="Prezzo €" class="fieldAddProd">
+    <mat-error *ngIf="!prodottoForm.get('prezzo').valid && prodottoForm.get('prezzo').touched">
+      Inserire Prezzo € nel formato corretto (se usi il . inserisci 2 cifre dopo )
+    </mat-error>
+  </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button mt20 w-100" (click)="close()"
+          mat-raised-button color="accent">ANNULLA</button>
+          <button class="mat-raised-button mt20 w-100"
+          [disabled]="!prodottoForm.valid"
+          (click)="onSave()"
+          mat-raised-button color="primary">SALVA
+          <mat-icon class="icon">save</mat-icon></button>
+</mat-dialog-actions>

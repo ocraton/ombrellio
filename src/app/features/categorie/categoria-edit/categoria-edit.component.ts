@@ -24,7 +24,6 @@ export class CategoriaEditComponent implements OnInit {
 
   constructor(private store: Store<fromCategoria.FeatureState>,
               private fb: FormBuilder,
-              private _snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<CategoriaListComponent>,
               @Inject(MAT_DIALOG_DATA) data: Categoria) {
                 this.categoria = data;

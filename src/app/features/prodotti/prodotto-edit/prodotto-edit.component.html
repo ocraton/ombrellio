@@ -1,0 +1,44 @@
+<mat-dialog-content>
+  <h2>Modifica</h2>
+  <form [formGroup]="prodottoForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+  <mat-form-field>
+  <mat-label>Categoria</mat-label>
+  <mat-select formControlName="categoriaId" [(value)]="prodotto.categoria_uid">
+    <mat-option *ngFor="let categoria of (prodottoState | async).prodottiCategorie "
+    [value]="categoria.id">
+      {{categoria.nome}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="nome" class="editNomeProd">
+    <mat-error *ngIf="!prodottoForm.get('nome').valid && prodottoForm.get('nome').touched">
+      Inserire Nome / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="descrizione" class="editNomeProd">
+    <mat-error *ngIf="!prodottoForm.get('descrizione').valid && prodottoForm.get('descrizione').touched">
+      Inserire Descrizione
+    </mat-error>
+    <mat-error *ngIf="prodottoForm.get('descrizione').hasError('minLength')">minimo tre lettere</mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="prezzo" class="editNomeProd">
+    <mat-error *ngIf="!prodottoForm.get('prezzo').valid && prodottoForm.get('prezzo').touched">
+      Inserire Prezzo
+    </mat-error>
+  </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button mt20 w-100" id="btndesktop" (click)="close()"
+          mat-raised-button color="accent">ANNULLA</button>
+          <button class="mat-raised-button mt20 w-100"
+          [disabled]="!prodottoForm.valid"
+          (click)="onSave()"
+          mat-raised-button color="primary">SALVA
+          <mat-icon class="icon">save</mat-icon></button>
+</mat-dialog-actions>

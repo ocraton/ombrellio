@@ -48,7 +48,7 @@ export class CategorieService {
 
     updateCategoria(categoria: Categoria){
       this.db.doc(`chalet/${this.chaletUID}/categorie/${categoria.id}`)
-        .set({ nome: categoria.nome }, { merge: true })
+        .set({ nome: categoria.nome, visibile: categoria.visibile }, { merge: true })
 
       return this.db.doc(`chalet/${this.chaletUID}/categorie/${categoria.id}`).valueChanges()
     }
