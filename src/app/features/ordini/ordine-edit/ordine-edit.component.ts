@@ -1,28 +1,29 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromOrdine from '../store/ordine.reducers';
-import * as OrdineActions from '../store/ordine.actions';
+import * as ordiniState from '../store/ordini.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as OrdiniActions from '../store/ordini.actions';
 import { Ordine } from '../ordini.model';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-ordine-edit',
   templateUrl: './ordine-edit.component.html',
-  styleUrls: ['./ordine-edit.component.css']
+  styleUrls: ['./ordine-edit.component.scss']
 })
 export class OrdineEditComponent implements OnInit {
 
   @Input() ordine: Ordine;
-  ordineState: Observable<fromOrdine.State>;
+  ordineState: Observable<ordiniState.default>;
   panelOpenState = false;
 
-  constructor(private store: Store<fromOrdine.FeatureState>) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {}
 
 
   onSave() {
-    this.store.dispatch(new OrdineActions.UpdateOrdine(this.ordine));
+    this.store.dispatch(OrdiniActions.UpdateOrdine({payload: this.ordine}));
   }
 
   onChangeVerificato(verificato) {

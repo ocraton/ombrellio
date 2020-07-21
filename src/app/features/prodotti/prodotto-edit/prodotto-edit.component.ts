@@ -1,30 +1,31 @@
 import { Component, OnInit, ViewChild, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as fromProdotto from '../store/prodotto.reducers';
-import * as ProdottoActions from '../store/prodotto.actions';
 import { Prodotto } from '../prodotto.model';
 import { Observable } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProdottoListComponent } from '../prodotto-list/prodotto-list.component';
 import { Categoria } from '../../categorie/categoria.model';
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
+import * as prodottiState from '../store/prodotti.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as ProdottiActions from '../store/prodotti.actions';
 
 
 @Component({
   selector: 'app-prodotto-edit',
   templateUrl: './prodotto-edit.component.html',
-  styleUrls: ['./prodotto-edit.component.css']
+  styleUrls: ['./prodotto-edit.component.scss']
 })
 export class ProdottoEditComponent implements OnInit, OnDestroy {
 
   prodottoForm: FormGroup;
   prodotto: Prodotto;
   categorie: Categoria[];
-  prodottoState: Observable<fromProdotto.State>;
+  prodottoState: Observable<prodottiState.default>;
   @ViewChild('formDirective') formDirective;
 
-  constructor(private store: Store<fromProdotto.FeatureState>,
+  constructor(private store: Store<fromApp.AppState>,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ProdottoListComponent>,
     private subService: SubscriptionService,
@@ -42,7 +43,7 @@ export class ProdottoEditComponent implements OnInit, OnDestroy {
     this.prodotto.descrizione = this.prodottoForm.get('descrizione').value;
     this.prodotto.prezzo = this.prodottoForm.get('prezzo').value;
     this.prodotto.categoria_uid = this.prodottoForm.get('categoriaId').value
-    this.store.dispatch(new ProdottoActions.UpdateProdotto(this.prodotto));
+    this.store.dispatch(ProdottiActions.UpdateProdotto(this.prodotto));
     this.prodottoForm.markAsUntouched();
     this.dialogRef.close();
   }

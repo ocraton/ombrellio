@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotfoundRoutingModule } from './notfound-routing.module';
+import { NotFoundRoutingModule } from './notfound-routing.module';
 import { NotFoundComponent } from './not-found.component';
+import { MaterialDesignModule } from 'src/app/shared/material-design.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { NotFoundComponent } from './not-found.component';
   ],
   imports: [
     CommonModule,
-    NotfoundRoutingModule
+    NotFoundRoutingModule,
+    MaterialDesignModule
   ],
   exports: [
     NotFoundComponent

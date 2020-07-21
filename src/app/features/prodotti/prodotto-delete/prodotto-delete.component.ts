@@ -1,27 +1,26 @@
-import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromProdotto from '../store/prodotto.reducers';
-import * as ProdottoActions from '../store/prodotto.actions';
+import * as prodottiState from '../store/prodotti.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as ProdottiActions from '../store/prodotti.actions';
 import { Prodotto } from '../prodotto.model';
 import { Observable } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProdottoListComponent } from '../prodotto-list/prodotto-list.component';
 
-
 @Component({
   selector: 'app-prodotto-delete',
   templateUrl: './prodotto-delete.component.html',
-  styleUrls: ['./prodotto-delete.component.css']
+  styleUrls: ['./prodotto-delete.component.scss']
 })
 export class ProdottoDeleteComponent implements OnInit {
 
   prodotto: Prodotto;
   prodotti: Prodotto[];
-  prodottoState: Observable<fromProdotto.State>;
+  prodottoState: Observable<prodottiState.default>;
   @ViewChild('formDirective') formDirective;
 
-  constructor(private store: Store<fromProdotto.FeatureState>,
+  constructor(private store: Store<fromApp.AppState>,
     public dialogRef: MatDialogRef<ProdottoListComponent>,
     @Inject(MAT_DIALOG_DATA) data: Prodotto) {
     this.prodotto = data;
@@ -34,7 +33,7 @@ export class ProdottoDeleteComponent implements OnInit {
   }
 
   onDelete() {
-    this.store.dispatch(new ProdottoActions.DeleteProdotto(this.prodotto));
+    this.store.dispatch(ProdottiActions.DeleteProdotto({payload: this.prodotto}));
     this.prodotti.map((c, index) => {
       if (c.id == this.prodotto.id) {
         this.prodotti.splice(index, 1);

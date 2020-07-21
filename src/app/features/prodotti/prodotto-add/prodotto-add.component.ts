@@ -1,28 +1,30 @@
-import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as fromProdotto from '../store/prodotto.reducers';
-import * as ProdottoActions from '../store/prodotto.actions';
+import * as prodottiState from '../store/prodotti.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as ProdottiActions from '../store/prodotti.actions';
 import { Prodotto } from '../prodotto.model';
 import { Observable } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProdottoListComponent } from '../prodotto-list/prodotto-list.component';
 
 
+
 @Component({
-  selector: 'app-prodotto-add',
-  templateUrl: './prodotto-add.component.html',
-  styleUrls: ['./prodotto-add.component.css']
+  selector: 'app-Prodotto-add',
+  templateUrl: './Prodotto-add.component.html',
+  styleUrls: ['./Prodotto-add.component.scss']
 })
 export class ProdottoAddComponent implements OnInit {
 
   prodottoForm: FormGroup;
-  prodotto: Prodotto = {nome: '', descrizione: '', categoria_uid: '', id: '', prezzo: 0, visibile: true};
+  prodotto: Prodotto = { nome: '', descrizione: '', categoria_uid: '', id: '', prezzo: 0, visibile: true };
   categoriaId: string;
-  prodottoState: Observable<fromProdotto.State>;
+  prodottoState: Observable<prodottiState.default>;
   @ViewChild('formDirective') formDirective;
 
-  constructor(private store: Store<fromProdotto.FeatureState>,
+  constructor(private store: Store<fromApp.AppState>,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ProdottoListComponent>,
     @Inject(MAT_DIALOG_DATA) data: string) {
@@ -38,7 +40,7 @@ export class ProdottoAddComponent implements OnInit {
     this.prodotto.descrizione = this.prodottoForm.get('descrizione').value;
     this.prodotto.prezzo = +this.prodottoForm.get('prezzo').value;
     this.prodotto.categoria_uid = this.categoriaId;
-    this.store.dispatch(new ProdottoActions.CreateProdotto(this.prodotto));
+    this.store.dispatch(ProdottiActions.CreateProdotto({payload: this.prodotto}));
     this.prodottoForm.markAsUntouched();
     this.dialogRef.close();
   }
@@ -61,3 +63,4 @@ export class ProdottoAddComponent implements OnInit {
   }
 
 }
+

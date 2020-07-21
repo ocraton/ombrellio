@@ -1,28 +1,29 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialDesignModule } from '../../shared/material-design.module';
+import { ProdottiRoutingModule } from './prodotti-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProdottiRoutingModule } from './prodotti-routing.module';
 import { ProdottiComponent } from './prodotti.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { MaterialDesignModule } from 'src/app/shared/material-design.module';
 import { ProdottoListComponent } from './prodotto-list/prodotto-list.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { ProdottoEffects } from './store/prodotto.effects';
-import { prodottoReducer } from './store/prodotto.reducers';
-import { ProdottiService } from './prodotti.service';
-import { ProdottoEditComponent } from './prodotto-edit/prodotto-edit.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ProdottoDeleteComponent } from './prodotto-delete/prodotto-delete.component';
 import { ProdottoAddComponent } from './prodotto-add/prodotto-add.component';
+import { ProdottoEditComponent } from './prodotto-edit/prodotto-edit.component';
+import { ProdottoDeleteComponent } from './prodotto-delete/prodotto-delete.component';
+import { EffectsModule } from '@ngrx/effects';
+import { ProdottiEffects } from './store/prodotti.effects';
+import { SharedModule } from '../../shared/shared.module';
+
+import { ProdottiReducer } from './store/prodotti.reducer';
+import { StoreModule } from '@ngrx/store';
+import { ProdottiService } from './prodotti.service';
 
 
 @NgModule({
   declarations: [
     ProdottiComponent,
     ProdottoListComponent,
+    ProdottoAddComponent,
     ProdottoEditComponent,
-    ProdottoDeleteComponent,
-    ProdottoAddComponent
+    ProdottoDeleteComponent
   ],
   imports: [
     CommonModule,
@@ -30,8 +31,8 @@ import { ProdottoAddComponent } from './prodotto-add/prodotto-add.component';
     ReactiveFormsModule,
     ProdottiRoutingModule,
     SharedModule,
-    StoreModule.forFeature('prodotti', prodottoReducer),
-    EffectsModule.forFeature([ProdottoEffects])
+    StoreModule.forFeature('prodotti', ProdottiReducer),
+    EffectsModule.forFeature([ProdottiEffects])
   ],
   providers: [ProdottiService]
 })

@@ -1,19 +1,19 @@
+import { FormsModule } from '@angular/forms';
+import { MaterialDesignModule } from './../../shared/material-design.module';
+import { LoginRoutingModule } from './login-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { MaterialDesignModule } from 'src/app/shared/material-design.module';
+
+
 
 @NgModule({
-  declarations: [
-    LoginComponent,    
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     FormsModule,
-    MaterialDesignModule,
-    LoginRoutingModule,   
+    LoginRoutingModule,
+    MaterialDesignModule
   ]
 })
 export class LoginModule { }

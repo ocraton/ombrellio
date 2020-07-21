@@ -2,25 +2,26 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromOrdine from '../store/ordine.reducers';
-import * as OrdineActions from '../store/ordine.actions';
-import { SubscriptionService } from 'src/app/core/services/subscription.service';
+import * as ordiniState from '../store/ordini.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as OrdiniActions from '../store/ordini.actions';
+import { SubscriptionService } from '../../../core/services/subscription.service';
 
 
 @Component({
   selector: 'app-ordine-list',
   templateUrl: './ordine-list.component.html',
-  styleUrls: ['./ordine-list.component.css']
+  styleUrls: ['./ordine-list.component.scss']
 })
 export class OrdineListComponent implements OnInit, OnDestroy {
 
-  ordineState: Observable<fromOrdine.State>;
+  ordineState: Observable<ordiniState.default>;
 
-  constructor(private store: Store<fromOrdine.FeatureState>,
+  constructor(private store: Store<fromApp.AppState>,
               private subService: SubscriptionService) { }
 
   ngOnInit() {
-    this.store.dispatch(new OrdineActions.FetchOrdini({ orderType: '' }));
+    this.store.dispatch(OrdiniActions.FetchOrdini({ orderType: '' }));
     this.ordineState = this.store.select('ordini');
   }
 

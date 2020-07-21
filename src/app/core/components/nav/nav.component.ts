@@ -3,13 +3,13 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../../store/app.reducers';
+import * as fromApp from '../../../store/app.reducer';
 import * as AuthActions from '../../../features/login/store/auth.actions';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
 
@@ -23,23 +23,23 @@ export class NavComponent implements OnInit {
   chaletUID = '';
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private store: Store<fromApp.AppState>) {}
+    private store: Store<fromApp.AppState>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.select(fromApp.getAuthChaletUID).subscribe(res => this.chaletUID = res);
     this.isAuth$ = this.store.select(fromApp.getIsAuth);
     this.showMenu = '';
   }
 
   onLogout() {
-    this.store.dispatch(new AuthActions.Logout());
+    this.store.dispatch(AuthActions.Logout());
   }
 
   addExpandClass(element: any) {
     if (element === this.showMenu) {
-        this.showMenu = '0';
+      this.showMenu = '0';
     } else {
-        this.showMenu = element;
+      this.showMenu = element;
     }
   }
 }

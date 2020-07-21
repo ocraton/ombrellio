@@ -3,29 +3,35 @@
         <mat-card class="mat- mat-elevation-z0">
             <mat-card-title class="app-name text-center"
                             style="font-weight: normal">
-                <img mat-card-image src="https://www.ombrel.io/wp-content/uploads/2020/05/Ombrel.io-lgo.png" style="max-width: 120px;">
+                <img mat-card-image
+                src="https://www.ombrel.io/wp-content/uploads/2020/05/Ombrel.io-lgo.png"
+                style="max-width: 120px;">
             </mat-card-title>
             <mat-card-content>
                 <br>
-                <form *ngIf="!(authState | async).loading" class="login-form"
-                        #f="ngForm" (ngSubmit)="onLogin(f)">
-                        <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
-                            <div fxFlexFill>
+                <form *ngIf="!(authState | async).loading"
+                        class="login-form"
+                        #f="ngForm"
+                        (ngSubmit)="onLogin(f)">
+                        <div>
+                            <div>
                                 <mat-form-field class="w-100">
                                     <input matInput type="text"
-                                    required placeholder="Email" [ngModel] name="email">
+                                    [(ngModel)]="model.email"
+                                    required placeholder="Email"  name="email">
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
-                            <div fxFlexFill>
+                        <div>
+                            <div>
                                 <mat-form-field class="w-100">
                                     <input matInput type="password"
-                                    required placeholder="Password" [ngModel] name="password">
+                                    [(ngModel)]="model.password"
+                                    required placeholder="Password" name="password">
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="mt20" fxFlex  fxLayout="row" fxLayout.lt-md="column">
+                        <div class="mt20">
                             <div fxFlexFill>
                                 <button mat-raised-button color="primary"
                                 class="w-100" type="submit" [disabled]="f.invalid" >Login
@@ -33,7 +39,7 @@
                             </div>
                         </div>
                 </form>
-                <div fxLayout="row" fxLayoutAlign="center" >
+                <div>
                     <mat-spinner style="margin: 0 auto" *ngIf="(authState | async).loading"></mat-spinner>
                 </div>
             </mat-card-content>

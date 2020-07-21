@@ -3,22 +3,23 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromOrdine from '../store/ordine.reducers';
-import * as OrdineActions from '../store/ordine.actions';
+import * as ordiniState from '../store/ordini.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as OrdiniActions from '../store/ordini.actions';
 import { Ordine } from '../ordini.model';
 
 @Component({
   selector: 'app-ordine-detail',
   templateUrl: './ordine-detail.component.html',
-  styleUrls: ['./ordine-detail.component.css']
+  styleUrls: ['./ordine-detail.component.scss']
 })
 export class OrdineDetailComponent implements OnInit {
 
   id: number;
-  ordineState: Observable<fromOrdine.State>;
+  ordineState: Observable<ordiniState.default>;
   ordine: Ordine;
 
-  constructor(private store: Store<fromOrdine.FeatureState>,
+  constructor(private store: Store<fromApp.AppState>,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class OrdineDetailComponent implements OnInit {
       }
     );
 
-    this.store.dispatch(new OrdineActions.FetchOrdine({ idOrdine: this.id.toString() }));
+    this.store.dispatch(OrdiniActions.FetchOrdine({ idOrdine: this.id.toString() }));
     this.ordineState = this.store.select('ordini');
   }
 

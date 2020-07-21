@@ -1,11 +1,11 @@
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Auth } from '../model/auth.model';
 import * as AuthActions from '../../features/login/store/auth.actions';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as fromApp from '../../store/app.reducers';
+import * as fromApp from '../../store/app.reducer';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -33,15 +33,15 @@ export class AuthService {
           ).subscribe(utente => {
               this.auth = { email: user.email, password: '', uid: user.uid, chaletUID: utente['chalet_uid'] };
               if(utente['chalet_uid'] != ''){
-                this.router.navigate(['/user']);
+                this.router.navigate(['/user/ordini']);
               } else {
                 this.router.navigate(['/user/chalets']);
               }
-              this.store.dispatch(new AuthActions.LogInSuccess(this.auth))
+              this.store.dispatch(AuthActions.LogInSuccess({payload: this.auth}))
             }
           )
       } else {
-        this.store.dispatch(new AuthActions.Logout());
+        this.store.dispatch(AuthActions.Logout());
         this.router.navigate(['/login']);
       }
     });
@@ -50,11 +50,11 @@ export class AuthService {
 
 
   login(authData: Auth) {
-    return this.afAuth.auth.signInWithEmailAndPassword(authData.email, authData.password);
+    return this.afAuth.signInWithEmailAndPassword(authData.email, authData.password)
   }
 
   logout() {
-    this.afAuth.auth.signOut()
+    this.afAuth.signOut()
   }
 
 }

@@ -1,45 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatToolbarModule,
-  MatCheckboxModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatCardModule,
-  MatProgressSpinnerModule,
-  MatProgressBarModule,
-  MatBadgeModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatSnackBarModule,
-  MatNativeDateModule,
-  MAT_DATE_LOCALE,
-  MatExpansionModule,
-  MatChipsModule
-} from '@angular/material';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
-import {MatGridListModule} from '@angular/material/grid-list';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatGridListModule} from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatTabsModule} from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CategoriaEditComponent } from '../features/categorie/categoria-edit/categoria-edit.component';
-import { CategoriaDeleteComponent } from '../features/categorie/categoria-delete/categoria-delete.component';
-import { ProdottoEditComponent } from '../features/prodotti/prodotto-edit/prodotto-edit.component';
-import { ProdottoDeleteComponent } from '../features/prodotti/prodotto-delete/prodotto-delete.component';
-import { ProdottoAddComponent } from '../features/prodotti/prodotto-add/prodotto-add.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatToolbarModule,
     MatCheckboxModule,
     MatButtonModule,
@@ -59,7 +50,6 @@ import { ProdottoAddComponent } from '../features/prodotti/prodotto-add/prodotto
     MatSelectModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
@@ -87,7 +77,6 @@ import { ProdottoAddComponent } from '../features/prodotti/prodotto-add/prodotto
     MatSelectModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
@@ -95,11 +84,7 @@ import { ProdottoAddComponent } from '../features/prodotti/prodotto-add/prodotto
     MatChipsModule,
     DragDropModule
   ],
-  entryComponents: [CategoriaEditComponent, CategoriaDeleteComponent,
-                    ProdottoEditComponent, ProdottoDeleteComponent,
-                    ProdottoAddComponent],
-  providers: [MatPaginatorIntl, MatDatepickerModule, MatNativeDateModule,
-              {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
-            ]
+  entryComponents: [],
+  providers: [MatPaginatorIntl, MatDatepickerModule]
 })
 export class MaterialDesignModule { }

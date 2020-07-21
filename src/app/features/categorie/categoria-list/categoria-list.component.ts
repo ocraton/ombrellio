@@ -3,32 +3,33 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import * as fromCategoria from '../store/categoria.reducers';
-import * as CategoriaActions from '../store/categoria.actions';
+import * as categorieState from '../store/categorie.state';
+import * as fromApp from '../../../store/app.reducer';
+import * as CategorieActions from '../store/categorie.actions';
 
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { TranslateService } from 'src/app/shared/services/translate.service';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+
 import { CategoriaEditComponent } from '../categoria-edit/categoria-edit.component';
 import { CategoriaDeleteComponent } from '../categoria-delete/categoria-delete.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-categoria-list',
   templateUrl: './categoria-list.component.html',
-  styleUrls: ['./categoria-list.component.css']
+  styleUrls: ['./categoria-list.component.scss']
 })
 export class CategoriaListComponent implements OnInit {
 
-  categoriaState: Observable<fromCategoria.State>;
+  categoriaState: Observable<categorieState.default>;
   categorie: Categoria[] = [];
 
-  constructor(private store: Store<fromCategoria.FeatureState>,
-              private subService: SubscriptionService,
-              private dialog: MatDialog) { }
+  constructor(private store: Store<fromApp.AppState>,
+    private subService: SubscriptionService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.store.dispatch(new CategoriaActions.FetchCategorie);
+    this.store.dispatch(CategorieActions.FetchCategorie());
     this.categoriaState = this.store.select('categorie');
     this.categoriaState.subscribe(cat => this.categorie = cat.categoria)
   }
@@ -36,9 +37,9 @@ export class CategoriaListComponent implements OnInit {
   drop(event: CdkDragDrop<Categoria[]>) {
     moveItemInArray(this.categorie, event.previousIndex, event.currentIndex);
     this.categorie.map((catItem, index) => {
-      return catItem.ordinamento = index+1
+      return catItem.ordinamento = index + 1
     })
-    this.store.dispatch(new CategoriaActions.UpdateCategorie(this.categorie));
+    this.store.dispatch(CategorieActions.UpdateCategorie({payload: this.categorie}));
   }
 
   editCateogoria(categoria) {
@@ -61,7 +62,7 @@ export class CategoriaListComponent implements OnInit {
 
   onChangeCategoriaVisibile(categoria, visibile) {
     categoria.visibile = visibile;
-    this.store.dispatch(new CategoriaActions.UpdateCategoria(categoria));
+    this.store.dispatch(CategorieActions.UpdateCategoria({payload: categoria}));
   }
 
   ngOnDestroy(): void {
@@ -69,4 +70,5 @@ export class CategoriaListComponent implements OnInit {
   }
 
 }
+
 

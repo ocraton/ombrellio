@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Ordine } from './ordini.model';
 import { DatesService } from 'src/app/shared/services/dates.service';
-import * as fromApp from '../../store/app.reducers';
+import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 
 
@@ -73,7 +73,9 @@ export class OrdiniService {
     }
 
     updateOrdine(ordine: Ordine) {
-      return this.db.collection(`chalet/${this.chaletUID}/ordini`).doc(ordine.id).update(ordine)
+      let id = ordine.id;
+      delete ordine.id;
+      return this.db.collection(`chalet/${this.chaletUID}/ordini`).doc(id).update(ordine)
     }
 
 

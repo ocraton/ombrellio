@@ -1,40 +1,20 @@
-import { Action } from '@ngrx/store';
-import { Auth } from 'src/app/core/model/auth.model';
+import { createAction, props } from '@ngrx/store';
+import { Auth } from '../../../core/model/auth.model';
 
-export const LOGIN = '[Auth] Login';
-export const LOGIN_SUCCESS = '[Auth] Login Success';
-export const LOGIN_ERROR = '[Auth] Login Error';
-export const SET_CHALET_UID = '[Auth] Set Chalet UID';
-export const LOGOUT = '[Auth] Logout';
-
-
-export class Login implements Action {
-    readonly type = LOGIN;
-    constructor(public payload: {email: string, password: string}) {}
-}
-
-export class LogInSuccess implements Action {
-    readonly type = LOGIN_SUCCESS;
-    constructor(public payload: Auth) { }
-}
-
-export class LogInError implements Action {
-    readonly type = LOGIN_ERROR;
-    constructor(public payload: { errorMsg }) { }
-}
-
-export class SetChaletUID implements Action {
-  readonly type = SET_CHALET_UID;
-  constructor(public payload: string) { }
-}
-
-export class Logout implements Action {
-    readonly type = LOGOUT;
-  }
-
-export type AuthActions =
-    | Login
-    | LogInSuccess
-    | LogInError
-    | SetChaletUID
-    | Logout;
+export const Login = createAction(
+  '[Auth] Login',
+  props < {payload: { email: string, password: string }}>()
+);
+export const LogInSuccess = createAction(
+  '[Auth] Login Success',
+  props<{ payload: Auth}>()
+);
+export const LogInError = createAction(
+  '[Auth] Login Error',
+  props<{ payload: {errorMsg}}>()
+);
+export const SetChaletUID = createAction(
+  '[Auth] Set Chalet UID',
+  props < {payload: string}>()
+);
+export const Logout = createAction('[Auth] Logout');

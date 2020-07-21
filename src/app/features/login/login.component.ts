@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { NgForm } from '@angular/forms';
 
-import * as fromApp from '../../store/app.reducers';
-import * as fromAuth from '../../features/login/store/auth.reducers';
+import * as fromApp from '../../store/app.reducer';
+import * as authState from './store/auth.state';
 import * as AuthActions from '../../features/login/store/auth.actions';
 import { Observable } from 'rxjs';
 
@@ -11,11 +11,12 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  authState: Observable<fromAuth.State>;
+  authState: Observable<authState.default>;
+  model: any = {};
 
   constructor(private store: Store<fromApp.AppState>) { }
 
@@ -23,10 +24,10 @@ export class LoginComponent implements OnInit {
     this.authState = this.store.select('auth');
   }
 
-  onLogin(form: NgForm) {
-    const email = form.value.email;
-    const password = form.value.password;
-    this.store.dispatch(new AuthActions.Login({email, password}));
+  onLogin() {
+    const email = this.model.email;
+    const password = this.model.password;
+    this.store.dispatch(AuthActions.Login({payload: { email, password }}));
   }
 
 }

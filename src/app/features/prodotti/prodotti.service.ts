@@ -1,11 +1,10 @@
-import * as AuthActions from '../login/store/auth.actions';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Prodotto } from './prodotto.model';
+import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../store/app.reducers';
 import { Categoria } from '../categorie/categoria.model';
 
 
@@ -65,7 +64,7 @@ export class ProdottiService {
     );
   }
 
-  createProdotto(prodotto) {
+  createProdotto(prodotto: Prodotto) {
     delete prodotto.id;
     return this.db.collection(`chalet/${this.chaletUID}/prodotti`).add(prodotto)
   }
@@ -82,4 +81,3 @@ export class ProdottiService {
   }
 
 }
-

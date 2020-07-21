@@ -5,7 +5,6 @@ import { TranslateService } from './services/translate.service';
 import { CapitalizedTextDirective } from './directive/CapitalizedText.directive';
 import { ClockService } from './services/clock.service';
 
-const COMPONENTS = [ ];
 
 @NgModule({
   declarations: [CapitalizedTextDirective],

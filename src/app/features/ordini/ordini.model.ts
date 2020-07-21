@@ -9,7 +9,7 @@ export class Ordine {
     public contenuto: [];
     public created_at: Date;
     public note: string;
-    public numero_ombrellone: number;
+    public numero_ombrellone: string;
     public ombrellone_uid: string;
     public numero_telefono: string;
     public prezzo_totale: string;
@@ -18,7 +18,7 @@ export class Ordine {
 
   constructor(id: string, utente_uid: string, chalet_uid: string, completato: boolean,
               verificato: boolean, annullato: boolean,contenuto: [], created_at: Date,
-              note: string, numero_ombrellone: number,
+              note: string, numero_ombrellone: string,
               ombrellone_uid: string, numero_telefono: string,
               prezzo_totale: string, quantita_totale: string) {
 
