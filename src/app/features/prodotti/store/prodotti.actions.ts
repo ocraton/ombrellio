@@ -9,7 +9,7 @@ export const SetProdotti = createAction(
 );
 export const UpdateProdotto = createAction(
   '[Prodotti] Update_prodotto',
-  props< Prodotto >()
+  props<{ payload: Prodotto }>()
 );
 export const UpdateProdottoSuccess = createAction(
   '[Prodotti] Update_prodotto_success'

@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/ombrellio",
+    "public": "dist/ombrellio10",
     "ignore": [
       "firebase.json",
       "**/.*",

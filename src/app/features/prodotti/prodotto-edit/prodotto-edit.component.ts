@@ -43,7 +43,7 @@ export class ProdottoEditComponent implements OnInit, OnDestroy {
     this.prodotto.descrizione = this.prodottoForm.get('descrizione').value;
     this.prodotto.prezzo = this.prodottoForm.get('prezzo').value;
     this.prodotto.categoria_uid = this.prodottoForm.get('categoriaId').value
-    this.store.dispatch(ProdottiActions.UpdateProdotto(this.prodotto));
+    this.store.dispatch(ProdottiActions.UpdateProdotto({payload: this.prodotto}));
     this.prodottoForm.markAsUntouched();
     this.dialogRef.close();
   }

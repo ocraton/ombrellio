@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ombrellio": {
+    "ombrellio10": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ombrellio",
+            "outputPath": "dist/ombrellio10",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -74,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ombrellio:build"
+            "browserTarget": "ombrellio10:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ombrellio:build:production"
+              "browserTarget": "ombrellio10:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ombrellio:build"
+            "browserTarget": "ombrellio10:build"
           }
         },
         "test": {
@@ -124,11 +124,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ombrellio:serve"
+            "devServerTarget": "ombrellio10:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ombrellio:serve:production"
+              "devServerTarget": "ombrellio10:serve:production"
             }
           }
         },
@@ -139,5 +139,5 @@
       }
     }
   },
-  "defaultProject": "ombrellio"
+  "defaultProject": "ombrellio10"
 }

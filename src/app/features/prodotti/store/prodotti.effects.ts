@@ -72,8 +72,8 @@ export class ProdottiEffects {
   updateProdotto$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(ProdottiActions.UpdateProdotto),
-      switchMap((prodotto: Prodotto) =>
-        this.prodottiService.updateProdotto(prodotto).pipe(
+      switchMap((prodotto) =>
+        this.prodottiService.updateProdotto(prodotto.payload).pipe(
           map(res => res ? ProdottiActions.UpdateProdottoSuccess() :
             ProdottiActions.UpdateProdottoFail({payload: 'error'}))
         )
