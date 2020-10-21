@@ -13,7 +13,7 @@
   <mat-form-field style="width:100%; font-size:1rem">
     <input  matInput formControlName="descrizione" placeholder="Descrizione" class="fieldAddProd">
     <mat-error *ngIf="!prodottoForm.get('descrizione').valid && prodottoForm.get('descrizione').touched">
-      Inserire Descrizione / minimo tre lettere
+      Descrizione minimo tre lettere
     </mat-error>
   </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem">

@@ -1,0 +1,31 @@
+<h2>Condividi il Menù</h2>
+<p><i>Stampa il QrCode oppure condividi la pagina del menù</i></p>
+
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-content>
+        <p>Stampa il qrCode</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button mat-raised-button color="primary">STAMPA</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
+    <mat-card class="mat-elevation-z2">
+      <mat-card-content>
+        <p>Visualizza il menù</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a [routerLink]="['/menu', chaletUID]"
+        mat-button mat-raised-button color="primary"
+        target="_blank">VISUALIZZA</a>
+        <button [cdkCopyToClipboard]="linkmenu"
+        mat-button mat-raised-button color="primary">
+        <span class="material-icons"> content_copy </span>
+        COPIA LINK</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

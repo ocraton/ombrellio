@@ -21,7 +21,7 @@
   <mat-form-field style="width:100%; font-size:1rem">
     <input #termcat matInput formControlName="descrizione" class="editNomeProd">
     <mat-error *ngIf="!prodottoForm.get('descrizione').valid && prodottoForm.get('descrizione').touched">
-      Inserire Descrizione
+      Descrizione minimo tre lettere
     </mat-error>
     <mat-error *ngIf="prodottoForm.get('descrizione').hasError('minLength')">minimo tre lettere</mat-error>
   </mat-form-field>

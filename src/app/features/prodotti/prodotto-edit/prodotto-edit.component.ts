@@ -41,7 +41,7 @@ export class ProdottoEditComponent implements OnInit, OnDestroy {
   onSave() {
     this.prodotto.nome = this.prodottoForm.get('nome').value;
     this.prodotto.descrizione = this.prodottoForm.get('descrizione').value;
-    this.prodotto.prezzo = this.prodottoForm.get('prezzo').value;
+    this.prodotto.prezzo = +this.prodottoForm.get('prezzo').value;
     this.prodotto.categoria_uid = this.prodottoForm.get('categoriaId').value
     this.store.dispatch(ProdottiActions.UpdateProdotto({payload: this.prodotto}));
     this.prodottoForm.markAsUntouched();
@@ -56,8 +56,8 @@ export class ProdottoEditComponent implements OnInit, OnDestroy {
 
     this.prodottoForm = this.fb.group({
       'nome': [nome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'descrizione': [descrizione, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'prezzo': [prezzo, Validators.compose([Validators.required])],
+      'descrizione': [descrizione, Validators.compose([Validators.minLength(3)])],
+      'prezzo': [prezzo, Validators.compose([Validators.required, Validators.pattern('^\\d*(\\.\\d{1,2})?$')])],
       'categoriaId': [categoriaId, Validators.compose([Validators.required])]
     });
 

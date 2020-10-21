@@ -15,6 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProdottiReducer } from './store/prodotti.reducer';
 import { StoreModule } from '@ngrx/store';
 import { ProdottiService } from './prodotti.service';
+import { SharemenuComponent } from './sharemenu/sharemenu.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ProdottiService } from './prodotti.service';
     ProdottoListComponent,
     ProdottoAddComponent,
     ProdottoEditComponent,
-    ProdottoDeleteComponent
+    ProdottoDeleteComponent,
+    SharemenuComponent,
   ],
   imports: [
     CommonModule,

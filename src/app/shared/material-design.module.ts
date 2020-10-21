@@ -26,6 +26,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [],
@@ -55,7 +57,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatButtonToggleModule,
     MatExpansionModule,
     MatChipsModule,
-    DragDropModule
+    DragDropModule,
+    ClipboardModule,
+    FlexLayoutModule
   ],
   exports: [
     MatToolbarModule,
@@ -82,7 +86,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatButtonToggleModule,
     MatExpansionModule,
     MatChipsModule,
-    DragDropModule
+    DragDropModule,
+    ClipboardModule,
+    FlexLayoutModule
   ],
   entryComponents: [],
   providers: [MatPaginatorIntl, MatDatepickerModule]

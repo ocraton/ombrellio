@@ -15,8 +15,7 @@ import { environment } from '../environments/environment.prod';
 import { AuthService } from './core/services/auth.service';
 import { AuthEffects } from './features/login/store/auth.effects';
 import { SubscriptionService } from './core/services/subscription.service';
-
-
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,8 @@ import { SubscriptionService } from './core/services/subscription.service';
     SharedModule,
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthService, SubscriptionService],
   bootstrap: [AppComponent]

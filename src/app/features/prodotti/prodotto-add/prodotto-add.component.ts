@@ -52,7 +52,7 @@ export class ProdottoAddComponent implements OnInit {
 
     this.prodottoForm = this.fb.group({
       'nome': [nome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'descrizione': [descrizione, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'descrizione': [descrizione, Validators.compose([Validators.minLength(3)])],
       'prezzo': [prezzo, Validators.compose([Validators.required, Validators.pattern('^\\d*(\\.\\d{1,2})?$')])]
     });
 

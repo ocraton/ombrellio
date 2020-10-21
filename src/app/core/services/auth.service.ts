@@ -31,9 +31,15 @@ export class AuthService {
           this.db.doc('utenti/'+user.uid).valueChanges().pipe(
             takeUntil(this.subService.unsubscribe$)
           ).subscribe(utente => {
-              this.auth = { email: user.email, password: '', uid: user.uid, chaletUID: utente['chalet_uid'] };
+              this.auth = {
+                email: user.email,
+                password: '',
+                uid: user.uid,
+                chaletUID: utente['chalet_uid']
+              };
               if(utente['chalet_uid'] != ''){
-                this.router.navigate(['/user/ordini']);
+                if (this.router.url != `/menu/${utente['chalet_uid']}`)
+                  this.router.navigate(['/user/ordini']);
               } else {
                 this.router.navigate(['/user/chalets']);
               }

@@ -1,0 +1,96 @@
+.content > mat-card {
+    width: 200px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+
+.title-menu{
+  font-weight: 100;
+  font-size: 4rem;
+  margin: -30px 0px 50px 0px;
+}
+
+.title-sub-menu{
+  font-weight: 100;
+  font-size: 1.4rem;
+  font-style: italic;
+  margin: -30px 0px 25px 0px;
+}
+
+.title-sub-menu span{
+  font-size: 1rem;
+  font-style: normal;
+}
+
+.category-menu{
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.img-menu{
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  max-width: 300px;
+}
+
+.menu-item{
+  margin: 20px 10px;
+  font-size: 1.1rem;
+}
+
+mat-card-actions{
+  margin: 0px;
+}
+
+mat-expansion-panel{
+    margin: 10px 10px 20px 10px;
+    border: 1px solid #a6a6a6;
+}
+
+mat-expansion-panel-header{
+  margin: 20px 10px;
+}
+
+body{
+  font-family: 'Roboto, "Helvetica Neue", sans-serif',;
+}
+
+table.menulist {
+  width: 94%;
+  margin: 0px 0px 10px 10px;
+  table-layout: fixed;
+}
+
+table.menulist td {
+	padding:1em 0 0 0;
+	vertical-align:bottom;
+}
+
+
+table.menulist  td:first-child {
+	text-align: left;
+  font-weight: 300;
+  font-size: 1.1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+table.menulist td:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width:1500px;
+  height:0px ;
+  margin-left: 1em;
+  border-bottom:2px dotted grey;
+}
+
+table.menulist td:last-child {
+	text-align:right;
+	width:3em;
+}

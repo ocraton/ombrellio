@@ -43,7 +43,7 @@ export class ProdottoListComponent implements OnInit, OnDestroy {
 
   onChangeProdottoVisibile(prodotto, visibile) {
     prodotto.visibile = visibile;
-    this.store.dispatch(ProdottiActions.UpdateProdotto(prodotto));
+    this.store.dispatch(ProdottiActions.UpdateProdotto({ payload: prodotto }));
   }
 
   addProdotto(categoriaId) {

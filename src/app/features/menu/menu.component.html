@@ -1,0 +1,34 @@
+<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%">
+    <div *ngIf="chalet; else nodataex">
+      <img src="https://stickerdesign.it/upload/22-3-2019/14010C.jpg" class="img-menu">
+      <h2 class="text-center title-menu"> {{ chalet.ragione_sociale }} </h2>
+      <h4 class="text-center title-sub-menu">
+        Info & Prenotazioni: {{ chalet.telefono }} <br>
+        <span>{{ chalet.indirizzo.via }} n. {{ chalet.indirizzo.civico }} -
+          {{ chalet.indirizzo.cap }} {{ chalet.indirizzo.citta }} ({{ chalet.indirizzo.provincia }})</span>
+        <br>
+      </h4>
+
+        <mat-expansion-panel *ngFor="let categoria of categorie | async" class="mat-elevation-z0">
+          <mat-expansion-panel-header >
+            <mat-panel-title>
+              <h3 class="category-menu">{{ categoria.nome }}</h3>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <table class="menulist">
+              <ng-container *ngFor="let prodotto of prodotti | async">
+                <tr *ngIf="categoria.id == prodotto.categoria_uid">
+                  <td><span>{{ prodotto.nome }}</span></td>
+                  <td><span>{{ prodotto.prezzo }} €</span></td>
+                </tr>
+              </ng-container>
+            </table>
+        </mat-expansion-panel>
+
+    </div>
+    <ng-template #nodataex>
+        <mat-progress-bar mode="indeterminate" ></mat-progress-bar>
+    </ng-template>
+  </div>
+</div>
