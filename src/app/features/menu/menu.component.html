@@ -2,42 +2,58 @@
   <div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%">
     <div *ngIf="chalet; else nodataex">
       <div id="coverMenu">
-        <img src="https://www.ombrel.io/wp-content/uploads/2020/10/menuHeader-1.png" class="img-menu">
+        <img
+          src="https://www.ombrel.io/wp-content/uploads/2020/10/menuHeader-1.png"
+          class="img-menu"
+        />
       </div>
-      <h2 class="text-center title-menu"> {{ chalet.ragione_sociale }} </h2>
+      <h2 class="text-center title-menu">{{ chalet.ragione_sociale }}</h2>
       <h4 class="text-center title-sub-menu">
-        Info & Prenotazioni: {{ chalet.telefono }} <br>
-        <span>{{ chalet.indirizzo.via }} n. {{ chalet.indirizzo.civico }} -
-          {{ chalet.indirizzo.cap }} {{ chalet.indirizzo.citta }} ({{ chalet.indirizzo.provincia }})</span>
-        <br>
+        Info & Prenotazioni: {{ chalet.telefono }} <br />
+        <span
+          >{{ chalet.indirizzo.via }} n. {{ chalet.indirizzo.civico }} -
+          {{ chalet.indirizzo.cap }} {{ chalet.indirizzo.citta }} ({{
+            chalet.indirizzo.provincia
+          }})</span
+        >
+        <br />
       </h4>
 
-        <mat-expansion-panel *ngFor="let categoria of categorie | async" class="mat-elevation-z0">
-          <mat-expansion-panel-header >
-            <mat-panel-title>
-              <h3 class="category-menu">{{ categoria.nome }}</h3>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-            <table class="menulist">
-              <ng-container *ngFor="let prodotto of prodotti | async">
-                <tr *ngIf="categoria.id == prodotto.categoria_uid">
-                  <td><span>{{ prodotto.nome }}</span></td>
-                  <td><span>{{ prodotto.prezzo }} €</span></td>
-                </tr>
-              </ng-container>
-            </table>
-        </mat-expansion-panel>
-        <div id="footerMenu" class="text-center">
-          <br><br>
-          Powered by <br>
-          <a href="https://ombrel.io">
-            <img src="https://www.ombrel.io/wp-content/uploads/2020/05/logoHorizontalhead.png">
-          </a>
-          <br>
-        </div>
+      <mat-expansion-panel
+        *ngFor="let categoria of categorie | async"
+        class="mat-elevation-z0"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 class="category-menu">{{ categoria.nome }}</h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <table class="menulist">
+          <ng-container *ngFor="let prodotto of prodotti | async">
+            <tr *ngIf="categoria.id == prodotto.categoria_uid">
+              <td>
+                <span>{{ prodotto.nome }}</span>
+              </td>
+              <td>
+                <span>{{ prodotto.prezzo }} €</span>
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </mat-expansion-panel>
+      <div id="footerMenu" class="text-center">
+        <br /><br />
+        Powered by <br />
+        <a href="https://ombrel.io">
+          <img
+            src="https://www.ombrel.io/wp-content/uploads/2020/05/logoHorizontalhead.png"
+          />
+        </a>
+        <br />
+      </div>
     </div>
     <ng-template #nodataex>
-        <mat-progress-bar mode="indeterminate" ></mat-progress-bar>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </ng-template>
   </div>
 </div>
