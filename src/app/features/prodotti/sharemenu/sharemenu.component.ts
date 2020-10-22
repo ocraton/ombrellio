@@ -15,6 +15,7 @@ export class SharemenuComponent implements OnInit {
   linkmenu: string;
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
+  href: string;
 
   constructor(private store: Store<fromApp.AppState>,
               private _snackBar: MatSnackBar) {
@@ -41,6 +42,10 @@ export class SharemenuComponent implements OnInit {
     setTimeout(function () {
       newWin.close();
     }, 10);
+  }
+
+  downloadQrCode(){
+    this.href = document.getElementsByTagName('img')[2].src
   }
 
 }

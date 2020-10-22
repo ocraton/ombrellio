@@ -7,7 +7,8 @@
   <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
     <mat-card class="mat-elevation-z2">
       <mat-card-content>
-        <p class="title-card-f">Stampa il qrCode</p>
+        <p class="title-card-f">Stampa il qrCode ed esponilo
+            nel tuo locale</p>
           <ngx-qrcode
             elementType="img"
             errorCorrectionLevel="Q"
@@ -16,21 +17,21 @@
             cssClass="bshadow">
           </ngx-qrcode>
         <div id="qrCodeP" style="display: none;">
-          <h1>
-            Stampa il qrCode ed esponilo
-            nel tuo locale
-          </h1>
           <ngx-qrcode
             elementType="img"
+            id="qrCodeImg"
             errorCorrectionLevel="Q"
             [value]="linkmenu"
-            width="500"
+            width="1200"
             cssClass="bshadow">
           </ngx-qrcode>
         </div>
       </mat-card-content>
       <mat-card-actions>
         <button (click)="printQrCode()" mat-button mat-raised-button color="primary">STAMPA</button>
+        <a mat-button mat-raised-button  (click)="downloadQrCode()" [href]="href"
+            download="qrCodeOmbrelio" color="primary"> SALVA
+        </a>
       </mat-card-actions>
     </mat-card>
   </div>

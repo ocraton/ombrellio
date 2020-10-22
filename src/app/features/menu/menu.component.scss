@@ -79,11 +79,20 @@ table.menulist td {
 
 table.menulist  td:first-child {
 	text-align: left;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 1.1rem;
   overflow: hidden;
   position: relative;
 }
+
+table.menulist td span.descrProd {
+	text-align: left;
+  font-size: 0.9rem;
+  font-weight: 100;
+  overflow: hidden;
+  position: relative;
+}
+
 
 table.menulist td:first-child::after {
   content: '';
