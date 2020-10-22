@@ -3,8 +3,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Prodotto } from '../prodotti/prodotto.model';
-import * as fromApp from '../../store/app.reducer';
-import { Store } from '@ngrx/store';
 import { Categoria } from '../categorie/categoria.model';
 import { Chalet } from '../chalet/chalet.model';
 
@@ -13,8 +11,7 @@ import { Chalet } from '../chalet/chalet.model';
 
 export class MenuService {
 
-  constructor(private db: AngularFirestore,
-    private store: Store<fromApp.AppState>) {
+  constructor(private db: AngularFirestore) {
   }
 
   getOneAtLeast(chaletUID: string): Observable<Prodotto[]> {

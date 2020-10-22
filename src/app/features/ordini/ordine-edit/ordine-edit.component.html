@@ -4,12 +4,23 @@
                                    'headerOrderAnnullato': ordine.annullato,
                                    'headerOrderVerificato': ordine.verificato && !ordine.annullato}">
         <div mat-card-avatar>
-          <mat-icon class="icon" style="font-size: 2rem;">beach_access</mat-icon>
+          <mat-icon *ngIf="ordine.ombrellone_uid != null"
+                class="icon" style="font-size: 2rem;">beach_access</mat-icon>
+          <mat-icon *ngIf="ordine.tavolo_uid != null && ordine.ombrellone_uid == null"
+                class="icon" style="font-size: 2rem;">deck</mat-icon>
+          <mat-icon *ngIf="ordine.tavolo_uid == null &&
+                           ordine.ombrellone_uid == null &&
+                           ordine.nome_asporto != ''"
+                class="icon" style="font-size: 2rem;">shopping_bag</mat-icon>
         </div>
         <mat-card-title>
           {{ ordine.numero_ombrellone }}
           <div class="orarioOrdine">
             Arrivato alle: {{ ordine.created_at['seconds'] * 1000 | date: 'H:mm' }}
+            <span *ngIf="ordine.nome_asporto != null" style="color: #fff; font-style: italic; font-size: 0.9rem;">
+                <br>
+                Da: {{ ordine.nome_asporto }}
+              </span>
             <mat-chip-list style="float:right;margin-right: -10px;">
             <mat-chip style="background: #fff;" >
               €
@@ -18,7 +29,9 @@
           </div>
         </mat-card-title>
         <mat-card-subtitle>
-          <span class="phoneheadcard">Telefono: <a class="callPhone" href="tel:{{ ordine.numero_telefono }}">{{ ordine.numero_telefono }}</a></span>
+          <span class="phoneheadcard">
+            Telefono: <a class="callPhone" href="tel:{{ ordine.numero_telefono }}">{{ ordine.numero_telefono }}</a>
+          </span>
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>

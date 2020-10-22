@@ -34,6 +34,7 @@
             ],
             "allowedCommonJsDependencies": [
               "lodash",
+              "qrcode",
               "@firebase/firestore",
               "@firebase/app",
               "@firebase/component",

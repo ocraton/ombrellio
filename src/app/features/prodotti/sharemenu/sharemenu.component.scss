@@ -5,3 +5,27 @@
 mat-card-actions{
   margin: 0px;
 }
+
+.bshadow {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(5px 5px 5px #222222);
+  opacity: .5;
+
+}
+
+#qrCodeP > ngx-qrcode > div > img{
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  height: auto;
+  max-width: 300px;
+}
+
+.title-card-f{
+  font-size: 1.2rem;
+  margin: 0%;
+  font-weight: 500;
+}

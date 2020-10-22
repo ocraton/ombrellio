@@ -1,9 +1,6 @@
 <div *ngIf="!(chaletState | async).loading">
   <div *ngIf="(chaletState | async).chalet[0]">
 
-       <h2> <span style="color: #673AB7">
-        {{ (chaletState | async).chalet[0].ragione_sociale }}
-      </span>
         <button
         *ngIf="(chaletState | async).chalet[0] as element"
         (click)="editChalet(element)"
@@ -11,8 +8,24 @@
         color="primary" aria-label="Modifica">
           <mat-icon>edit</mat-icon>
         </button>
-    </h2>
+
           <div class="mb20 mt20 cardList">
+            <div class="cardListItem">
+              <mat-card>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <mat-icon class="icon-lg" color="primary">label</mat-icon>
+                  </div>
+                  <mat-card-title>
+                    Ragione Sociale
+                  </mat-card-title>
+                    <mat-card-subtitle>
+                        {{ (chaletState | async).chalet[0].ragione_sociale }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+            <br>
             <div class="cardListItem">
               <mat-card>
                 <mat-card-header>

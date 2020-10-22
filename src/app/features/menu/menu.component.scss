@@ -10,7 +10,7 @@
 .title-menu{
   font-weight: 100;
   font-size: 4rem;
-  margin: -30px 0px 50px 0px;
+  margin: 10px 0px 50px 0px;
 }
 
 .title-sub-menu{
@@ -30,12 +30,17 @@
   font-weight: 400;
 }
 
+#coverMenu{
+  background: slategrey;
+  padding: 20px 0px;
+}
+
 .img-menu{
   width: 100%;
   display: block;
   margin: 0 auto;
   height: auto;
-  max-width: 300px;
+  max-width: 250px;
 }
 
 .menu-item{

@@ -38,8 +38,9 @@ export class AuthService {
                 chaletUID: utente['chalet_uid']
               };
               if(utente['chalet_uid'] != ''){
-                if (this.router.url != `/menu/${utente['chalet_uid']}`)
+                if (this.router.url != `/menu/${utente['chalet_uid']}`){
                   this.router.navigate(['/user/ordini']);
+                }
               } else {
                 this.router.navigate(['/user/chalets']);
               }
@@ -47,8 +48,14 @@ export class AuthService {
             }
           )
       } else {
-        this.store.dispatch(AuthActions.Logout());
-        this.router.navigate(['/login']);
+
+        var re = new RegExp("^\/menu\/([a-zA-Z0-9]){20,30}$");
+        if(re.test(this.router.url)){
+          this.router.navigate([this.router.url]);
+        } else {
+          this.store.dispatch(AuthActions.Logout());
+          this.router.navigate(['/login']);
+        }
       }
     });
   }
