@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule} from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatTabsModule} from '@angular/material/tabs';
@@ -46,6 +47,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatBadgeModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -75,6 +77,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatBadgeModule,
     MatDialogModule,
     MatFormFieldModule,

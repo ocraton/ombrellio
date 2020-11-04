@@ -58,9 +58,19 @@
               <mat-icon class="icon mr15" color="primary">storefront</mat-icon> Chalet</a>
         </mat-sidenav-container>
         <mat-divider></mat-divider>
-        <mat-sidenav-container>
+        <mat-sidenav-container *ngIf="chaletUID != ''">
             <a mat-list-item routerLinkActive="active" routerLink="/user/ombrelloni">
               <mat-icon class="icon mr15" color="primary">beach_access</mat-icon> Ombrelloni</a>
+        </mat-sidenav-container>
+        <mat-divider></mat-divider>
+        <mat-sidenav-container *ngIf="chaletUID != ''">
+            <a mat-list-item routerLinkActive="active" routerLink="/user/tavoli">
+              <mat-icon class="icon mr15" color="primary">deck</mat-icon> Tavoli</a>
+        </mat-sidenav-container>
+        <mat-divider></mat-divider>
+        <mat-sidenav-container *ngIf="chaletUID != ''">
+            <a mat-list-item routerLinkActive="active" routerLink="/user/clienti">
+              <mat-icon class="icon mr15" color="primary">people_alt</mat-icon> Clienti</a>
         </mat-sidenav-container>
         <mat-divider></mat-divider>
         <a mat-list-item  (click)="onLogout()">

@@ -1,0 +1,37 @@
+
+  <h2>Crea un nuovo cliente</h2>
+  <form [formGroup]="clienteForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="nome" class="editNomeCat" placeholder="Nome" appCapitalizeCase>
+    <mat-error *ngIf="!clienteForm.get('nome').valid && clienteForm.get('nome').touched">
+      Inserire Nome / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="cognome" class="editNomeCat" placeholder="Cognome" appCapitalizeCase>
+    <mat-error *ngIf="!clienteForm.get('cognome').valid && clienteForm.get('cognome').touched">
+      Inserire Cognome  / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="email" class="editNomeCat" placeholder="Email">
+    <mat-error *ngIf="!clienteForm.get('email').valid && clienteForm.get('email').touched">
+      Inserire email nel formato corretto
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="telefono" class="editNomeCat" placeholder="Telefono">
+    <mat-error *ngIf="!clienteForm.get('telefono').valid && clienteForm.get('telefono').touched">
+      Inserire solo cifre per il telefono
+    </mat-error>
+  </mat-form-field>
+  </form>
+
+  <button class="mat-raised-button mt20 w-100"
+  [disabled]="!clienteForm.valid"
+  (click)="onSave()"
+  mat-raised-button color="primary">SALVA
+  <mat-icon class="icon">save</mat-icon></button>
+

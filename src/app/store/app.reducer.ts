@@ -10,6 +10,12 @@ import * as authState from '../features/login/store/auth.state';
 import * as fromChalet from '../features/chalet/store/chalet.reducer';
 import * as chaletState from '../features/chalet/store/chalet.state';
 
+import * as fromClienti from '../features/clienti/store/clienti.reducer';
+import * as clientiState from '../features/clienti/store/clienti.state';
+
+import * as fromTavoli from '../features/tavoli/store/tavoli.reducer';
+import * as tavoliState from '../features/tavoli/store/tavoli.state';
+
 import * as fromOrdini from '../features/ordini/store/ordini.reducer';
 import * as ordiniState from '../features/ordini/store/ordini.state';
 
@@ -22,6 +28,8 @@ import * as prodottiState from '../features/prodotti/store/prodotti.state';
 export interface AppState {
   auth: authState.default;
   chalet: chaletState.default;
+  clienti: clientiState.default;
+  tavoli: tavoliState.default;
   ordini: ordiniState.default;
   categorie: categorieState.default;
   prodotti: prodottiState.default;
@@ -30,6 +38,8 @@ export interface AppState {
 export const appReducer: ActionReducerMap<AppState> = {
   auth: fromAuth.AuthReducer,
   chalet: fromChalet.ChaletReducer,
+  clienti: fromClienti.ClientiReducer,
+  tavoli: fromTavoli.TavoliReducer,
   ordini: fromOrdini.OrdiniReducer,
   categorie: fromCategorie.CategorieReducer,
   prodotti: fromProdotti.ProdottiReducer

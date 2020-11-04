@@ -29,6 +29,14 @@ const routes: Routes = [
         path: 'chalets',
         loadChildren: () => import('../features/chalet/chalet.module').then(m => m.ChaletModule)
       },
+      {
+        path: 'clienti',
+        loadChildren: () => import('../features/clienti/clienti.module').then(m => m.ClientiModule)
+      },
+      {
+        path: 'tavoli',
+        loadChildren: () => import('../features/tavoli/tavoli.module').then(m => m.TavoliModule)
+      },
     ]
   },
   {

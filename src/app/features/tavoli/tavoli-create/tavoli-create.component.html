@@ -1,0 +1,19 @@
+
+  <h2>Crea un nuovo tavolo</h2>
+  <form [formGroup]="tavoloForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="numero" class="editNomeCat" placeholder="Numero" appCapitalizeCase>
+    <mat-error *ngIf="!tavoloForm.get('numero').valid && tavoloForm.get('numero').touched">
+      Inserire Numero / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  </form>
+
+  <button class="mat-raised-button mt20 w-100"
+  [disabled]="!tavoloForm.valid"
+  (click)="onSave()"
+  mat-raised-button color="primary">SALVA
+  <mat-icon class="icon">save</mat-icon></button>
+

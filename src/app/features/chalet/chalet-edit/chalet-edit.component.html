@@ -1,5 +1,4 @@
-<div fxLayout="row" fxFlex>
-  <h2 *ngIf="editMode; else creanuovo">Modifica Chalet</h2>
+<h2 *ngIf="editMode; else creanuovo">Modifica Chalet</h2>
   <ng-template #creanuovo><h2>Nuova Chalet</h2> </ng-template>
 
   <form [formGroup]="chaletForm" (ngSubmit)="onSave()"
@@ -66,4 +65,4 @@
         <mat-spinner style="margin: 0 auto" *ngIf="(chaletState | async).loading"></mat-spinner>
   </form>
   <br>
-</div>
+

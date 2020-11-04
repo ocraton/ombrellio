@@ -1,0 +1,18 @@
+<div *ngIf="!(tavoliState | async).deleteLoading">
+  <mat-dialog-content>
+    <h2>Cancellare: {{ tavolo.nome }} {{ tavolo.cognome }} ?</h2>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button mt20 w-100"  (click)="close()"
+            mat-raised-button color="accent">ANNULLA</button>
+            <button class="mat-raised-button mt20 w-100" (click)="onDelete()"
+            mat-raised-button color="warn">CANCELLA
+            <mat-icon class="icon">delete</mat-icon></button>
+  </mat-dialog-actions>
+</div>
+<div>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="(tavoliState | async).deleteLoading"
+  ></mat-progress-bar>
+</div>
