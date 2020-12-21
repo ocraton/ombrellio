@@ -6,6 +6,7 @@ import * as TavoliActions from '../store/tavoli.actions';
 import { Tavolo } from '../tavolo.model';
 import { Observable } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TavoliListComponent } from '../tavoli-list/tavoli-list.component';
 
 @Component({
@@ -21,13 +22,13 @@ export class TavoliDeleteComponent implements OnInit {
   @ViewChild('formDirective') formDirective;
 
   constructor(private store: Store<fromApp.AppState>,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<TavoliListComponent>,
     @Inject(MAT_DIALOG_DATA) data: Tavolo) {
     this.tavolo = data;
   }
 
   ngOnInit() {
-    // this.store.dispatch(new TavoloActions.FetchTavoliByCategoria(this.tavoli.categoria_uid))
     this.tavoliState = this.store.select('tavoli')
     this.tavoliState.subscribe(res => this.tavoli = res.tavoli)
   }
@@ -38,13 +39,27 @@ export class TavoliDeleteComponent implements OnInit {
       if (c.id == this.tavolo.id) {
         this.tavoli.splice(index, 1);
       }
-    }
-    )
+    })
     this.dialogRef.close();
+    this.showSuccessMessage(`Tavolo ${this.tavolo.numero} cancellato!`)
   }
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  showSuccessMessage(message: string) {
+
+    let snackBarRef = this._snackBar.open(message, 'OK', {
+      duration: 10000,
+      horizontalPosition: 'end'
+    });
+
+    snackBarRef = this._snackBar.open(message, 'OK', {
+      duration: 5000,
+      horizontalPosition: 'end'
+    });
+
   }
 
 }

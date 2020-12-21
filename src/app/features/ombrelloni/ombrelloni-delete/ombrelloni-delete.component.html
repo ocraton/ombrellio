@@ -1,6 +1,6 @@
-<div *ngIf="!(tavoliState | async).deleteLoading">
+<div *ngIf="!(ombrelloniState | async).deleteLoading">
   <mat-dialog-content>
-    <h2>Cancellare: {{ tavolo.numero }} ?</h2>
+    <h2>Cancellare: {{ ombrellone.numero }} ?</h2>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button class="mat-raised-button mt20 w-100"  (click)="close()"
@@ -13,6 +13,6 @@
 <div>
   <mat-progress-bar
     mode="indeterminate"
-    *ngIf="(tavoliState | async).deleteLoading"
+    *ngIf="(ombrelloniState | async).deleteLoading"
   ></mat-progress-bar>
 </div>

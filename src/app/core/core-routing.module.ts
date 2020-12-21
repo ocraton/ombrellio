@@ -37,6 +37,10 @@ const routes: Routes = [
         path: 'tavoli',
         loadChildren: () => import('../features/tavoli/tavoli.module').then(m => m.TavoliModule)
       },
+      {
+        path: 'ombrelloni',
+        loadChildren: () => import('../features/ombrelloni/ombrelloni.module').then(m => m.OmbrelloniModule)
+      },
     ]
   },
   {
@@ -46,6 +50,10 @@ const routes: Routes = [
       {
         path: 'login',
         loadChildren: () => import('../features/login/login.module').then(m => m.LoginModule)
+      },
+      {
+        path: 'utenti',
+        loadChildren: () => import('../features/utenti/utenti.module').then(m => m.UtentiModule)
       },
       {
         path: 'home',

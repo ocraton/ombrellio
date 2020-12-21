@@ -62,9 +62,11 @@ export class ChaletEditComponent implements OnInit {
       this.store.dispatch(ChaletActions.UpdateChalet({payload: this.chalet}))
     } else {
       let numeroOmbrelloni: number = this.chaletForm.get('numero_ombrelloni').value
+      let numeroTavoli: number = this.chaletForm.get('numero_tavoli').value
       this.store.dispatch(ChaletActions.CreateChalet({payload: {
         chalet: this.chalet,
-        numeroOmbrelloni: numeroOmbrelloni
+        numeroOmbrelloni: numeroOmbrelloni,
+        numeroTavoli: numeroTavoli
       }}));
     }
     this.store.select('chalet')
@@ -89,6 +91,7 @@ export class ChaletEditComponent implements OnInit {
       civico: ''
     }
     let numero_ombrelloni = 0;
+    let numero_tavoli = 0;
 
     if (this.editMode) {
       this.store.select('chalet')
@@ -122,6 +125,9 @@ export class ChaletEditComponent implements OnInit {
     });
     if (!this.editMode) {
       this.chaletForm.addControl('numero_ombrelloni', new FormControl(
+        '', [Validators.compose([Validators.required, Validators.min(1), Validators.max(400), Validators.pattern('^[1-9][0-9]*$')])]
+      ))
+      this.chaletForm.addControl('numero_tavoli', new FormControl(
         '', [Validators.compose([Validators.required, Validators.min(1), Validators.max(400), Validators.pattern('^[1-9][0-9]*$')])]
       ))
     }

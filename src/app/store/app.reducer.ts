@@ -16,6 +16,9 @@ import * as clientiState from '../features/clienti/store/clienti.state';
 import * as fromTavoli from '../features/tavoli/store/tavoli.reducer';
 import * as tavoliState from '../features/tavoli/store/tavoli.state';
 
+import * as fromOmbrelloni from '../features/ombrelloni/store/ombrelloni.reducer';
+import * as ombrelloniState from '../features/ombrelloni/store/ombrelloni.state';
+
 import * as fromOrdini from '../features/ordini/store/ordini.reducer';
 import * as ordiniState from '../features/ordini/store/ordini.state';
 
@@ -25,14 +28,19 @@ import * as categorieState from '../features/categorie/store/categorie.state';
 import * as fromProdotti from '../features/prodotti/store/prodotti.reducer';
 import * as prodottiState from '../features/prodotti/store/prodotti.state';
 
+import * as fromUtenti from '../features/utenti/store/utenti.reducer';
+import * as utentiState from '../features/utenti/store/utenti.state';
+
 export interface AppState {
   auth: authState.default;
   chalet: chaletState.default;
   clienti: clientiState.default;
   tavoli: tavoliState.default;
+  ombrelloni: ombrelloniState.default;
   ordini: ordiniState.default;
   categorie: categorieState.default;
   prodotti: prodottiState.default;
+  utenti: utentiState.default;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -40,9 +48,11 @@ export const appReducer: ActionReducerMap<AppState> = {
   chalet: fromChalet.ChaletReducer,
   clienti: fromClienti.ClientiReducer,
   tavoli: fromTavoli.TavoliReducer,
+  ombrelloni: fromOmbrelloni.OmbrelloniReducer,
   ordini: fromOrdini.OrdiniReducer,
   categorie: fromCategorie.CategorieReducer,
-  prodotti: fromProdotti.ProdottiReducer
+  prodotti: fromProdotti.ProdottiReducer,
+  utenti: fromUtenti.UtentiReducer,
 };
 
 export const getAuthState = createFeatureSelector<authState.default>('auth');

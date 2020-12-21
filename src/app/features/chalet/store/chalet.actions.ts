@@ -19,7 +19,7 @@ export const UpdateChaletFail = createAction(
 );
 export const CreateChalet = createAction(
   '[Chalet] Create_chalet',
-  props<{payload: { chalet: Chalet, numeroOmbrelloni: number }}>()
+  props<{ payload: { chalet: Chalet, numeroOmbrelloni: number, numeroTavoli: number }}>()
 );
 
 export const CreateChaletSuccess = createAction('[Chalet] Create_chalet_success');

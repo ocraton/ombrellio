@@ -48,14 +48,16 @@ export class AuthService {
             }
           )
       } else {
-
-        var re = new RegExp("^\/menu\/([a-zA-Z0-9]){20,30}$");
-        if(re.test(this.router.url)){
-          this.router.navigate([this.router.url]);
-        } else {
-          this.store.dispatch(AuthActions.Logout());
-          this.router.navigate(['/login']);
-        }
+            var re = new RegExp("^\/menu\/([a-zA-Z0-9]){20,30}$");
+            if(re.test(this.router.url)){
+              this.router.navigate([this.router.url]);
+            } else if (this.router.url === '/utenti/register'){
+              this.router.navigate(['/utenti/register']);
+            }
+            else {
+              this.store.dispatch(AuthActions.Logout());
+              this.router.navigate(['/login']);
+            }
       }
     });
   }

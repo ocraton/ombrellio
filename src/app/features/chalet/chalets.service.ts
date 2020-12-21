@@ -37,13 +37,18 @@ export class ChaletsService {
               );
     }
 
-    createChalet(chalet, numOmbrelloni) {
+    createChalet(chalet, numOmbrelloni, numeroTavoli) {
       delete chalet.id;
       return this.db.collection('chalet').add(chalet)
         .then((chaletItem) => {
 
             for(let i = 1; i<=numOmbrelloni; i++){
               this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
+                'numero': i.toString()
+              })
+            }
+            for (let i = 1; i <= numeroTavoli; i++){
+              this.db.collection(`chalet/${chaletItem.id}/tavoli`).add({
                 'numero': i.toString()
               })
             }

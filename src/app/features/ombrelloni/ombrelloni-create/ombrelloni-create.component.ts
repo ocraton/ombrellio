@@ -1,22 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as TavoliActions from '../store/tavoli.actions';
-import { Tavolo } from '../tavolo.model';
+import * as OmbrelloniActions from '../store/ombrelloni.actions';
+import { Ombrellone } from '../ombrellone.model';
 import * as fromApp from '../../../store/app.reducer';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-tavoli-edit',
-  templateUrl: './tavoli-create.component.html',
-  styleUrls: ['./tavoli-create.component.scss']
+  selector: 'app-ombrelloni-edit',
+  templateUrl: './ombrelloni-create.component.html',
+  styleUrls: ['./ombrelloni-create.component.scss']
 })
-export class TavoliCreateComponent implements OnInit {
+export class OmbrelloniCreateComponent implements OnInit {
 
-  tavoloForm: FormGroup;
-  tavolo: Tavolo;
+  ombrelloneForm: FormGroup;
+  ombrellone: Ombrellone;
 
   @ViewChild('formDirective') formDirective;
 
@@ -30,17 +30,17 @@ export class TavoliCreateComponent implements OnInit {
   }
 
   onSave() {
-    this.tavolo = this.tavoloForm.value;
-    this.store.dispatch(TavoliActions.CreateTavolo({
+    this.ombrellone = this.ombrelloneForm.value;
+    this.store.dispatch(OmbrelloniActions.CreateOmbrellone({
       payload: {
-        tavolo: this.tavolo
+        ombrellone: this.ombrellone
       }
     }));
-    this.tavoloForm.markAsUntouched();
-    this.store.select('tavoli')
-      .subscribe(tavolo => {
-        if (!(tavolo.error != null)) {
-            this.showSuccessMessage("Tavolo creato con successo")
+    this.ombrelloneForm.markAsUntouched();
+    this.store.select('ombrelloni')
+      .subscribe(ombrellone => {
+        if (!(ombrellone.error != null)) {
+            this.showSuccessMessage("Ombrellone creato con successo")
         }
       }
       ).unsubscribe()
@@ -48,7 +48,7 @@ export class TavoliCreateComponent implements OnInit {
 
   initForm() {
     let numero = '';
-    this.tavoloForm = this.fb.group({
+    this.ombrelloneForm = this.fb.group({
       'numero': [numero, Validators.compose([Validators.required])]
     });
 
@@ -57,8 +57,8 @@ export class TavoliCreateComponent implements OnInit {
   showSuccessMessage(message: string) {
 
     this.formDirective.resetForm();
-    this.tavoloForm.reset();
-    this.tavoloForm.markAsUntouched();
+    this.ombrelloneForm.reset();
+    this.ombrelloneForm.markAsUntouched();
 
     let snackBarRef = this._snackBar.open(message, 'OK', {
       duration: 10000,
@@ -69,7 +69,7 @@ export class TavoliCreateComponent implements OnInit {
       duration: 5000,
       horizontalPosition: 'end'
     });
-    this.router.navigate(['/user/tavoli']);
+    this.router.navigate(['/user/ombrelloni']);
 
 
   }

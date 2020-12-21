@@ -6,6 +6,7 @@ import * as ClientiActions from '../store/clienti.actions';
 import { Cliente } from '../cliente.model';
 import { Observable } from 'rxjs';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClientiListComponent } from '../clienti-list/clienti-list.component';
 
 @Component({
@@ -21,13 +22,13 @@ export class ClientiDeleteComponent implements OnInit {
   @ViewChild('formDirective') formDirective;
 
   constructor(private store: Store<fromApp.AppState>,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<ClientiListComponent>,
     @Inject(MAT_DIALOG_DATA) data: Cliente) {
     this.cliente = data;
   }
 
   ngOnInit() {
-    // this.store.dispatch(new ClienteActions.FetchClientiByCategoria(this.clienti.categoria_uid))
     this.clientiState = this.store.select('clienti')
     this.clientiState.subscribe(res => this.clienti = res.clienti)
   }
@@ -41,6 +42,21 @@ export class ClientiDeleteComponent implements OnInit {
     }
     )
     this.dialogRef.close();
+    this.showSuccessMessage(`Cliente ${this.cliente.nome} ${this.cliente.cognome} cancellato!`);
+  }
+
+  showSuccessMessage(message: string) {
+
+    let snackBarRef = this._snackBar.open(message, 'OK', {
+      duration: 10000,
+      horizontalPosition: 'end'
+    });
+
+    snackBarRef = this._snackBar.open(message, 'OK', {
+      duration: 5000,
+      horizontalPosition: 'end'
+    });
+
   }
 
   close(): void {

@@ -1,0 +1,75 @@
+<div id="contentDemo">
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>
+                <img mat-card-image
+                src="https://www.ombrel.io/wp-content/uploads/2020/06/splashHoriz.png"
+                style="max-width: 120px;margin: 0 -16px 0px -16px;">
+               <p class="titelpayoff">
+                Registrati per una demo <b>GRAUITA</b> di 3 mesi!
+                Crea il tuo chalet, crea tavoli, ombrelloni
+                e clienti e inizia a ricevere gli ordini!
+               </p>
+        </mat-card-title>
+      </mat-card-header>
+
+
+  <form [formGroup]="utenteForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="example-form">
+
+         <mat-card-content>
+
+
+  <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <input #termcat matInput formControlName="nome" class="editNomeCat" placeholder="Nome" appCapitalizeCase>
+    <mat-error *ngIf="!utenteForm.get('nome').valid">
+      Inserire Nome / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <input #termcat matInput formControlName="cognome" class="editNomeCat" placeholder="Cognome" appCapitalizeCase>
+    <mat-error *ngIf="!utenteForm.get('cognome').valid">
+      Inserire Cognome  / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <input #termcat matInput formControlName="telefono" class="editNomeCat" placeholder="Telefono">
+    <mat-error *ngIf="!utenteForm.get('telefono').valid">
+      Inserire solo cifre per il telefono
+    </mat-error>
+  </mat-form-field>
+    <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <input #termcat matInput formControlName="email" class="editNomeCat" placeholder="Email">
+    <mat-error *ngIf="!utenteForm.get('email').valid">
+      Inserire email nel formato corretto
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <input #termcat matInput formControlName="password" class="editNomeCat" placeholder="password">
+    <mat-error *ngIf="!utenteForm.get('password').valid">
+      Inserire password
+    </mat-error>
+  </mat-form-field>
+<br><br>
+<div fxLayout="row" fxLayoutAlign="center center">
+<button class="mat-raised-button mt20 w-100"
+  (click)="onSave()"
+  mat-raised-button color="primary">PROVA OMBREL.IO GRATIS PER 3 MESI
+  </button>
+</div>
+
+
+    </mat-card-content>
+
+
+      </form>
+
+      <p style="text-align: center;font-size: 0.9rem;">
+        <br>
+        Se hai bisogno di aiuto o per qualsiasi altro dubbio scrivici su <b>info@ombrel.io</b>
+      </p>
+    </mat-card>
+  </div>
+</div>
