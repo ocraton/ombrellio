@@ -9,6 +9,7 @@ import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatTabsModule} from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -54,6 +55,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSelectModule,
     MatSnackBarModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
@@ -84,6 +86,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSelectModule,
     MatSnackBarModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
@@ -94,6 +97,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule
   ],
   entryComponents: [],
-  providers: [MatPaginatorIntl, MatDatepickerModule]
+  providers: [
+    MatPaginatorIntl, MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'it-IT' },
+  ]
 })
 export class MaterialDesignModule { }

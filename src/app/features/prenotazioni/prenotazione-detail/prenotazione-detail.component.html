@@ -1,0 +1,13 @@
+<h4>Prenotazioni per l'ombrellone: {{ data[0].numero_ombrellone }}</h4>
+<mat-list role="list">
+  <mat-list-item *ngFor="let element of data"
+  role="listitem">
+  <mat-icon mat-list-icon color="primary">beach_access</mat-icon>
+  <div mat-line class="titoloPrenotazione">{{ element.cognome_cliente }} {{ element.nome_cliente }}</div>
+  <div mat-line class="datePrenotazione">Dal <b>{{ element.data_inizio['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b>
+    al <b>{{ element.data_fine['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b>
+    </div>
+</mat-list-item>
+</mat-list>
+<br>
+<button mat-raised-button color="accent" (click)="closePrenDetail()">CHIUDI</button>

@@ -1,0 +1,18 @@
+<div class="cardListItem">
+  <mat-card class="example-card" [ngClass]="{'ombrelloneLibero' : prenotazione.length == 0,
+                                   'ombrelloneOccupato': prenotazione.length > 0}">
+    <mat-card-content>
+      <p style="margin-bottom: 0px;font-size: 1.5rem;">
+        <mat-icon class="icon mr15" style="margin-right: 10px;font-size: 1.6rem;">beach_access</mat-icon>
+        {{ ombrellone.numero }}
+      </p>
+      <br>
+      <button *ngIf="prenotazione.length > 0; else prenotabtn"
+        mat-raised-button (click)="openDetailDialog()">Dettagli</button>
+      <ng-template #prenotabtn>
+        <button mat-raised-button color="accent" (click)="openPrenotaDialog()">Prenota</button>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>
+

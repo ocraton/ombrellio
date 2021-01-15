@@ -64,6 +64,11 @@
         </mat-sidenav-container>
         <mat-divider></mat-divider>
         <mat-sidenav-container *ngIf="chaletUID != ''">
+            <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni">
+              <mat-icon class="icon mr15" color="primary">book_online</mat-icon> Prenotazioni</a>
+        </mat-sidenav-container>
+        <mat-divider></mat-divider>
+        <mat-sidenav-container *ngIf="chaletUID != ''">
             <a mat-list-item routerLinkActive="active" routerLink="/user/tavoli">
               <mat-icon class="icon mr15" color="primary">deck</mat-icon> Tavoli</a>
         </mat-sidenav-container>

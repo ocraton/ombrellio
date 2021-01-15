@@ -41,6 +41,10 @@ const routes: Routes = [
         path: 'ombrelloni',
         loadChildren: () => import('../features/ombrelloni/ombrelloni.module').then(m => m.OmbrelloniModule)
       },
+      {
+        path: 'prenotazioni',
+        loadChildren: () => import('../features/prenotazioni/prenotazioni.module').then(m => m.PrenotazioniModule)
+      },
     ]
   },
   {

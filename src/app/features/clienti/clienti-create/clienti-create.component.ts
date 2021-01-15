@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-clienti-edit',
+  selector: 'app-clienti-create',
   templateUrl: './clienti-create.component.html',
   styleUrls: ['./clienti-create.component.scss']
 })

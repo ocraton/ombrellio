@@ -22,6 +22,9 @@ import * as ombrelloniState from '../features/ombrelloni/store/ombrelloni.state'
 import * as fromOrdini from '../features/ordini/store/ordini.reducer';
 import * as ordiniState from '../features/ordini/store/ordini.state';
 
+import * as fromPrenotazioni from '../features/prenotazioni/store/prenotazioni.reducer';
+import * as prenotazioniState from '../features/prenotazioni/store/prenotazioni.state';
+
 import * as fromCategorie from '../features/categorie/store/categorie.reducer';
 import * as categorieState from '../features/categorie/store/categorie.state';
 
@@ -38,6 +41,7 @@ export interface AppState {
   tavoli: tavoliState.default;
   ombrelloni: ombrelloniState.default;
   ordini: ordiniState.default;
+  prenotazioni: prenotazioniState.default;
   categorie: categorieState.default;
   prodotti: prodottiState.default;
   utenti: utentiState.default;
@@ -50,6 +54,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   tavoli: fromTavoli.TavoliReducer,
   ombrelloni: fromOmbrelloni.OmbrelloniReducer,
   ordini: fromOrdini.OrdiniReducer,
+  prenotazioni: fromPrenotazioni.PrenotazioniReducer,
   categorie: fromCategorie.CategorieReducer,
   prodotti: fromProdotti.ProdottiReducer,
   utenti: fromUtenti.UtentiReducer,

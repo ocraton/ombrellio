@@ -1,0 +1,28 @@
+<h1 id="titleCreatePrenotazioniModal">
+  Prenota l'ombrellone <strong>{{ data.ombrellone.numero }}</strong>
+</h1>
+
+<h2 class="subTitleCreatePrenotazioniModal">
+  <b>Dal:</b> {{data.rangeDate.dataInizio | date:'dd/MM/yyyy'}} <br>
+  <b>Al:</b> &nbsp; {{data.rangeDate.dataFine | date:'dd/MM/yyyy'}}</h2>
+
+<mat-divider></mat-divider>
+
+<mat-tab-group>
+  <mat-tab label="SELEZIONA CLIENTE">
+    <br><br>
+    Seleziona
+  </mat-tab>
+  <mat-tab label="CREA NUOVO CLIENTE">
+    <br><br>
+    Crea Nuovo
+  </mat-tab>
+</mat-tab-group>
+
+<br><br><br>
+<button mat-raised-button color="accent" style="float: right;" (click)="closePrenCreate()">CHIUDI</button>
+
+<button mat-raised-button color="primary"
+style="float: right;margin-right: 40px;"
+(click)="prenotaOmbrellone()">PRENOTA</button>
+

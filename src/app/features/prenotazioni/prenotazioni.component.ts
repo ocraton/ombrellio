@@ -1,0 +1,62 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import * as prenotazioniState from './store/prenotazioni.state';
+import * as fromApp from '../../store/app.reducer';
+import * as PrenotazioniActions from './store/prenotazioni.actions';
+import { SubscriptionService } from '../../core/services/subscription.service';
+import { Prenotazione } from './prenotazione.model';
+import { FormControl, FormGroup } from '@angular/forms';
+
+
+@Component({
+  selector: 'app-prenotazione',
+  templateUrl: './prenotazioni.component.html',
+  styleUrls: ['./prenotazioni.component.scss']
+})
+export class PrenotazioniComponent implements OnInit, OnDestroy {
+
+  prenotazioneState: Observable<prenotazioniState.default>;
+  prenArray: Prenotazione[];
+  range = new FormGroup({
+    dateStart: new FormControl(new Date()),
+    dateEnd: new FormControl(new Date())
+  });
+
+  constructor(private store: Store<fromApp.AppState>,
+    private subService: SubscriptionService) { }
+
+  ngOnInit() {
+    this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
+      startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
+    }));
+    this.store.dispatch(PrenotazioniActions.FetchPrenotazioniOmbrelloni());
+    this.prenotazioneState = this.store.select('prenotazioni');
+    this.prenotazioneState.subscribe(pren => {
+      this.prenArray = pren.prenotazione.filter(res =>
+        res.data_fine['seconds'] * 1000 >= this.range.get('dateStart').value.getTime()
+      );
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.subService.unsubscribeComponent$.next();
+  }
+
+  checkPrenotazione(ombrelloneUid: string) {
+    let prenOmbrellone = this.prenArray.filter(obj => {
+      return obj.uid_ombrellone == ombrelloneUid
+    })
+    return prenOmbrellone
+  }
+
+  findPrenotazione() {
+    this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
+      startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
+    }));
+  }
+
+
+}
+
