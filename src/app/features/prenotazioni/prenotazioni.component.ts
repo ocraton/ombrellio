@@ -34,9 +34,7 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioniOmbrelloni());
     this.prenotazioneState = this.store.select('prenotazioni');
     this.prenotazioneState.subscribe(pren => {
-      this.prenArray = pren.prenotazione.filter(res =>
-        res.data_fine['seconds'] * 1000 >= this.range.get('dateStart').value.getTime()
-      );
+      this.prenArray = pren.prenotazione
     })
   }
 

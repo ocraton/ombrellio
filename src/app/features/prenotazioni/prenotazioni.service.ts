@@ -49,7 +49,9 @@ export class PrenotazioniService {
           const data = a.payload.doc.data() as Prenotazione;
           const id = a.payload.doc.id;
           return { id, ...data };
-        })))
+        }).filter(a =>
+          a.data_fine['seconds'] * 1000 >= startDate.getTime()
+        )))
       );
 
   }
