@@ -1,15 +1,16 @@
 <div id="contentDemo">
-<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="box">
+  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box" *ngIf="!registered; else thankyoumessage">
       <mat-card-header>
         <mat-card-title>
                 <img mat-card-image
                 src="https://www.ombrel.io/wp-content/uploads/2020/06/splashHoriz.png"
                 style="max-width: 120px;margin: 0 -16px 0px -16px;">
                <p class="titelpayoff">
-                Registrati per una demo <b>GRAUITA</b> di 3 mesi!
-                Crea il tuo chalet, crea tavoli, ombrelloni
-                e clienti e inizia a ricevere gli ordini!
+                Ombrel.io è un progetto appena nato e vogliamo capire se è adatto a te.
+                <br>
+                Per questo te lo offriamo <b>gratuitamente</b>.
+                Registrati e inizia subito!
                </p>
         </mat-card-title>
       </mat-card-header>
@@ -23,46 +24,62 @@
 
 
   <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
-    <input #termcat matInput formControlName="nome" class="editNomeCat" placeholder="Nome" appCapitalizeCase>
-    <mat-error *ngIf="!utenteForm.get('nome').valid">
+    <input matInput formControlName="nome" class="editNomeCat" placeholder="Nome" appCapitalizeCase>
+    <mat-error *ngIf="!utenteForm.get('nome').valid && utenteForm.get('nome').touched">
       Inserire Nome / minimo tre lettere
     </mat-error>
   </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
-    <input #termcat matInput formControlName="cognome" class="editNomeCat" placeholder="Cognome" appCapitalizeCase>
-    <mat-error *ngIf="!utenteForm.get('cognome').valid">
+    <input matInput formControlName="cognome" class="editNomeCat" placeholder="Cognome" appCapitalizeCase>
+    <mat-error *ngIf="!utenteForm.get('cognome').valid && utenteForm.get('cognome').touched">
       Inserire Cognome  / minimo tre lettere
     </mat-error>
   </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
-    <input #termcat matInput formControlName="telefono" class="editNomeCat" placeholder="Telefono">
-    <mat-error *ngIf="!utenteForm.get('telefono').valid">
+    <input matInput formControlName="telefono" class="editNomeCat" placeholder="Telefono">
+    <mat-error *ngIf="!utenteForm.get('telefono').valid && utenteForm.get('telefono').touched">
       Inserire solo cifre per il telefono
     </mat-error>
   </mat-form-field>
     <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
-    <input #termcat matInput formControlName="email" class="editNomeCat" placeholder="Email">
-    <mat-error *ngIf="!utenteForm.get('email').valid">
+    <input matInput formControlName="email" class="editNomeCat" placeholder="Email">
+    <mat-error *ngIf="!utenteForm.get('email').valid && utenteForm.get('email').touched">
       Inserire email nel formato corretto
     </mat-error>
   </mat-form-field>
-  <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
-    <input #termcat matInput formControlName="password" class="editNomeCat" placeholder="password">
-    <mat-error *ngIf="!utenteForm.get('password').valid">
-      Inserire password
+    <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" class="editNomeCat" placeholder="Password"
+    [type]="hidep ? 'password' : 'text'">
+        <mat-error *ngIf="!utenteForm.get('password').valid && utenteForm.get('password').touched">
+      Inserire almeno 8 caratteri usando numeri e lettere
     </mat-error>
+    <button mat-icon-button matSuffix (click)="hidep = !hidep" type="button"
+    [attr.aria-label]="'Nascondi Password'" [attr.aria-pressed]="hidep">
+    <mat-icon>{{hidep ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+      <mat-form-field style="width:100%; font-size:1rem" class="example-full-width">
+    <mat-label>Conferma Password</mat-label>
+    <input matInput formControlName="password_confirm" class="editNomeCat" placeholder="Conferma Password"
+    [type]="hidecp ? 'password' : 'text'">
+        <mat-error *ngIf="!utenteForm.get('password_confirm').valid && utenteForm.get('password_confirm').touched">
+      Le password non coincidono
+    </mat-error>
+    <button mat-icon-button matSuffix (click)="hidecp = !hidecp" type="button"
+    [attr.aria-label]="'Nascondi conferma Password'" [attr.aria-pressed]="hidecp">
+    <mat-icon>{{hidecp ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
   </mat-form-field>
 <br><br>
 <div fxLayout="row" fxLayoutAlign="center center">
-<!-- <button class="mat-raised-button mt20 w-100"
-  (click)="onSave()"
-  mat-raised-button color="primary">PROVA OMBREL.IO GRATIS PER 3 MESI
-  </button> -->
+<button class="mat-raised-button mt20 w-100"
+  type="submit" [disabled]="!utenteForm.valid"
+  mat-raised-button color="primary">PROVA OMBREL.IO GRATIS
+  </button>
 </div>
 
-
     </mat-card-content>
-
 
       </form>
 
@@ -71,5 +88,21 @@
         Se hai bisogno di aiuto o per qualsiasi altro dubbio scrivici su <b>info@ombrel.io</b>
       </p>
     </mat-card>
+    <ng-template #thankyoumessage>
+        <mat-card class="box">
+          <mat-card-header>
+              <mat-card-title>
+                      <img mat-card-image
+                      src="https://www.ombrel.io/wp-content/uploads/2020/06/splashHoriz.png"
+                      style="max-width: 120px;margin: 0 -16px 0px -16px;">
+                    <p class="titelthankyou">
+                      Grazie {{ utente.nome }} per esserti registrato!!
+                      <br><br>
+                      Controlla la tua email per confermare la tua registrazione!
+                    </p>
+              </mat-card-title>
+            </mat-card-header>
+        </mat-card>
+    </ng-template>
   </div>
 </div>

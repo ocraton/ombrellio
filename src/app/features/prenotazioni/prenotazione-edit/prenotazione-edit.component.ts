@@ -18,7 +18,7 @@ import { PrenotazioneCreateComponent } from '../prenotazione-create/prenotazione
 export class PrenotazioneEditComponent implements OnInit {
 
   @Input() ombrellone: Ombrellone;
-  @Input() prenotazione: Prenotazione[];
+  @Input() prenArray: Prenotazione[];
   @Input() rangeDate: Date[];
 
   constructor(public dialog: MatDialog) { }
@@ -27,8 +27,8 @@ export class PrenotazioneEditComponent implements OnInit {
 
   openDetailDialog(): void {
     this.dialog.open(PrenotazioneDetailComponent, {
-      width: '500px',
-      data: this.prenotazione
+      width: '700px',
+      data: { prenotazioni: this.prenArray, ombrellone: this.ombrellone}
     });
   }
 

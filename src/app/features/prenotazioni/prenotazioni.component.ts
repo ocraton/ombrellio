@@ -7,7 +7,8 @@ import * as fromApp from '../../store/app.reducer';
 import * as PrenotazioniActions from './store/prenotazioni.actions';
 import { SubscriptionService } from '../../core/services/subscription.service';
 import { Prenotazione } from './prenotazione.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Cliente } from '../clienti/cliente.model';
 
 
 @Component({
@@ -20,8 +21,8 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
   prenotazioneState: Observable<prenotazioniState.default>;
   prenArray: Prenotazione[];
   range = new FormGroup({
-    dateStart: new FormControl(new Date()),
-    dateEnd: new FormControl(new Date())
+    dateStart: new FormControl(new Date(), [Validators.required]),
+    dateEnd: new FormControl(new Date(), [Validators.required])
   });
 
   constructor(private store: Store<fromApp.AppState>,
@@ -38,10 +39,6 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    this.subService.unsubscribeComponent$.next();
-  }
-
   checkPrenotazione(ombrelloneUid: string) {
     let prenOmbrellone = this.prenArray.filter(obj => {
       return obj.uid_ombrellone == ombrelloneUid
@@ -53,6 +50,10 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
     }));
+  }
+
+  ngOnDestroy(): void {
+    this.subService.unsubscribeComponent$.next();
   }
 
 

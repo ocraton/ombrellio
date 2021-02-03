@@ -7,5 +7,16 @@
   color: #673BB6;
   line-height: 36px;
   font-size: 1.3rem;
-  margin-top: 0px;
+}
+
+.successCard{
+  border: 1px solid #11b711;
+  color: #11b711;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.successCard h1 {
+  margin: 0px;
 }

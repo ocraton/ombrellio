@@ -2,6 +2,7 @@
   <mat-icon class="icon mr15 valmiddle">book_online</mat-icon>
   Prenotazioni
 </h2>
+<h3 style="font-weight:300;font-style: italic;">Seleziona le date per sapere se gli ombrelloni sono liberi in quell'intervallo </h3>
 <div fxLayout="row" style="margin-bottom: 20px; margin-top: 20px;">
   <br>
   <mat-form-field appearance="fill" style="width:300px">
@@ -35,7 +36,7 @@
         fxFlex.lt-sm="100%"
         *ngFor="let prenotazioneel of (prenotazioneState | async).ombrellone"
         [ombrellone]="prenotazioneel"
-        [prenotazione]="checkPrenotazione(prenotazioneel.id)"
+        [prenArray]="checkPrenotazione(prenotazioneel.id)"
         [rangeDate]="{dataInizio:range.value['dateStart'],dataFine:range.value['dateEnd']}"></app-prenotazione-edit>
 
   </div>

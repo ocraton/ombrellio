@@ -15,6 +15,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { PrenotazioniService } from './prenotazioni.service';
 import { PrenotazioneCreateComponent } from './prenotazione-create/prenotazione-create.component';
+import { PrenotazioneClienteCreateComponent } from './prenotazione-cliente-create/prenotazione-cliente-create.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PrenotazioneCreateComponent } from './prenotazione-create/prenotazione-
     PrenotazioniComponent,
     PrenotazioneEditComponent,
     PrenotazioneDetailComponent,
-    PrenotazioneCreateComponent
+    PrenotazioneCreateComponent,
+    PrenotazioneClienteCreateComponent
   ],
   imports: [
     CommonModule,

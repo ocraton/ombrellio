@@ -1,13 +1,22 @@
-<h4>Prenotazioni per l'ombrellone: {{ data[0].numero_ombrellone }}</h4>
-<mat-list role="list">
-  <mat-list-item *ngFor="let element of data"
+<h3>Prenotazioni per l'ombrellone: {{ data.ombrellone.numero }}</h3>
+<mat-list role="list" *ngIf="data.prenotazioni.length > 0; else noPrenotazioni">
+  <mat-list-item *ngFor="let element of data.prenotazioni;let i = index"
   role="listitem">
   <mat-icon mat-list-icon color="primary">beach_access</mat-icon>
   <div mat-line class="titoloPrenotazione">{{ element.cognome_cliente }} {{ element.nome_cliente }}</div>
   <div mat-line class="datePrenotazione">Dal <b>{{ element.data_inizio['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b>
     al <b>{{ element.data_fine['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b>
     </div>
+    <button mat-raised-button color="warn" (click)="cancellaPrenotazione(element.id, i)"
+    style="margin-left: 20px">
+    Cancella Prenotazione
+  </button>
 </mat-list-item>
 </mat-list>
+<ng-template #noPrenotazioni>
+  <mat-card class="noPrenotazioni">
+    <h3>Non ci sono prenotazioni</h3>
+  </mat-card>
+</ng-template>
 <br>
 <button mat-raised-button color="accent" (click)="closePrenDetail()">CHIUDI</button>

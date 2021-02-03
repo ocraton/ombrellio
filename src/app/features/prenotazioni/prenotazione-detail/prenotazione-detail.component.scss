@@ -6,3 +6,11 @@
 .titoloPrenotazione{
   line-height: 28px;
 }
+
+.noPrenotazioni{
+  border: 1px solid #26c6da;
+  color: #26c6da;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+}

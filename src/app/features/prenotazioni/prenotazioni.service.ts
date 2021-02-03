@@ -7,6 +7,7 @@ import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { Ombrellone } from '../ombrelloni/ombrellone.model';
 import { DatesService } from 'src/app/shared/services/dates.service';
+import { Cliente } from '../clienti/cliente.model';
 
 
 @Injectable()
@@ -23,6 +24,9 @@ export class PrenotazioniService {
   }
 
   getAll(startDate: Date, endDate: Date): Observable<Prenotazione[]> {
+
+      startDate = this.dateservice.dateStartBuildGMT1(startDate)
+      endDate = this.dateservice.dateEndBuildGMT1(endDate)
 
       if (startDate.getUTCFullYear() == endDate.getUTCFullYear()) {
 
@@ -71,6 +75,47 @@ export class PrenotazioniService {
       })))
     );
 
+  }
+
+  getClienti(): Observable<Cliente[]> {
+
+    let clienti = this.db.collection(`chalet/${this.chaletUID}/clienti`, ref =>
+      ref.orderBy('cognome')
+      .limit(1000)
+    );
+
+    return clienti.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Cliente;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+
+  }
+
+  createCliente(cliente: Cliente) {
+    return this.db.collection(`chalet/${this.chaletUID}/clienti`).add(cliente)
+  }
+
+
+  createPrenotazione(ombrellone: Ombrellone, cliente: Cliente, rangeDate: any){
+    return this.db.collection(`chalet/${this.chaletUID}/prenotazioni`).add({
+      anno_fine: rangeDate.dataFine.getFullYear(),
+      anno_inizio: rangeDate.dataInizio.getFullYear(),
+      cognome_cliente: cliente.cognome,
+      nome_cliente: cliente.nome,
+      data_fine: rangeDate.dataFine,
+      data_inizio: rangeDate.dataInizio,
+      data_prenotazione: new Date,
+      numero_ombrellone: ombrellone.numero,
+      uid_ombrellone: ombrellone.id,
+      uid_cliente: cliente.id,
+    })
+  }
+
+  deletePrenotazione(uid_prenotazione) {
+    return this.db.doc(`chalet/${this.chaletUID}/prenotazioni/${uid_prenotazione}`).delete()
   }
 
 

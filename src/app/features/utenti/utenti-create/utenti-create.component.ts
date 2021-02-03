@@ -19,34 +19,34 @@ export class UtentiCreateComponent implements OnInit {
 
   utenteForm: FormGroup;
   utente: Utente;
+  hidep = true;
+  hidecp = true;
+  registered = false;
 
   @ViewChild('formDirective') formDirective;
 
   constructor(private store: Store<fromApp.AppState>,
-              private fb: FormBuilder,
-              private _snackBar: MatSnackBar,
-              private router: Router) { }
+              private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initForm();
   }
 
   onSave() {
+    delete this.utenteForm.value['password_confirm'];
     this.utente = this.utenteForm.value;
-    this.utente.chalet_uid = "";
+    this.utente.chalet_uid = '';
+    this.utente.userType = 'demo';
+    this.utente.data_rinnovo = new Date();
+    this.utente.data_scadenza = new Date(2021, 11, 31); //scadenza impostata al 31 dicembre 2021
     if (this.utenteForm.valid){
-      this.store.dispatch(UtentiActions.CreateUtente({
-        payload: {
-          utente: this.utente
-        }
-      }));
+      this.store.dispatch(UtentiActions.CreateUtente({ payload: { utente: this.utente } }));
       this.store.select('utenti')
         .subscribe(utente => {
           if (!(utente.error != null)) {
-            this.showSuccessMessage("Utente creato con successo")
+            this.showSuccessMessage()
           }
-        }
-        ).unsubscribe()
+        }).unsubscribe()
     }
   }
 
@@ -55,35 +55,43 @@ export class UtentiCreateComponent implements OnInit {
     let cognome = '';
     let email = '';
     let password = '';
+    let password_confirm = '';
     let telefono = '';
     this.utenteForm = this.fb.group({
       'nome': [nome, Validators.compose([Validators.required, Validators.minLength(3)])],
       'cognome': [cognome, Validators.compose([Validators.required, Validators.minLength(3)])],
       'email': [email, Validators.compose([Validators.required, Validators.email])],
-      'password': [password, Validators.compose([Validators.required, Validators.minLength(6)])],
+      'password': [password, Validators.compose([Validators.required, Validators.minLength(8)])],
+      'password_confirm': [password_confirm, Validators.compose([Validators.required, Validators.minLength(8)])],
       'telefono': [telefono, Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
+    }, {
+        validator: this.confirmPasswordMatch('password', 'password_confirm')
     });
 
   }
 
-  showSuccessMessage(message: string) {
+  showSuccessMessage() {
 
     this.formDirective.resetForm();
     this.utenteForm.reset();
 
-    let snackBarRef = this._snackBar.open(message, 'OK', {
-      duration: 10000,
-      horizontalPosition: 'end'
-    });
-
-    snackBarRef = this._snackBar.open(message, 'OK', {
-      duration: 5000,
-      horizontalPosition: 'end'
-    });
-    // this.router.navigate(['/user/utenti']);
-
+    this.registered = true;
 
   }
 
+  confirmPasswordMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      // console.log(controlName, matchingControlName)
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ confirmPasswordMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    }
+  }
 
 }

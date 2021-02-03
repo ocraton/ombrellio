@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Cliente } from '../../clienti/cliente.model';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { Prenotazione } from '../prenotazione.model';
 
@@ -60,5 +61,55 @@ export const FilterPrenotazioni = createAction(
   props<{ numOmbrellone: string }>()
 );
 
+export const FetchPrenotazioniClienti = createAction(
+  '[Prenotazioni] Fetch_Prenotazioni_Clienti'
+);
 
+export const SetPrenotazioniClienti = createAction(
+  '[Prenotazioni] Set_Prenotazioni_Clienti',
+  props<{ payload: Cliente[] }>()
+);
+
+export const CreatePrenotazioniCliente = createAction(
+  '[Prenotazioni] Create_Prenotazioni_Cliente',
+  props<{ payload: { cliente: Cliente } }>()
+);
+
+export const CreatePrenotazioniClienteSuccess = createAction(
+  '[Prenotazioni] Create_Prenotazioni_Cliente_Success'
+);
+
+export const CreatePrenotazioniClienteFail = createAction(
+  '[Prenotazioni] Create_Prenotazioni_Cliente_Fail',
+  props<{ payload: string }>()
+);
+
+export const CreatePrenotazione = createAction(
+  '[Prenotazioni] Create_Prenotazione',
+  props<{ ombrellone: Ombrellone, cliente: Cliente, rangeDate: any }>()
+);
+
+export const CreatePrenotazioneSuccess = createAction(
+  '[Prenotazioni] Create_Prenotazione_Success'
+);
+
+export const CreatePrenotazioneFail = createAction(
+  '[Prenotazioni] Create_Prenotazione_Fail',
+  props<{ payload: string }>()
+);
+
+export const DeletePrenotazione = createAction(
+  '[Prenotazioni] Delete_Prenotazione',
+  props<{ uid_prenotazione: string }>()
+);
+
+export const DeletePrenotazioneSuccess = createAction(
+  '[Prenotazioni] Delete_Prenotazione_Success',
+  props<{ payload: string }>()
+);
+
+export const DeletePrenotazioneFail = createAction(
+  '[Prenotazioni] Delete_Prenotazione_Fail',
+  props<{ payload: string }>()
+);
 

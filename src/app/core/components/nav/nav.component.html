@@ -53,6 +53,11 @@
             </div>
             <mat-divider></mat-divider>
         </mat-sidenav-container>
+        <mat-sidenav-container *ngIf="chaletUID != ''">
+            <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni">
+            <mat-icon class="icon mr15" color="primary">book_online</mat-icon> Prenotazioni</a>
+        </mat-sidenav-container>
+        <mat-divider></mat-divider>
         <mat-sidenav-container>
             <a mat-list-item routerLinkActive="active" routerLink="/user/chalets">
               <mat-icon class="icon mr15" color="primary">storefront</mat-icon> Chalet</a>
@@ -61,11 +66,6 @@
         <mat-sidenav-container *ngIf="chaletUID != ''">
             <a mat-list-item routerLinkActive="active" routerLink="/user/ombrelloni">
               <mat-icon class="icon mr15" color="primary">beach_access</mat-icon> Ombrelloni</a>
-        </mat-sidenav-container>
-        <mat-divider></mat-divider>
-        <mat-sidenav-container *ngIf="chaletUID != ''">
-            <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni">
-              <mat-icon class="icon mr15" color="primary">book_online</mat-icon> Prenotazioni</a>
         </mat-sidenav-container>
         <mat-divider></mat-divider>
         <mat-sidenav-container *ngIf="chaletUID != ''">

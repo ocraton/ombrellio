@@ -1,4 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
+import { Prenotazione } from '../prenotazione.model';
 import * as PrenotazioniActions from './prenotazioni.actions';
 
 import PrenotazioniState, { initializeState } from './prenotazioni.state';
@@ -77,7 +78,78 @@ const reducer = createReducer(
         return item.numero_ombrellone == numOmbrellone
       }),
       loading: false,
-  }))
+  })),
+
+  on(PrenotazioniActions.FetchPrenotazioniClienti, (state: PrenotazioniState) => ({
+    ...state,
+    loadingClienti: true
+  })),
+
+  on(PrenotazioniActions.SetPrenotazioniClienti, (state: PrenotazioniState, { payload }) => ({
+    ...state,
+    clienti: payload,
+    loadingClienti: false
+  })),
+
+  on(PrenotazioniActions.CreatePrenotazione, (state: PrenotazioniState) => ({
+    ...state,
+    loading: false
+  })),
+
+  on(PrenotazioniActions.CreatePrenotazioneSuccess, (state: PrenotazioniState) => {
+    return {
+      ...state,
+      loading: false,
+      error: null
+    };
+  }),
+
+  on(PrenotazioniActions.CreatePrenotazioneFail, (state: PrenotazioniState, { payload }) => {
+    return {
+      ...state,
+      loading: false,
+      error: payload
+    };
+  }),
+
+  on(PrenotazioniActions.CreatePrenotazioniCliente, (state: PrenotazioniState) => ({
+    ...state,
+    loading: false,
+    loadingClienti: false
+  })),
+
+  on(PrenotazioniActions.CreatePrenotazioniClienteSuccess, (state: PrenotazioniState) => {
+    return {
+      ...state,
+      loading: false,
+      error: null
+    };
+  }),
+
+  on(PrenotazioniActions.CreatePrenotazioniClienteFail, (state: PrenotazioniState, { payload }) => {
+    return {
+      ...state,
+      loading: false,
+      error: payload
+    };
+  }),
+
+  on(PrenotazioniActions.DeletePrenotazione, (state: PrenotazioniState) => ({
+    ...state,
+    deleteLoading: true
+  })),
+
+  on(PrenotazioniActions.DeletePrenotazioneSuccess, (state: PrenotazioniState, { payload }) => ({
+    ...state,
+    deleteLoading: false,
+    error: null,
+  })),
+
+  on(PrenotazioniActions.DeletePrenotazioneFail, (state: PrenotazioniState, { payload }) => ({
+    ...state,
+    deleteLoading: false,
+    error: payload
+  })),
 
 )
 
