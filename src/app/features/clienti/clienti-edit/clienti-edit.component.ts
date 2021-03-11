@@ -45,15 +45,11 @@ export class ClientiEditComponent implements OnInit {
   }
 
   initForm() {
-    let nome = this.cliente.nome;
-    let cognome = this.cliente.cognome;
-    let email = this.cliente.email;
-    let telefono = this.cliente.telefono;
     this.clienteForm = this.fb.group({
-      'nome': [nome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'cognome': [cognome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'email': [email, Validators.compose([Validators.required, Validators.email])],
-      'telefono': [telefono, Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
+      'nome': [this.cliente.nome, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'cognome': [this.cliente.cognome, Validators.compose([Validators.required, Validators.minLength(3)])],
+      'email': [this.cliente.email, Validators.compose([Validators.required, Validators.email])],
+      'telefono': [this.cliente.telefono, Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
     });
 
   }

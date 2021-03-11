@@ -1,3 +1,4 @@
+import { FilterTavoliPipe } from './pipe/filter-tavoli.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule } from '../../shared/material-design.module';
 import { TavoliRoutingModule } from './tavoli-routing.module';
@@ -22,7 +23,8 @@ import { TavoliDeleteComponent } from './tavoli-delete/tavoli-delete.component';
     TavoliListComponent,
     TavoliEditComponent,
     TavoliDeleteComponent,
-    TavoliCreateComponent
+    TavoliCreateComponent,
+    FilterTavoliPipe
   ],
   imports: [
     CommonModule,

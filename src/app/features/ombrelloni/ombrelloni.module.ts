@@ -15,6 +15,7 @@ import { OmbrelloniReducer } from './store/ombrelloni.reducer';
 import { StoreModule } from '@ngrx/store';
 import { OmbrelloniService } from './ombrelloni.service';
 import { OmbrelloniDeleteComponent } from './ombrelloni-delete/ombrelloni-delete.component';
+import { FilterOmbrelloniPipe } from './pipe/filter-ombrelloni.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OmbrelloniDeleteComponent } from './ombrelloni-delete/ombrelloni-delete
     OmbrelloniListComponent,
     OmbrelloniEditComponent,
     OmbrelloniDeleteComponent,
-    OmbrelloniCreateComponent
+    OmbrelloniCreateComponent,
+    FilterOmbrelloniPipe
   ],
   imports: [
     CommonModule,

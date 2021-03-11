@@ -56,18 +56,25 @@ export class ChaletsService {
               'chalet_uid': chaletItem.id
             })
 
+            this.db.collection(`codiciChalet/${chaletItem.id}`).add({ 'codice': ''})
+
             this.store.dispatch(AuthActions.SetChaletUID({payload: chaletItem.id}))
         });
 
     }
 
     updateChalet(chalet: Chalet) {
+      this.db.doc(`codiciChalet/${chalet.id}`).set({codice: chalet.codice_accesso})
       let id = chalet.id;
       delete chalet.id;
       return this.db.doc(`chalet/${id}`).update(chalet)
     }
 
-
+    checkUniqueCode(codice_accesso){
+      return this.db.collection('codiciChalet', ref =>
+        ref.where('codice', '==', codice_accesso).limit(500)
+      ).valueChanges();
+    }
 
 }
 

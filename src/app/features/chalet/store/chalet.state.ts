@@ -4,7 +4,8 @@ export default class ChaletState {
   chalet: Chalet[];
   chaletsCount: number;
   loading: boolean;
-  error: any | null
+  error: any | null;
+  codicechaletUnivoco: boolean;
 }
 
 export const initializeState = (): ChaletState => {
@@ -12,6 +13,7 @@ export const initializeState = (): ChaletState => {
       chalet: [],
       chaletsCount: 0,
       loading: true,
-      error: null
+      error: null,
+      codicechaletUnivoco: true
    };
 };

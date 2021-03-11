@@ -7,6 +7,23 @@
     </mat-expansion-panel-header>
  <ng-template matExpansionPanelContent>
     <div *ngIf="!(prodottoState | async).loading">
+
+            <mat-action-row>
+          <button
+            *ngIf="(prodottoState | async).prodotto.length <= 60; else numMaxProdotti"
+            mat-fab class="mat-button-bottom-r"
+            color="primary" aria-label="Aggiungi Prodotto"
+            color="primary"
+            (click)="addProdotto(categoria.id)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <ng-template #numMaxProdotti>
+            <p class="noProductAdvise">
+              Hai raggiunto il numero massimo di prodotti in questa categoria
+            </p>
+          </ng-template>
+    </mat-action-row>
+
       <mat-list *ngIf="(prodottoState | async).prodotto.length > 0; else noProdotticategoria">
         <mat-list-item class="prodottiListItem"
           *ngFor="let prodottoItem of (prodottoState | async).prodotto"
@@ -46,27 +63,9 @@
         </p>
           <br><br>
       </ng-template>
-      <mat-action-row>
-          <button
-            *ngIf="(prodottoState | async).prodotto.length <= 60; else numMaxProdotti"
-            mat-button
-            mat-raised-button
-            color="primary"
-            (click)="addProdotto(categoria.id)">
-            Aggiungi Prodotto <mat-icon class="icon">add</mat-icon>
-          </button>
-          <ng-template #numMaxProdotti>
-            <p class="noProductAdvise">
-              Hai raggiunto il numero massimo di prodotti in questa categoria
-            </p>
-          </ng-template>
-    </mat-action-row>
+
 
   </div>
   <mat-progress-bar mode="indeterminate" *ngIf="(prodottoState | async).loading"></mat-progress-bar>
   </ng-template>
 </mat-expansion-panel>
-
-
-
-

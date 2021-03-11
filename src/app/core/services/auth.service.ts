@@ -27,7 +27,7 @@ export class AuthService {
 
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
-      if (user) {
+      if (user && user.emailVerified) {
           this.db.doc('utenti/'+user.uid).valueChanges().pipe(
             takeUntil(this.subService.unsubscribe$)
           ).subscribe(utente => {

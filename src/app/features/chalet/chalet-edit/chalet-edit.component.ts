@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import * as chaletState from '../store/chalet.state';
 import * as fromApp from '../../../store/app.reducer';
-import { take } from 'rxjs/operators';
+import { take, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chalet-edit',
@@ -25,7 +25,8 @@ export class ChaletEditComponent implements OnInit {
   authUID: string;
   indirizzo: FormGroup;
   caOrigin:string = '';
-  showAdvise = false
+  showAdvise = false;
+  codiceChaletUnivoco: boolean = false;
 
   @ViewChild('formDirective') formDirective;
 
@@ -49,6 +50,10 @@ export class ChaletEditComponent implements OnInit {
   }
 
   onKeyChange() {
+    this.store.dispatch(ChaletActions.CheckCodiceUnivoco({ codice_accesso: this.chaletForm.get('codice_accesso').value }))
+    this.store.select('chalet').subscribe(chalet => {
+      this.codiceChaletUnivoco = chalet.codicechaletUnivoco;
+    });
     (this.chaletForm.get('codice_accesso').value == this.caOrigin || this.caOrigin == '')
         ? this.showAdvise = false : this.showAdvise = true
   }
@@ -58,25 +63,36 @@ export class ChaletEditComponent implements OnInit {
     (this.editMode) ? this.chalet.id = this.id.toString() : this.chalet.id = null;
     this.chalet.utente_uid = this.authUID
     this.chalet.created_at = new Date()
-    if (this.editMode) {
-      this.store.dispatch(ChaletActions.UpdateChalet({payload: this.chalet}))
-    } else {
-      let numeroOmbrelloni: number = this.chaletForm.get('numero_ombrelloni').value
-      let numeroTavoli: number = this.chaletForm.get('numero_tavoli').value
-      this.store.dispatch(ChaletActions.CreateChalet({payload: {
-        chalet: this.chalet,
-        numeroOmbrelloni: numeroOmbrelloni,
-        numeroTavoli: numeroTavoli
-      }}));
-    }
-    this.store.select('chalet')
-      .subscribe(chalet => {
-        if (!(chalet.error != null)) {
-          this.editMode ? this.showSuccessMessage("Chalet salvato con successo") :
-            this.showSuccessMessage("Chalet creato con successo")
-        }
+
+    if (this.codiceChaletUnivoco) {
+
+      if (this.editMode) {
+        this.showAdvise = false;
+        this.store.dispatch(ChaletActions.UpdateChalet({ payload: this.chalet }))
+      } else {
+        let numeroOmbrelloni: number = this.chaletForm.get('numero_ombrelloni').value
+        let numeroTavoli: number = this.chaletForm.get('numero_tavoli').value
+        this.store.dispatch(ChaletActions.CreateChalet({
+          payload: {
+            chalet: this.chalet,
+            numeroOmbrelloni: numeroOmbrelloni,
+            numeroTavoli: numeroTavoli
+          }
+        }));
       }
-      ).unsubscribe()
+
+      this.store.select('chalet')
+        .subscribe(chalet => {
+          if (!(chalet.error != null)) {
+            this.editMode ? this.showSuccessMessage("Chalet salvato con successo") :
+              this.showSuccessMessage("Chalet creato con successo")
+          }
+        }
+        ).unsubscribe()
+
+    } else {
+      this.codiceChaletUnivoco = false;
+    }
   }
 
   initForm() {
@@ -135,18 +151,19 @@ export class ChaletEditComponent implements OnInit {
   }
 
   showSuccessMessage(message: string) {
+    this.codiceChaletUnivoco = true
     if(!this.editMode) {
       this.formDirective.resetForm();
       this.chaletForm.reset();
       this.chaletForm.markAsUntouched();
     }
     let snackBarRef = this._snackBar.open(message, 'OK', {
-      duration: 10000,
+      duration: 3000,
       horizontalPosition: 'end'
     });
     if (!this.editMode) {
       snackBarRef = this._snackBar.open(message, 'OK', {
-        duration: 5000,
+        duration: 3000,
         horizontalPosition: 'end'
       });
       this.router.navigate(['/user/chalets']);

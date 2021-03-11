@@ -21,6 +21,7 @@ export class OrdineListCompletatiComponent implements OnInit, OnDestroy {
   today: string;
   visibleCounter = false;
   searched = false;
+  valueZoom: number = 100;
 
   constructor(private store: Store<fromApp.AppState>,
               private subService: SubscriptionService,
@@ -48,6 +49,18 @@ export class OrdineListCompletatiComponent implements OnInit, OnDestroy {
     this.searched = false;
     this.store.dispatch(OrdiniActions.FetchOrdini({ orderType: 'c' }));
     this.ordineState = this.store.select('ordini');
+  }
+
+  formatLabel(value: number) {
+    return value + '%';
+  }
+
+  updateZoom(event) {
+    this.valueZoom = event.value;
+  }
+
+  getZoomVal() {
+    return { zoom: this.valueZoom + '%' }
   }
 
   ngOnDestroy(): void {

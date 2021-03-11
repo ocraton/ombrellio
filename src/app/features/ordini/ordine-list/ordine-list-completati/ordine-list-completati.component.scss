@@ -7,50 +7,13 @@
 .mb20{
   margin-bottom: 20px;
 }
-.mr10{
-  margin-right: 10px;
+
+.cardList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1rem;
 }
 
- .cardList {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
- .searchInput {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-
-  /* Column Gap */
-  .cardList > * {
-    box-sizing: border-box;
-  }
-  .cardList > *:not(:last-child) {
-    margin-right: 32px;
-  }
-
-  /* medium size viewport */
-  @media screen and (max-width: 959px) {
-    /* Column Gap */
-    .cardList > *:not(:last-child) {
-      margin-right: 32px;
-    }
-
-  }
-  /* small size viewport */
-  @media screen and (max-width: 599px) {
-    .cardList {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .cardList > *:not(:last-child) {
-      margin-right: unset;
-      margin-bottom: 32px;
-    }
-  }
+mat-slider {
+  width: 300px;
+}

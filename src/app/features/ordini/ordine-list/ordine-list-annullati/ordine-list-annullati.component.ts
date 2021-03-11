@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -19,6 +19,9 @@ export class OrdineListAnnullatiComponent implements OnInit, OnDestroy {
   ordineState: Observable<ordiniState.default>;
   today: string;
   visibleCounter = false;
+  @ViewChild('searchbox') searchbox: ElementRef<HTMLInputElement>
+  searched = false;
+  valueZoom: number = 100;
 
   constructor(private store: Store<fromApp.AppState>,
               private subService: SubscriptionService,
@@ -32,6 +35,31 @@ export class OrdineListAnnullatiComponent implements OnInit, OnDestroy {
     this.ordineState = this.store.select('ordini');
     this.ordineState.subscribe(res =>
       this.visibleCounter = (res.ordine.length > 0) ? true : false)
+  }
+
+  filterOrdine(term) {
+    this.searched = true;
+    this.store.dispatch(OrdiniActions.FilterOrdini({ numOmbrellone: term }));
+    this.ordineState = this.store.select('ordini');
+  }
+
+  filterReset() {
+    this.searchbox.nativeElement.value = '';
+    this.searched = false;
+    this.store.dispatch(OrdiniActions.FetchOrdini({ orderType: 'a' }));
+    this.ordineState = this.store.select('ordini');
+  }
+
+  formatLabel(value: number) {
+    return value + '%';
+  }
+
+  updateZoom(event) {
+    this.valueZoom = event.value;
+  }
+
+  getZoomVal() {
+    return { zoom: this.valueZoom + '%' }
   }
 
   ngOnDestroy(): void {

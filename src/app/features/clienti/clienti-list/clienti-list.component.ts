@@ -46,8 +46,6 @@ export class ClientiListComponent implements OnInit, OnDestroy {
     this.store.dispatch(ClientiActions.FetchClienti());
     this.store.select('clienti').subscribe(res => {
       this.dataSource.data = res.clienti as Cliente[]
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     })
     this.clientiState = this.store.select('clienti');
   }

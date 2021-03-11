@@ -2,6 +2,7 @@
   <ng-template #creanuovo><h2>Nuova Chalet</h2> </ng-template>
 
   <form [formGroup]="chaletForm" (ngSubmit)="onSave()"
+        (keydown.enter)="$event.preventDefault()"
         #formDirective="ngForm"
         class="form-container">
         <mat-form-field>
@@ -21,7 +22,10 @@
         </mat-form-field>
         <p class="showChangeCodiceChalet" *ngIf="showAdvise">
           Attenzione! Cambiando codice chalet impedirai a tutti quelli
-          che hanno il codice "{{ caOrigin }}" di effettuare ordini
+          che hanno il codice "{{ caOrigin }}" di effettuare ordini. <br><br>
+          <span class="showChangeCodiceChalet" *ngIf="!(chaletState | async).codicechaletUnivoco">
+          Attenzione! Il codice inserito non è utilizzabile. Modificalo!
+        </span>
         </p>
         <mat-form-field>
           <input matInput placeholder="Telefono" formControlName="telefono" >
@@ -65,7 +69,7 @@
         <button mat-raised-button color="primary"
             *ngIf="!(chaletState | async).loading"
             class="w-100" type="submit"
-            [disabled]="!chaletForm.valid">
+            [disabled]="!chaletForm.valid || !(chaletState | async).codicechaletUnivoco">
           Salva
         </button>
         <mat-spinner style="margin: 0 auto" *ngIf="(chaletState | async).loading"></mat-spinner>

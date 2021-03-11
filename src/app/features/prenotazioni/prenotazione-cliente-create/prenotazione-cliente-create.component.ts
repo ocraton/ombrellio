@@ -1,12 +1,10 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as PrenotazioniActions from '../store/prenotazioni.actions';
-import { Observable } from 'rxjs';
-import * as clientiState from '../store/prenotazioni.state';
 import * as fromApp from '../../../store/app.reducer';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+
 import { Cliente } from '../../clienti/cliente.model';
 
 
@@ -24,8 +22,7 @@ export class PrenotazioneClienteCreateComponent implements OnInit {
 
   constructor(private store: Store<fromApp.AppState>,
               private fb: FormBuilder,
-              private _snackBar: MatSnackBar,
-              private router: Router) { }
+              private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.initForm();
@@ -49,15 +46,11 @@ export class PrenotazioneClienteCreateComponent implements OnInit {
   }
 
   initForm() {
-    let nome = '';
-    let cognome = '';
-    let email = '';
-    let telefono = '';
     this.clienteForm = this.fb.group({
-      'nome': [nome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'cognome': [cognome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'email': [email, Validators.compose([Validators.required, Validators.email])],
-      'telefono': [telefono, Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
+      'nome': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'cognome': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'email': ['', Validators.compose([Validators.required, Validators.email])],
+      'telefono': ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
     });
 
   }

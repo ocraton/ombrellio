@@ -49,15 +49,11 @@ export class ClientiCreateComponent implements OnInit {
   }
 
   initForm() {
-    let nome = '';
-    let cognome = '';
-    let email = '';
-    let telefono = '';
     this.clienteForm = this.fb.group({
-      'nome': [nome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'cognome': [cognome, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'email': [email, Validators.compose([Validators.required, Validators.email])],
-      'telefono': [telefono, Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
+      'nome': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'cognome': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'email': ['', Validators.compose([Validators.required, Validators.email])],
+      'telefono': ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
     });
 
   }

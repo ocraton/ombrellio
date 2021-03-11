@@ -48,8 +48,6 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioniClienti());
     this.store.select('prenotazioni').subscribe(res => {
       this.dataSource.data = res.clienti as Cliente[]
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
     })
     this.prenotazioniState = this.store.select('prenotazioni');
   }

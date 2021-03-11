@@ -30,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [],
@@ -63,7 +64,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatChipsModule,
     DragDropModule,
     ClipboardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSliderModule
   ],
   exports: [
     MatToolbarModule,
@@ -94,7 +96,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatChipsModule,
     DragDropModule,
     ClipboardModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSliderModule
   ],
   entryComponents: [],
   providers: [

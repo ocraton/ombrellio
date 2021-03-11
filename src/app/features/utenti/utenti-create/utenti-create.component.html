@@ -1,5 +1,7 @@
 <div id="contentDemo">
-  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <div class="main-wrapper" fxLayoutAlign="center center">
+
+
     <mat-card class="box" *ngIf="!registered; else thankyoumessage">
       <mat-card-header>
         <mat-card-title>
@@ -85,9 +87,10 @@
 
       <p style="text-align: center;font-size: 0.9rem;">
         <br>
-        Se hai bisogno di aiuto o per qualsiasi altro dubbio scrivici su <b>info@ombrel.io</b>
+        Se hai bisogno di aiuto o per qualsiasi altro dubbio scrivici su <b>supporto@ombrel.io</b>
       </p>
     </mat-card>
+
     <ng-template #thankyoumessage>
         <mat-card class="box">
           <mat-card-header>

@@ -40,7 +40,7 @@ export class ProdottoAddComponent implements OnInit {
     this.prodotto.descrizione = this.prodottoForm.get('descrizione').value;
     this.prodotto.prezzo = +this.prodottoForm.get('prezzo').value;
     this.prodotto.categoria_uid = this.categoriaId;
-    this.store.dispatch(ProdottiActions.CreateProdotto({payload: this.prodotto}));
+    this.store.dispatch(ProdottiActions.CreateProdotto({ payload: this.prodotto }));
     this.prodottoForm.markAsUntouched();
     this.dialogRef.close();
   }
@@ -63,4 +63,3 @@ export class ProdottoAddComponent implements OnInit {
   }
 
 }
-

@@ -15,6 +15,7 @@
         </div>
         <mat-card-title>
           {{ ordine.numero_ombrellone }}
+          {{ ordine.numero_tavolo }}
           <div class="orarioOrdine">
             Arrivato alle: {{ ordine.created_at['seconds'] * 1000 | date: 'H:mm' }}
             <span *ngIf="ordine.nome_asporto != null" style="color: #fff; font-style: italic; font-size: 0.9rem;">
@@ -38,7 +39,7 @@
 
 
         <mat-expansion-panel *ngIf="ordine.note != '' && ordine.note != null"
-            style="border: 1px solid #673ab7;"
+            style="border: 1px solid #7C7B8A;"
             class="mat-elevation-z0"
             (opened)="panelOpenState = true"
             (closed)="panelOpenState = false">
@@ -59,10 +60,16 @@
           <mat-list-option [disabled]="ordine.annullato || ordine.completato"
             *ngFor="let prodotto of ordine.contenuto;"
             [selected]="prodotto.consegnato"
-            [value]="prodotto">
+            [value]="prodotto"
+            [ngClass]="{'itemWithNote' : prodotto.nota}">
             <p>
               <span style="font-weight: bold;" >( {{ prodotto.quantita }} ) </span>
               <span> {{ prodotto.nome_prodotto }}</span>
+
+              <span style="font-size: 0.8rem;color: #7C7B8A;" *ngIf="prodotto.nota">
+                <br>
+                {{ prodotto.nota }}
+              </span>
             </p>
           </mat-list-option>
         </mat-selection-list>

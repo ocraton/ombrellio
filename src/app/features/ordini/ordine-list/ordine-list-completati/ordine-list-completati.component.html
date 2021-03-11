@@ -11,9 +11,19 @@
     </span>
   </h2>
 
+  <div style="float: right;">
+    <p style="padding: 0px 8px; margin: 0px; ">Zoom</p>
+    <mat-slider min="60" max="140"
+    #valueZoom (change)="updateZoom($event)"
+    step="10"
+    value="100"
+    thumbLabel
+    [displayWith]="formatLabel"></mat-slider>
+  </div>
+
 <mat-form-field class="mt20" style="width:100%">
         <input matInput #searchbox
-          placeholder="Numero Ombrellone"
+          placeholder="Cerca Ordine"
           #term style="width:100%" >
         <button class="mr10"
           (click)="filterOrdine(term.value)"
@@ -35,7 +45,7 @@
 
   <div *ngIf="!(ordineState | async).loading">
 
-  <div class="mb20 mt20 cardList">
+    <div class="mb20 mt20 cardList" [ngStyle]="getZoomVal()">
 
     <app-ordine-edit
     *ngFor="let ordineel of (ordineState | async).ordine"

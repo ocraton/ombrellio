@@ -18,7 +18,7 @@
 }
 
 .example-card {
-  max-width: 600px;
+  max-width: 500px;
   min-width: 350px;
   padding: 0px;
 }
@@ -33,10 +33,6 @@
   color: #fff;
 }
 
-.descriptionNote{
-  margin-left: -60px;
-  margin-top: 5px;
-}
 
 ::ng-deep .mat-card-header-text{
   width: 100%;
@@ -78,16 +74,12 @@
 .mb40{
   margin-bottom: 40px;
 }
-  /* Item sizing */
-  .cardListItem {
-    flex: 0 1 calc(33.3% - 32px);
-    margin-bottom: 20px;
-  }
-  /* medium size viewport */
-  @media screen and (max-width: 959px) {
-    /* Item sizing */
-    .cardListItem {
-      flex: 0 1 calc(50% - 32px);
-    }
-  }
+
+.itemWithNote{
+  line-height: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+
 

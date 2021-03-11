@@ -12,10 +12,6 @@ import { Tavolo } from '../tavolo.model';
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
 import { TavoliEditComponent } from '../tavoli-edit/tavoli-edit.component';
 import { TavoliDeleteComponent } from '../tavoli-delete/tavoli-delete.component';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-
 
 @Component({
   selector: 'app-tavoli-list',
@@ -25,18 +21,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class TavoliListComponent implements OnInit, OnDestroy {
 
   tavoliState: Observable<tavoliState.default>;
-  tavoli: Tavolo = null;
-  displayedColumns: string[] = ['numero', 'action'];
-  dataSource = new MatTableDataSource<Tavolo>();
-  @ViewChild(MatSort, { static: false })
-  set sort(v: MatSort) {
-    this.dataSource.sort = v;
-  }
+  tavoli: Tavolo[] = null;
+  tavoloname:string = "";
 
-  @ViewChild(MatPaginator, { static: false })
-  set paginator(v: MatPaginator) {
-    this.dataSource.paginator = v;
-  }
 
   constructor(private store: Store<fromApp.AppState>,
     private subService: SubscriptionService,
@@ -45,20 +32,11 @@ export class TavoliListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(TavoliActions.FetchTavoli());
     this.store.select('tavoli').subscribe(res => {
-      this.dataSource.data = res.tavoli as Tavolo[]
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.tavoli = res.tavoli as Tavolo[]
     })
     this.tavoliState = this.store.select('tavoli');
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   editTavolo(tavolo) {
     const dialogConfigDel = new MatDialogConfig();
@@ -76,6 +54,10 @@ export class TavoliListComponent implements OnInit, OnDestroy {
     dialogConfigDel.width = '30rem';
     dialogConfigDel.data = tavolo;
     this.dialog.open(TavoliDeleteComponent, dialogConfigDel);
+  }
+
+  setSearch(termSearch) {
+    this.tavoloname = termSearch
   }
 
   ngOnDestroy(): void {

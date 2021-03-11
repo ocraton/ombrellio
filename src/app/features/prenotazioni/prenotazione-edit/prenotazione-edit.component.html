@@ -10,7 +10,7 @@
       <button *ngIf="prenArray.length > 0; else prenotabtn"
         mat-raised-button (click)="openDetailDialog()">Dettagli</button>
       <ng-template #prenotabtn>
-        <button mat-raised-button color="accent" (click)="openPrenotaDialog()">Prenota</button>
+        <button mat-raised-button  (click)="openPrenotaDialog()">Prenota</button>
       </ng-template>
     </mat-card-content>
   </mat-card>

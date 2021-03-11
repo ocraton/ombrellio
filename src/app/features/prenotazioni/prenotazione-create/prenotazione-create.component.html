@@ -4,10 +4,14 @@
     data.ombrellone.numero
   }}</span>
   |
-  <span class="subTitleCreatePrenotazioniModal">
-    <b>Dal:</b> {{ data.rangeDate.dataInizio | date: "dd/MM/yyyy" }} <b>Al:</b>
-    {{ data.rangeDate.dataFine | date: "dd/MM/yyyy" }}</span
-  >
+  <span class="subTitleCreatePrenotazioniModal" *ngIf="data.rangeDate.dataInizio.getTime() < data.rangeDate.dataFine.getTime(); else dataInizioFinediverse">
+    Dal: <b>{{ data.rangeDate.dataInizio | date: "dd/MM/yyyy" }}</b> Al:
+    <b>{{ data.rangeDate.dataFine | date: "dd/MM/yyyy" }}</b></span>
+    <ng-template #dataInizioFinediverse>
+        <span class="subTitleCreatePrenotazioniModal">
+            Il giorno: <b>{{ data.rangeDate.dataInizio | date: "dd-MM-yyyy" }}</b>
+        </span>
+    </ng-template>
 </h2>
 
 <mat-divider></mat-divider>
