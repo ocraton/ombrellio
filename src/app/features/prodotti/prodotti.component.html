@@ -4,7 +4,7 @@
   </h2>
 
 <div *ngIf="!(prodottoState | async).prodottiCategorieLoading">
-  <div *ngIf="(prodottoState | async).prodottoExist.length > 0">
+  <div *ngIf="(prodottoState | async).prodottiCategorie.length > 0">
     <div class="mb20 mt20 cardList">
           <mat-accordion>
               <app-prodotto-list
@@ -13,9 +13,9 @@
           </mat-accordion>
     </div>
   </div>
-  <mat-card class="cardcreanuovo" *ngIf="(prodottoState | async).prodottoExist.length == 0">
+  <mat-card class="cardcreanuovo" *ngIf="(prodottoState | async).prodottiCategorie.length == 0">
     <h2>Prima di creare i prodotti crea le Categorie
-      <i>(antipasti, primi, secondi ecc...)</i></h2>
+      <i>(antipasti, primi, secondi, cocktail, ecc...)</i></h2>
     <br>
   <button
     mat-button

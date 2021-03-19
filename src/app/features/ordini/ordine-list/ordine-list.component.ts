@@ -6,6 +6,8 @@ import * as ordiniState from '../store/ordini.state';
 import * as fromApp from '../../../store/app.reducer';
 import * as OrdiniActions from '../store/ordini.actions';
 import { SubscriptionService } from '../../../core/services/subscription.service';
+import { ClockService } from '../../../shared/services/clock.service';
+import { DatesService } from 'src/app/shared/services/dates.service';
 
 
 @Component({
@@ -18,14 +20,26 @@ export class OrdineListComponent implements OnInit, OnDestroy {
   ordineState: Observable<ordiniState.default>;
   @ViewChild('searchbox') searchbox: ElementRef<HTMLInputElement>
   searched = false;
+  visibleCounter = false;
   valueZoom:number = 100;
+  today: string;
+  datesCompare = this.dateservice.dateBuildGMT1();
 
   constructor(private store: Store<fromApp.AppState>,
-              private subService: SubscriptionService) { }
+    private subService: SubscriptionService,
+    private dateservice: DatesService,
+    private clockService: ClockService) { }
 
   ngOnInit() {
+    this.clockService.time.subscribe((now: Date) => {
+      this.today = now.toISOString();
+      let nowhourminutes = now.getHours() + now.getMinutes() + now.getSeconds();
+      let dateEndOrdini = this.datesCompare.dateEnd.getHours() + this.datesCompare.dateEnd.getMinutes() + this.datesCompare.dateEnd.getSeconds();
+      (nowhourminutes == dateEndOrdini) ? location.reload() : null;
+    });
     this.store.dispatch(OrdiniActions.FetchOrdini({ orderType: '' }));
-    this.ordineState = this.store.select('ordini');
+    this.ordineState = this.store.select('ordini')
+    this.ordineState.subscribe(res => this.visibleCounter = (res.ordine.length > 0) ? true : false)
   }
 
   filterOrdine(term) {

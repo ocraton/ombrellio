@@ -35,7 +35,7 @@ export class MenuComponent implements OnInit {
         })
       )
       .subscribe(res => {
-        (res[0].id != '') ? this.chaletExist = true : false;
+        (res.length > 0) ? this.chaletExist = true : false;
         this.menuService.getChaletInfo(this.chaletUID)
         .subscribe((chalet: Chalet) => {
           this.chalet = chalet;

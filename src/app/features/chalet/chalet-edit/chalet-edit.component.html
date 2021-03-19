@@ -16,6 +16,7 @@
           (keyup)="onKeyChange()"
           placeholder="Codice Accesso"
           formControlName="codice_accesso" >
+          <mat-hint><strong>digitare il codice, non fare copia-incolla</strong> </mat-hint>
           <mat-error *ngIf="!chaletForm.get('codice_accesso').valid && chaletForm.get('codice_accesso').touched">
             Codice Accesso obbligatorio
           </mat-error>

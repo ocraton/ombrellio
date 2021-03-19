@@ -24,6 +24,7 @@ export class ProdottiComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(ProdottiActions.FetchProdottiExist());
+    // this.store.dispatch(ProdottiActions.FetchProdottiCategorieExist());
     this.store.dispatch(ProdottiActions.FetchProdottiCategorie());
     this.prodottoState = this.store.select('prodotti');
   }

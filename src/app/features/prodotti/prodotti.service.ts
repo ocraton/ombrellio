@@ -34,6 +34,21 @@ export class ProdottiService {
     );
   }
 
+  getOneAtLeastCategory(): Observable<Categoria[]> {
+
+    let categoria = this.db.collection(`chalet/${this.chaletUID}/categorie`, ref =>
+      ref.limit(1)
+    );
+
+    return categoria.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Categoria;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+  }
+
   getAllProdottiCategorie(): Observable<Categoria[]> {
 
     let categorie = this.db.collection(`chalet/${this.chaletUID}/categorie`, ref =>

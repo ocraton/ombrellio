@@ -1,17 +1,12 @@
 <div *ngIf="!(ombrelloniState | async).loading">
 
 
-  <div class="content"
-        fxLayout="row wrap"
-        fxLayout.lt-sm="column"
-        fxLayoutGap="20px"
-        fxLayoutAlign="flex-start">
+  <mat-form-field class="mt20" style="width:100%">
+    <input matInput placeholder="Cerca" #term (keyup)="setSearch(term.value)" style="width:100%">
+  </mat-form-field>
 
-        <mat-form-field class="mt20" style="width:100%">
-          <input matInput placeholder="Cerca" #term (keyup)="setSearch(term.value)" style="width:100%">
-        </mat-form-field>
-
-        <mat-card class="listItem" fxFlex="0 1 calc(12% - 13px)" fxFlex.lt-md="0 1 calc(20% - 32px)" fxFlex.lt-sm="100%"
+  <div class="content">
+        <mat-card class="listItem"
           *ngFor="let ombrellone of ombrelloni | filterOmbrelloni: ombrellonename">
           <mat-card-header>
             <mat-card-title>

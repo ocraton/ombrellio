@@ -1,14 +1,30 @@
-<div *ngIf="!(ordineState | async).loading">
-
-  <div style="float: right;">
-    <p style="padding: 0px 8px; margin: 0px; ">Zoom</p>
-    <mat-slider min="60" max="140"
-    #valueZoom (change)="updateZoom($event)"
-    step="10"
-    value="100"
-    thumbLabel
-    [displayWith]="formatLabel"></mat-slider>
+<div class="flex-grid">
+  <div class="col">
+    <h2>
+        <mat-icon
+        [matBadge]="(ordineState | async).ordine.length"
+        matBadgeColor="warn"
+        [matBadgeHidden]="!visibleCounter"
+        style="margin-right: 10px"
+        class="icon mr5 valmiddle">menu_book</mat-icon>
+        Ordini del
+        <span style="color: #673AB7">
+          {{ today | date: 'dd/MM/yyyy H:mm:ss'  }}
+        </span>
+    </h2>
   </div>
+  <div class="col" id="zoombox">
+    <div style="float: right;font-size:1rem;">
+      <p style="padding: 0px 8px;margin: 10px 0px 0px 0px;">Zoom</p>
+      <mat-slider min="60" max="140"
+      #valueZoom (change)="updateZoom($event)"
+      step="10"
+      value="100"
+      thumbLabel
+      [displayWith]="formatLabel"></mat-slider>
+    </div>
+  </div>
+</div>
 
   <mat-form-field class="mt20" style="width:100%">
         <input matInput #searchbox
@@ -17,7 +33,7 @@
         <button class="mr10"
           (click)="filterOrdine(term.value)"
           matSuffix mat-stroked-button
-          [disabled]="searched"
+          [disabled]="searched || term.value == ''"
           color="primary">
           cerca
           <mat-icon>search</mat-icon>
@@ -31,14 +47,12 @@
         </button>
 </mat-form-field>
 
+<div *ngIf="!(ordineState | async).loading">
 
   <div class="mb20 mt20 cardList" [ngStyle]="getZoomVal()">
-
     <app-ordine-edit
     *ngFor="let ordineel of (ordineState | async).ordine"
-    [ordine]="ordineel"
-    ></app-ordine-edit>
-
+    [ordine]="ordineel"></app-ordine-edit>
   </div>
 </div>
 <div>

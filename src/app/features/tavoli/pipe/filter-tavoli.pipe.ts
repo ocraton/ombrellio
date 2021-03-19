@@ -12,7 +12,7 @@ export class FilterTavoliPipe implements PipeTransform {
       let prop;
       return items.filter(item => {
         for (let key in item) {
-          prop = isNaN(item[key]) ? item[key].toString().toUpperCase() : item[key].toString();
+          prop = isNaN(item['numero']) ? item['numero'].toString().toUpperCase() : item['numero'].toString();
           if (prop.indexOf(newSearchTerm) > -1) {
             filteredList.push(item);
             return filteredList;

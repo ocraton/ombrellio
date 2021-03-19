@@ -10,6 +10,7 @@ import * as ChaletActions from '../store/chalet.actions';
 import { Router } from '@angular/router';
 import { Chalet } from '../chalet.model';
 import { SubscriptionService } from 'src/app/core/services/subscription.service';
+import * as AuthActions from '../../login/store/auth.actions';
 
 @Component({
   selector: 'app-chalet-list',
@@ -27,6 +28,10 @@ export class ChaletListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(ChaletActions.FetchChalets());
+    this.store.select('chalet').subscribe(res => {
+      if(res.chalet.length > 0)
+      this.store.dispatch(AuthActions.SetChaletUID({ payload: res.chalet[0].id }))
+    })
     this.chaletState = this.store.select('chalet');
   }
 

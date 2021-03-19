@@ -22,7 +22,7 @@ export class TavoliService {
     getAll(): Observable<Tavolo[]> {
 
         let tavoli = this.db.collection(`chalet/${this.chaletUID}/tavoli`, ref =>
-          ref.limit(1000)
+          ref.limit(1000).orderBy('numero')
         );
 
         return tavoli.snapshotChanges().pipe(

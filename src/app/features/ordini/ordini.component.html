@@ -1,16 +1,1 @@
-  <h2>
-    <mat-icon
-    [matBadge]="(ordineState | async).ordine.length"
-    matBadgeColor="warn"
-    [matBadgeHidden]="!visibleCounter"
-    style="margin-right: 10px"
-    class="icon mr5 valmiddle">menu_book</mat-icon>
-    Ordini del
-    <span style="color: #673AB7">
-      {{ today | date: 'dd/MM/yyyy H:mm:ss'  }}
-    </span>
-
-  </h2>
-
-
-  <app-ordine-list></app-ordine-list>
+<app-ordine-list></app-ordine-list>

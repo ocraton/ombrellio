@@ -30,6 +30,19 @@ export class ProdottiEffects {
       }))
     );
 
+  prodottiCategorieExistFetch$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(ProdottiActions.FetchProdottiCategorieExist),
+      switchMap(() => {
+        return this.prodottiService.getOneAtLeastCategory().pipe(
+          takeUntil(this.subService.unsubscribe$)
+        )
+      }),
+      map((categoria: Categoria[]) => {
+        return ProdottiActions.SetProdottiCategorie({payload: categoria})
+      }))
+    );
+
   prodottiByCategoriaFetch$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(ProdottiActions.FetchProdottiByCategoria),

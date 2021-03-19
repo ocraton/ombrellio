@@ -22,7 +22,7 @@ export class OmbrelloniService {
     getAll(): Observable<Ombrellone[]> {
 
         let ombrelloni = this.db.collection(`chalet/${this.chaletUID}/ombrelloni`, ref =>
-          ref.limit(1000)
+          ref.limit(1000).orderBy('numero')
         );
 
         return ombrelloni.snapshotChanges().pipe(

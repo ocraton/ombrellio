@@ -106,9 +106,6 @@ export class ChaletEditComponent implements OnInit {
       via: '',
       civico: ''
     }
-    let numero_ombrelloni = 0;
-    let numero_tavoli = 0;
-
     if (this.editMode) {
       this.store.select('chalet')
       .pipe(take(1))
@@ -166,7 +163,7 @@ export class ChaletEditComponent implements OnInit {
         duration: 3000,
         horizontalPosition: 'end'
       });
-      this.router.navigate(['/user/chalets']);
+      this.router.navigate(['/user/chalets'])
     }
 
   }

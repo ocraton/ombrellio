@@ -1,4 +1,3 @@
-import * as AuthActions from '../login/store/auth.actions';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -58,7 +57,6 @@ export class ChaletsService {
 
             this.db.collection(`codiciChalet/${chaletItem.id}`).add({ 'codice': ''})
 
-            this.store.dispatch(AuthActions.SetChaletUID({payload: chaletItem.id}))
         });
 
     }

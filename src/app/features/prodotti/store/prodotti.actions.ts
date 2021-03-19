@@ -58,6 +58,9 @@ export const SetProdottiExist = createAction(
 export const FetchProdottiExist = createAction(
   '[Prodotti] Fetch_prodotti_exist'
 );
+export const FetchProdottiCategorieExist = createAction(
+  '[Prodotti] Fetch_prodotti__categorie_exist'
+);
 export const FetchProdottiCategorie = createAction(
   '[Prodotti] Fetch_prodotti_categorie'
 );

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   authState: Observable<authState.default>;
   model: any = {};
+  loginerror = false;
 
   constructor(private store: Store<fromApp.AppState>) { }
 
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     const email = this.model.email;
     const password = this.model.password;
     this.store.dispatch(AuthActions.Login({payload: { email, password }}));
+    this.authState.subscribe(res => (res.authenticated) ? this.loginerror = false : this.loginerror = true ).unsubscribe();
   }
 
 }
