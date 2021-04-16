@@ -94,4 +94,8 @@ export class UtentiCreateComponent implements OnInit {
     }
   }
 
+  reloadPage(){
+    window.location.reload();
+  }
+
 }

@@ -49,8 +49,8 @@ export class PrenotazioneClienteCreateComponent implements OnInit {
     this.clienteForm = this.fb.group({
       'nome': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       'cognome': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      'email': ['', Validators.compose([Validators.required, Validators.email])],
-      'telefono': ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3,15}')])]
+      'email': ['', Validators.compose([Validators.email])],
+      'telefono': ['', Validators.compose([Validators.pattern('[0-9]{3,15}')])]
     });
 
   }

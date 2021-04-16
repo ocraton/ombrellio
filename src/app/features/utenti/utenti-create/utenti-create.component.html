@@ -92,7 +92,7 @@
     </mat-card>
 
     <ng-template #thankyoumessage>
-        <mat-card class="box">
+        <mat-card class="box" style="margin-top: 20px;">
           <mat-card-header>
               <mat-card-title>
                       <img mat-card-image
@@ -102,6 +102,12 @@
                       Grazie {{ utente.nome }} per esserti registrato!!
                       <br><br>
                       Controlla la tua email per confermare la tua registrazione!
+                      <br><br>
+                      Dopo aver confermato
+                      <br><br>
+                        <a (click)="reloadPage()"
+                        mat-button mat-raised-button color="primary">
+                        Ricarica questa pagina</a>
                     </p>
               </mat-card-title>
             </mat-card-header>

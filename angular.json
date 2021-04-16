@@ -36,6 +36,7 @@
               "lodash",
               "qrcode",
               "@firebase/firestore",
+              "@angular/fire/firestore",
               "@firebase/app",
               "@firebase/component",
               "@firebase/util",

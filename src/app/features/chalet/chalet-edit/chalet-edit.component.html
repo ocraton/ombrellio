@@ -1,5 +1,5 @@
-<h2 *ngIf="editMode; else creanuovo">Modifica Chalet</h2>
-  <ng-template #creanuovo><h2>Nuova Chalet</h2> </ng-template>
+<h2 *ngIf="editMode; else creanuovo">Modifica Stabilimento</h2>
+  <ng-template #creanuovo><h2>Nuovo Stabilimento</h2> </ng-template>
 
   <form [formGroup]="chaletForm" (ngSubmit)="onSave()"
         (keydown.enter)="$event.preventDefault()"
@@ -28,6 +28,7 @@
           Attenzione! Il codice inserito non è utilizzabile. Modificalo!
         </span>
         </p>
+        <br><br>
         <mat-form-field>
           <input matInput placeholder="Telefono" formControlName="telefono" >
           <mat-error *ngIf="!chaletForm.get('telefono').valid && chaletForm.get('telefono').touched">

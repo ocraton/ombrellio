@@ -22,7 +22,8 @@ export class ClientiService {
     getAll(): Observable<Cliente[]> {
 
         let clienti = this.db.collection(`chalet/${this.chaletUID}/clienti`, ref =>
-          ref.limit(1000)
+          ref.orderBy('nome')
+          .limit(1000)
         );
 
         return clienti.snapshotChanges().pipe(

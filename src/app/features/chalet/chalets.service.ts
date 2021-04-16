@@ -55,14 +55,16 @@ export class ChaletsService {
               'chalet_uid': chaletItem.id
             })
 
-            this.db.collection(`codiciChalet/${chaletItem.id}`).add({ 'codice': ''})
+          this.db.collection('codiciChalet').doc(chaletItem.id).set({ 'codice': chalet.codice_accesso })
 
         });
 
     }
 
     updateChalet(chalet: Chalet) {
-      this.db.doc(`codiciChalet/${chalet.id}`).set({codice: chalet.codice_accesso})
+      this.db.collection('codiciChalet').doc(chalet.id).update({
+        'codice': chalet.codice_accesso
+      })
       let id = chalet.id;
       delete chalet.id;
       return this.db.doc(`chalet/${id}`).update(chalet)

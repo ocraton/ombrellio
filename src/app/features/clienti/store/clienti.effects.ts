@@ -24,7 +24,7 @@ export class ClientiEffects {
         )
       }),
       map((data: Cliente[]) => {
-        return ClientiActions.SetClienti({ payload: data });
+        return ClientiActions.SetClienti({ payload: data.sort((a,b) => a.nome.toUpperCase().localeCompare((b.nome.toUpperCase()))) });
       })
     )
   );

@@ -33,7 +33,12 @@
                     <mat-icon class="icon-lg" color="primary">vpn_key</mat-icon>
                   </div>
                   <mat-card-title>
-                    Codice Ombrelloni
+                    Codice Accesso <br>
+                    <span style="font-size: 0.9rem;">
+                      Imposta questo codice e dallo ai tuoi clienti per permettergli di fare gli ordini dall'app.
+                      Con questo codice potranno ordinare dall'ombrellone, dal tavolo o da asporto. <br>
+                      <b>RICORDA</b> che se decidi di cambiarlo dovrai comunicarlo ai tuoi clienti.
+                    </span>
                   </mat-card-title>
                   <mat-card-subtitle>
                       <br>
@@ -82,7 +87,7 @@
           </div>
   </div>
 <mat-card class="cardcreanuovo" *ngIf="!(chaletState | async).chalet[0]">
-    <h2>Non hai ancora creato uno Chalet!</h2>
+    <h2>Non hai ancora creato uno Stabilimento!</h2>
     <br>
   <button
     mat-button
