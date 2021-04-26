@@ -53,6 +53,8 @@ export class AuthService {
               this.router.navigate([this.router.url]);
             } else if (this.router.url === '/utenti/register'){
               this.router.navigate(['/utenti/register']);
+            } else if (this.router.url === '/login/resetconfirm') {
+              this.router.navigate(['/login/resetconfirm']);
             }
             else {
               this.store.dispatch(AuthActions.Logout());

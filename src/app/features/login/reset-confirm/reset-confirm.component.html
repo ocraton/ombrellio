@@ -1,0 +1,27 @@
+<div class="wrapper centered login-page">
+    <div class="vh-centered">
+        <mat-card class="mat- mat-elevation-z0">
+            <mat-card-title class="app-name text-center"
+                            style="font-weight: normal">
+                <img mat-card-image
+                src="https://www.ombrel.io/wp-content/uploads/2020/05/Ombrel.io-lgo.png"
+                style="max-width: 120px;">
+            </mat-card-title>
+            <mat-card-content>
+                <div *ngIf="!(authState | async).loading">
+                  <h1 style="text-align: center;font-weight: 300;">Email inviata!</h1>
+                  <p style="text-align: center;font-size: 1rem;">
+                    Controlla la tua email e clicca sul link per reimpostare la tua password
+                  </p>
+                  <br>
+                  <p style="text-align: center;font-size: 0.9rem;">
+                    <a style="font-weight: 800;" routerLink="/login">torna alla login</a>
+                  </p>
+                </div>
+                <div>
+                    <mat-spinner style="margin: 0 auto" *ngIf="(authState | async).loading"></mat-spinner>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
