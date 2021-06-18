@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as OmbrelloniActions from '../store/ombrelloni.actions';
 import { Ombrellone } from '../ombrellone.model';
 import * as fromApp from '../../../store/app.reducer';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OmbrelloniListComponent } from '../ombrelloni-list/ombrelloni-list.component';
 
 
 @Component({
@@ -17,13 +17,18 @@ export class OmbrelloniCreateComponent implements OnInit {
 
   ombrelloneForm: FormGroup;
   ombrellone: Ombrellone;
+  iRiga: number;
+  iColonna: number;
 
   @ViewChild('formDirective') formDirective;
 
   constructor(private store: Store<fromApp.AppState>,
               private fb: FormBuilder,
-              private _snackBar: MatSnackBar,
-              private router: Router) { }
+              public dialogRef: MatDialogRef<OmbrelloniListComponent>,
+              @Inject(MAT_DIALOG_DATA) data: {iRiga,iColonna}) {
+                    this.iRiga = data.iRiga;
+                    this.iColonna = data.iColonna;
+            }
 
   ngOnInit() {
     this.initForm();
@@ -31,47 +36,27 @@ export class OmbrelloniCreateComponent implements OnInit {
 
   onSave() {
     this.ombrellone = this.ombrelloneForm.value;
+    this.ombrellone.riga = this.iRiga;
+    this.ombrellone.colonna = this.iColonna;
     this.store.dispatch(OmbrelloniActions.CreateOmbrellone({
       payload: {
         ombrellone: this.ombrellone
       }
     }));
     this.ombrelloneForm.markAsUntouched();
-    this.store.select('ombrelloni')
-      .subscribe(ombrellone => {
-        if (!(ombrellone.error != null)) {
-            this.showSuccessMessage("Ombrellone creato con successo")
-        }
-      }
-      ).unsubscribe()
+    this.dialogRef.close();
   }
 
   initForm() {
     let numero = '';
     this.ombrelloneForm = this.fb.group({
-      'numero': [numero, Validators.compose([Validators.required])]
+      'numero': [numero, Validators.compose([Validators.required, Validators.maxLength(3)])]
     });
 
   }
 
-  showSuccessMessage(message: string) {
-
-    this.formDirective.resetForm();
-    this.ombrelloneForm.reset();
-    this.ombrelloneForm.markAsUntouched();
-
-    let snackBarRef = this._snackBar.open(message, 'OK', {
-      duration: 10000,
-      horizontalPosition: 'end'
-    });
-
-    snackBarRef = this._snackBar.open(message, 'OK', {
-      duration: 5000,
-      horizontalPosition: 'end'
-    });
-    this.router.navigate(['/user/ombrelloni']);
-
-
+  close(): void {
+    this.dialogRef.close();
   }
 
 

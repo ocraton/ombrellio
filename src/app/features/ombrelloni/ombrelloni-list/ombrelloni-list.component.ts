@@ -1,7 +1,8 @@
+import { OmbrelloniCreateComponent } from './../ombrelloni-create/ombrelloni-create.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import * as ombrelloniState from '../store/ombrelloni.state';
 import * as fromApp from '../../../store/app.reducer';
 
@@ -13,6 +14,11 @@ import { SubscriptionService } from 'src/app/core/services/subscription.service'
 import { OmbrelloniEditComponent } from '../ombrelloni-edit/ombrelloni-edit.component';
 import { OmbrelloniDeleteComponent } from '../ombrelloni-delete/ombrelloni-delete.component';
 
+export interface Tile {
+  iRiga: number;
+  iColonna: number;
+  ombrellone: Ombrellone;
+}
 
 @Component({
   selector: 'app-ombrelloni-list',
@@ -24,7 +30,8 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
   ombrelloniState: Observable<ombrelloniState.default>;
   ombrelloni: Ombrellone[] = null;
   ombrellonename: string = "";
-  public currentValue: string = null;
+  mappaGrid: Tile[] = [];
+
 
   constructor(private store: Store<fromApp.AppState>,
     private subService: SubscriptionService,
@@ -32,10 +39,61 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(OmbrelloniActions.FetchOmbrelloni());
-    this.store.select('ombrelloni').subscribe(res => {
-      this.ombrelloni = res.ombrelloni as Ombrellone[]
-    })
+    this.store.dispatch(OmbrelloniActions.FetchOmbrelloniMappa());
     this.ombrelloniState = this.store.select('ombrelloni');
+    this.ombrelloniState.subscribe(res => {
+      this.ombrelloni = res.ombrelloni as Ombrellone[]
+      this.buildGrid(res.mappa.numero_righe, res.mappa.numero_colonne)
+    })
+  }
+
+  dropOmbrellone(event: CdkDragDrop<string[]>, tile: Tile) {
+    var ombrelloneOrigine: Ombrellone = this.ombrelloni.find(res => {
+      return res.colonna == event.item.data.colonna && res.riga == event.item.data.riga
+    });
+    var ombrelloneDestinazione: Ombrellone = this.ombrelloni.find(res => {
+      return res.colonna == tile.iColonna && res.riga == tile.iRiga
+    });
+    if (!ombrelloneDestinazione){
+      ombrelloneOrigine.riga = tile.iRiga;
+      ombrelloneOrigine.colonna = tile.iColonna;
+    } else {
+      let rigaOrigine = ombrelloneOrigine.riga;
+      let colonnaOrigine = ombrelloneOrigine.colonna;
+      let rigaDestinazione = ombrelloneDestinazione.riga;
+      let colonnaDestinazione = ombrelloneDestinazione.colonna;
+      ombrelloneOrigine.riga = rigaDestinazione;
+      ombrelloneOrigine.colonna = colonnaDestinazione;
+      ombrelloneDestinazione.riga = rigaOrigine;
+      ombrelloneDestinazione.colonna = colonnaOrigine;
+      this.store.dispatch(OmbrelloniActions.UpdateOmbrelloni({ payload: ombrelloneDestinazione }));
+    }
+    this.store.dispatch(OmbrelloniActions.UpdateOmbrelloni({ payload: ombrelloneOrigine }));
+
+  }
+
+  buildGrid(numero_righe, numero_colonne) {
+    if(this.mappaGrid.length == numero_righe*numero_colonne){
+      this.mappaGrid.splice(0,this.mappaGrid.length)
+    }
+    for (var i = 1; i <= numero_righe; i++) {
+      for (var j = 1; j <= numero_colonne; j++) {
+        let ombrel = this.getOmbrelloneIfExist(i, j);
+        let tile: Tile = { iRiga: i, iColonna: j, ombrellone: ombrel };
+        this.mappaGrid.push(tile);
+      }
+    }
+  }
+
+  getOmbrelloneIfExist(iRiga, iColonna): Ombrellone {
+    var ombrellone = this.ombrelloni.find(obj => {
+      return obj.riga == iRiga && obj.colonna == iColonna
+    })
+    if (ombrellone != null) {
+      return { id: ombrellone.id, numero: ombrellone.numero, colonna: ombrellone.colonna, riga: ombrellone.riga }
+    } else {
+      return null
+    }
   }
 
   editOmbrellone(ombrellone) {
@@ -45,6 +103,15 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
     dialogConfigDel.width = '30rem';
     dialogConfigDel.data = ombrellone;
     this.dialog.open(OmbrelloniEditComponent, dialogConfigDel);
+  }
+
+  addOmbrellone(iRiga, iColonna) {
+    const dialogConfigDel = new MatDialogConfig();
+    dialogConfigDel.disableClose = true;
+    dialogConfigDel.autoFocus = true;
+    dialogConfigDel.width = '30rem';
+    dialogConfigDel.data = { iRiga, iColonna };
+    this.dialog.open(OmbrelloniCreateComponent, dialogConfigDel);
   }
 
   deleteOmbrellone(ombrellone) {
@@ -63,6 +130,7 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
   setSearch(termSearch) {
     this.ombrellonename = termSearch
   }
+
 
 }
 

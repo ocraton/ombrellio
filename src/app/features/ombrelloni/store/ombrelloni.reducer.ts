@@ -31,17 +31,30 @@ const reducer = createReducer(
     };
   }),
 
-  on(OmbrelloniActions.UpdateOmbrelloni, (state: OmbrelloniState) => {
+  on(OmbrelloniActions.FetchOmbrelloniMappa, (state: OmbrelloniState) => {
     return {
       ...state,
       loading: true
     };
   }),
 
+  on(OmbrelloniActions.SetOmbrelloniMappa, (state: OmbrelloniState, { payload }) => {
+    return {
+      ...state,
+      mappa: payload[0],
+      loading: false
+    };
+  }),
+
+  on(OmbrelloniActions.UpdateOmbrelloni, (state: OmbrelloniState, { payload }) => {
+    return {
+      ...state,
+    };
+  }),
+
   on(OmbrelloniActions.UpdateOmbrelloniSuccess, (state: OmbrelloniState) => {
     return {
       ...state,
-      loading: false,
       error: null
     };
   }),
@@ -57,14 +70,12 @@ const reducer = createReducer(
   on(OmbrelloniActions.CreateOmbrellone, (state: OmbrelloniState) => {
     return {
       ...state,
-      loading: true
     };
   }),
 
   on(OmbrelloniActions.CreateOmbrelloneSuccess, (state: OmbrelloniState) => {
     return {
       ...state,
-      loading: false,
       error: null
     };
   }),

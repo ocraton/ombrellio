@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Cliente } from '../../clienti/cliente.model';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
+import { Mappa } from '../mappa.model';
 import { Prenotazione } from '../prenotazione.model';
 
 
@@ -14,19 +15,29 @@ export const FetchPrenotazioni = createAction(
   props<{ startDate: Date, endDate: Date }>()
 );
 
+export const SetPrenotazioni = createAction(
+  '[Prenotazioni] Set_Prenotazioni',
+  props<{ payload: Prenotazione[] }>()
+);
+
 export const FetchPrenotazioniOmbrelloni = createAction(
   '[Prenotazioni] Fetch_Prenotazioni_Ombrelloni'
 );
 
 export const SetPrenotazioniOmbrelloni = createAction(
-  '[Ombrelloni] Set_Prenotazioni_Ombrelloni',
+  '[Prenotazioni] Set_Prenotazioni_Ombrelloni',
   props<{ payload: Ombrellone[] }>()
 );
 
-export const SetPrenotazioni = createAction(
-  '[Prenotazioni] Set_Prenotazioni',
-  props<{ payload: Prenotazione[] }>()
+export const FetchPrenotazioniMappa = createAction(
+  '[Prenotazioni] Fetch_Prenotazioni_Mappa'
 );
+
+export const SetPrenotazioniMappa = createAction(
+  '[Prenotazioni] Set_Prenotazioni_Mappa',
+  props<{ payload: Mappa[] }>()
+);
+
 
 export const FetchPrenotazione = createAction(
   '[Prenotazioni] Fetch_Prenotazione',

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { Ombrellone } from '../ombrelloni/ombrellone.model';
 import { DatesService } from 'src/app/shared/services/dates.service';
 import { Cliente } from '../clienti/cliente.model';
+import { Mappa } from './mappa.model';
 
 
 @Injectable()
@@ -70,6 +71,22 @@ export class PrenotazioniService {
     return ombrelloni.snapshotChanges().pipe(
       map((actions => actions.map(a => {
         const data = a.payload.doc.data() as Ombrellone;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+
+  }
+
+  getMappa(): Observable<Mappa[]> {
+
+    let mappa = this.db.collection(`chalet/${this.chaletUID}/mappa`, ref =>
+      ref.limit(1)
+    );
+
+    return mappa.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Mappa;
         const id = a.payload.doc.id;
         return { id, ...data };
       })))

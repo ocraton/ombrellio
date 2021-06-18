@@ -1,10 +1,21 @@
 import { createAction, props } from '@ngrx/store';
+import { Mappa } from '../../prenotazioni/mappa.model';
 import { Ombrellone } from '../ombrellone.model';
 
 export const SetOmbrelloni = createAction(
   '[Ombrelloni] Set_ombrelloni',
   props<{payload: Ombrellone[]}>()
 );
+
+export const FetchOmbrelloniMappa = createAction(
+  '[Ombrelloni] Fetch_Ombrelloni_Mappa'
+);
+
+export const SetOmbrelloniMappa = createAction(
+  '[Ombrelloni] Set_Ombrelloni_Mappa',
+  props<{ payload: Mappa[] }>()
+);
+
 
 export const UpdateOmbrelloni = createAction(
   '[Ombrelloni] Update_ombrelloni',

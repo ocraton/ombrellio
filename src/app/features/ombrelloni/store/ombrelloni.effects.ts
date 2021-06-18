@@ -7,6 +7,7 @@ import * as OmbrelloniActions from './ombrelloni.actions';
 import { Action } from '@ngrx/store';
 import { SubscriptionService } from '../../../core/services/subscription.service';
 import { Ombrellone } from '../ombrellone.model';
+import { Mappa } from '../../prenotazioni/mappa.model';
 
 @Injectable()
 export class OmbrelloniEffects {
@@ -69,6 +70,19 @@ export class OmbrelloniEffects {
       ))
   );
 
+  ombrelloniMappaFetch$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(OmbrelloniActions.FetchOmbrelloniMappa),
+      switchMap(() => {
+        return this.ombrelloniService.getMappa().pipe(
+          takeUntil(this.subService.unsubscribe$)
+        )
+      }),
+      map((data: Mappa[]) => {
+        return OmbrelloniActions.SetOmbrelloniMappa({ payload: data });
+      })
+    )
+  );
 
 
 

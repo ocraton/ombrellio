@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Ombrellone } from './ombrellone.model';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
+import { Mappa } from '../prenotazioni/mappa.model';
 
 
 @Injectable()
@@ -48,6 +49,22 @@ export class OmbrelloniService {
     deleteOmbrellone(ombrellone) {
       return this.db.doc(`chalet/${this.chaletUID}/ombrelloni/${ombrellone.id}`).delete()
     }
+
+  getMappa(): Observable<Mappa[]> {
+
+    let mappa = this.db.collection(`chalet/${this.chaletUID}/mappa`, ref =>
+      ref.limit(1)
+    );
+
+    return mappa.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Mappa;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+
+  }
 
 
 

@@ -7,3 +7,53 @@
   height: 60px;
   width: 100px;
 }
+
+mat-grid-tile {
+  border: 1px solid rgb(162, 96, 236);
+}
+
+
+@media only screen and (max-width: 768px) {
+  mat-slider {
+    width: 100px;
+  }
+  h2 {font-size: 1.2rem;}
+  #zoombox{display: none;}
+}
+
+.flex-grid-thirds {
+  display: flex;
+  justify-content: space-between;
+}
+.flex-grid-thirds .col {
+  width: 32%;
+}
+
+mat-slider {
+  width: 300px;
+}
+
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+
+@media (max-width: 400px) {
+  .flex-grid {
+    display: block;
+  }
+  mat-slider {
+    width: 100px;
+  }
+}
+
+.flex-grid-thirds {
+  display: flex;
+  justify-content: space-between;
+}
+.flex-grid-thirds .col {
+  width: 32%;
+}
+

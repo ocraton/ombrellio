@@ -10,6 +10,7 @@ import { SubscriptionService } from '../../../core/services/subscription.service
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { Utente } from '../../utenti/utente.model';
 import { Cliente } from '../../clienti/cliente.model';
+import { Mappa } from '../mappa.model';
 
 @Injectable()
 export class PrenotazioniEffects {
@@ -42,6 +43,20 @@ export class PrenotazioniEffects {
       }),
       map((data: Ombrellone[]) => {
         return PrenotazioniActions.SetPrenotazioniOmbrelloni({ payload: data });
+      })
+    )
+  );
+
+  prenotazioniMappaFetch$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(PrenotazioniActions.FetchPrenotazioniMappa),
+      switchMap(() => {
+        return this.prenotazioniService.getMappa().pipe(
+          takeUntil(this.subService.unsubscribe$)
+        )
+      }),
+      map((data: Mappa[]) => {
+        return PrenotazioniActions.SetPrenotazioniMappa({ payload: data });
       })
     )
   );

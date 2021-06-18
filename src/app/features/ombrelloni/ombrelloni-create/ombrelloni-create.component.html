@@ -1,19 +1,23 @@
-
+<mat-dialog-content>
   <h2>Crea un nuovo ombrellone</h2>
   <form [formGroup]="ombrelloneForm" (ngSubmit)="onSave()"
         #formDirective="ngForm"
         class="form-container">
   <mat-form-field style="width:100%; font-size:1rem">
-    <input #termcat matInput formControlName="numero" class="editNomeCat" placeholder="Numero" appCapitalizeCase>
+    <input #termcat matInput formControlName="numero" class="editNomeCat" placeholder="Numero"
+    maxlength="4">
     <mat-error *ngIf="!ombrelloneForm.get('numero').valid && ombrelloneForm.get('numero').touched">
-      Inserire Numero / minimo tre lettere
+      Inserire Numero / massimo tre cifre
     </mat-error>
   </mat-form-field>
   </form>
-
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="mat-raised-button mt20 w-100" id="btndesktop" (click)="close()"
+          mat-raised-button color="accent">ANNULLA</button>
   <button class="mat-raised-button mt20 w-100"
   [disabled]="!ombrelloneForm.valid"
   (click)="onSave()"
   mat-raised-button color="primary">SALVA
   <mat-icon class="icon">save</mat-icon></button>
-
+</mat-dialog-actions>

@@ -47,6 +47,21 @@ const reducer = createReducer(
     };
   }),
 
+  on(PrenotazioniActions.FetchPrenotazioniMappa, (state: PrenotazioniState) => {
+    return {
+      ...state,
+      loading: true
+    };
+  }),
+
+  on(PrenotazioniActions.SetPrenotazioniMappa, (state: PrenotazioniState, { payload }) => {
+    return {
+      ...state,
+      mappa: payload[0],
+      loading: false
+    };
+  }),
+
   on(PrenotazioniActions.SetPrenotazione, (state: PrenotazioniState, {payload}) => ({
     ...state,
     prenotazione: payload[0],

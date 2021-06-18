@@ -1,3 +1,4 @@
+import { Ombrellone } from './../ombrelloni/ombrellone.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -8,8 +9,13 @@ import * as PrenotazioniActions from './store/prenotazioni.actions';
 import { SubscriptionService } from '../../core/services/subscription.service';
 import { Prenotazione } from './prenotazione.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Cliente } from '../clienti/cliente.model';
 
+
+export interface Tile {
+  iRiga: number;
+  iColonna: number;
+  ombrellone: Ombrellone;
+}
 
 @Component({
   selector: 'app-prenotazione',
@@ -20,6 +26,10 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
 
   prenotazioneState: Observable<prenotazioniState.default>;
   prenArray: Prenotazione[];
+  ombrelloniList: Ombrellone[];
+  mappaGrid: Tile[] = [];
+  public currentValue: string = null;
+  valueZoom: number = 100;
   range = new FormGroup({
     dateStart: new FormControl(new Date(), [Validators.required]),
     dateEnd: new FormControl(new Date(), [Validators.required])
@@ -32,11 +42,38 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
     }));
+    this.store.dispatch(PrenotazioniActions.FetchPrenotazioniMappa());
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioniOmbrelloni());
     this.prenotazioneState = this.store.select('prenotazioni');
     this.prenotazioneState.subscribe(pren => {
-      this.prenArray = pren.prenotazione
+      this.prenArray = pren.prenotazione;
+      this.ombrelloniList = pren.ombrellone;
+      this.buildGrid(pren.mappa.numero_righe, pren.mappa.numero_colonne)
     })
+  }
+
+  buildGrid(numero_righe, numero_colonne) {
+    if (this.mappaGrid.length == numero_righe * numero_colonne) {
+      this.mappaGrid.splice(0, this.mappaGrid.length)
+    }
+    for (var i = 1; i <= numero_righe; i++) {
+      for (var j = 1; j <= numero_colonne; j++) {
+        let ombrel = this.getOmbrelloneIfExist(i, j);
+        let tile: Tile = { iRiga: i, iColonna: j, ombrellone: ombrel };
+        this.mappaGrid.push(tile);
+      }
+    }
+  }
+
+  getOmbrelloneIfExist(iRiga, iColonna): Ombrellone{
+    var ombrellone = this.ombrelloniList.find(obj => {
+      return obj.riga == iRiga && obj.colonna == iColonna
+    })
+    if(ombrellone != null) {
+      return { id: ombrellone.id, numero: ombrellone.numero, colonna: ombrellone.colonna, riga: ombrellone.riga }
+    } else {
+      return null
+    }
   }
 
   checkPrenotazione(ombrelloneUid: string) {
@@ -50,6 +87,18 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
     }));
+  }
+
+  updateZoom(event) {
+    this.valueZoom = event.value;
+  }
+
+  getZoomVal() {
+    return { zoom: this.valueZoom + '%', width: this.valueZoom + '%' }
+  }
+
+  formatLabel(value: number) {
+    return value + '%';
   }
 
   ngOnDestroy(): void {

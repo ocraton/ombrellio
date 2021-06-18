@@ -19,7 +19,6 @@ export class Prenotazione {
               numero_ombrellone: string, uid_ombrellone: string, uid_cliente: string ) {
 
               this.id = id;
-              this.id = id;
               this.chalet_uid = chalet_uid;
               this.cognome_cliente = cognome_cliente;
               this.nome_cliente = nome_cliente;
