@@ -5,15 +5,21 @@ import { TranslateService } from './services/translate.service';
 import { CapitalizedTextDirective } from './directive/CapitalizedText.directive';
 import { ClockService } from './services/clock.service';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { AllergeniService } from './services/allergeni.service';
 
 
 @NgModule({
-  declarations: [CapitalizedTextDirective],
-  exports: [CapitalizedTextDirective, NgxQRCodeModule],
+  declarations: [
+    CapitalizedTextDirective
+  ],
   imports: [
     CommonModule,
     NgxQRCodeModule
   ],
-  providers: [TranslateService, DatesService, ClockService]
+  exports: [
+    CapitalizedTextDirective,
+    NgxQRCodeModule
+  ],
+  providers: [TranslateService, DatesService, ClockService, AllergeniService]
 })
 export class SharedModule { }

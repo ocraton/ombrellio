@@ -4,14 +4,13 @@
         #formDirective="ngForm"
         class="form-container">
   <mat-form-field style="width:100%; font-size:1rem">
-    <input matInput formControlName="nome"
-    placeholder="Nome" class="fieldAddProd">
+    <input matInput formControlName="nome" placeholder="Nome" class="fieldAddProd" appCapitalizeCase>
     <mat-error *ngIf="!prodottoForm.get('nome').valid && prodottoForm.get('nome').touched">
       Inserire Nome / minimo tre lettere
     </mat-error>
   </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem">
-    <input  matInput formControlName="descrizione" placeholder="Descrizione" class="fieldAddProd">
+    <input  matInput formControlName="descrizione" placeholder="Descrizione" class="fieldAddProd" appCapitalizeCase>
     <mat-error *ngIf="!prodottoForm.get('descrizione').valid && prodottoForm.get('descrizione').touched">
       Descrizione minimo tre lettere
     </mat-error>
@@ -22,6 +21,25 @@
       Inserire Prezzo € nel formato corretto (se usi il . inserisci 2 cifre dopo )
     </mat-error>
   </mat-form-field>
+  <div style="width:100%; font-size:1rem">
+    <p>Allergeni</p>
+    <mat-checkbox *ngFor="let data of allergeniData; let i=index"
+      (change)="onCheckboxChange($event)"
+      [value]="data.id">
+      {{data.descrizione}}
+    </mat-checkbox>
+  </div>
+
+  <mat-form-field style="width:100%; font-size:1rem">
+    <mat-label>Quantità minima ordinabile</mat-label>
+    <mat-select formControlName="min_quantita">
+      <mat-option value="1" selected>1</mat-option>
+      <mat-option value="2">2</mat-option>
+      <mat-option value="3">3</mat-option>
+      <mat-option value="4">4</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

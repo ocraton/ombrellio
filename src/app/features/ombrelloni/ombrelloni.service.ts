@@ -8,6 +8,10 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import { Mappa } from '../prenotazioni/mappa.model';
 
+export interface Tile {
+  iRiga: number;
+  iColonna: number;
+}
 
 @Injectable()
 

@@ -1,7 +1,3 @@
-.listItem{
-    margin-bottom: 20px;
-}
-
 #btnFindPren{
   margin-left: 40px;
   height: 60px;
@@ -10,6 +6,58 @@
 
 mat-grid-tile {
   border: 1px solid rgb(162, 96, 236);
+}
+
+.gridListContainer{
+  overflow: auto;
+  width: 100%;
+  height: calc(100vh - 325px);
+}
+
+div.gridListContainer::-webkit-scrollbar {
+    background: #e6e6e6;
+    width: 10px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
+}
+
+mat-grid-list{
+  display: block;
+}
+
+.rowCardIndicator{
+  width: 100%;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.rowColIndicator p {
+  text-align: center;
+  margin: 0px;
+  padding: 4px;
+  background: #26C6DA;
+  color: white;
+  font-weight: 500;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+  display: block !important; /* or whichever you need */
+}
+
+.mat-grid-tile .mat-figure {
+  width: 100px;
+  height: 80px;
 }
 
 
@@ -21,13 +69,13 @@ mat-grid-tile {
   #zoombox{display: none;}
 }
 
-.flex-grid-thirds {
-  display: flex;
-  justify-content: space-between;
-}
-.flex-grid-thirds .col {
-  width: 32%;
-}
+// .flex-grid-thirds {
+//   display: flex;
+//   justify-content: space-between;
+// }
+// .flex-grid-thirds .col {
+//   width: 32%;
+// }
 
 mat-slider {
   width: 300px;
@@ -49,11 +97,11 @@ mat-slider {
   }
 }
 
-.flex-grid-thirds {
-  display: flex;
-  justify-content: space-between;
-}
-.flex-grid-thirds .col {
-  width: 32%;
-}
+// .flex-grid-thirds {
+//   display: flex;
+//   justify-content: space-between;
+// }
+// .flex-grid-thirds .col {
+//   width: 32%;
+// }
 

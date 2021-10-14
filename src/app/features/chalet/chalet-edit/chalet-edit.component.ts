@@ -72,11 +72,13 @@ export class ChaletEditComponent implements OnInit {
       } else {
         let numeroOmbrelloni: number = this.chaletForm.get('numero_ombrelloni').value
         let numeroTavoli: number = this.chaletForm.get('numero_tavoli').value
+        let numeroFile: number = this.chaletForm.get('numero_file').value
         this.store.dispatch(ChaletActions.CreateChalet({
           payload: {
             chalet: this.chalet,
             numeroOmbrelloni: numeroOmbrelloni,
-            numeroTavoli: numeroTavoli
+            numeroTavoli: numeroTavoli,
+            numeroFile: numeroFile
           }
         }));
       }
@@ -142,6 +144,9 @@ export class ChaletEditComponent implements OnInit {
       ))
       this.chaletForm.addControl('numero_tavoli', new FormControl(
         '', [Validators.compose([Validators.required, Validators.min(1), Validators.max(400), Validators.pattern('^[1-9][0-9]*$')])]
+      ))
+      this.chaletForm.addControl('numero_file', new FormControl(
+        '', [Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]*$')])]
       ))
     }
     this.indirizzo = this.chaletForm.get('indirizzo') as FormGroup

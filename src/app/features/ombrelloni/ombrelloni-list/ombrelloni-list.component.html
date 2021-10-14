@@ -5,7 +5,21 @@
       Ombrelloni
       <br><span style="font-style: italic;font-size: 1rem;">Crea/Modifica la mappa dei tuoi ombrelloni disponendoli sulla griglia</span>
     </h2>
-  </div>
+      </div>
+      <div class="col" id="zoombox">
+        <div style="float: right; font-size: 1rem">
+          <p style="padding: 0px 8px; margin: 10px 0px 0px 0px">Zoom</p>
+          <mat-slider
+            min="60"
+            max="140"
+            (change)="updateZoom($event)"
+            step="10"
+            [value]="valueZoom"
+            thumbLabel
+            [displayWith]="formatLabel"
+          ></mat-slider>
+        </div>
+      </div>
 </div>
 
 <div *ngIf="!(ombrelloniState | async).loading">
@@ -13,57 +27,64 @@
   <mat-form-field class="mt20" style="width: 100%">
     <input matInput placeholder="Cerca" #term (keyup)="setSearch(term.value)" style="width: 100%" />
   </mat-form-field>
+  <div class="gridListContainer">
+    <mat-grid-list
+      [ngStyle]="getZoomVal()"
+      [style.width]="150*(ombrelloniState | async).mappa.numero_colonne+'px'"
+      [cols]="(ombrelloniState | async).mappa.numero_colonne"
+      rowHeight="130px"
+      cdkDropListGroup >
 
-  <mat-grid-list
-    [cols]="(ombrelloniState | async).mappa.numero_colonne"
-    rowHeight="150px"
-    cdkDropListGroup >
+      <mat-grid-tile style="display: block;"
+        *ngFor="let tile of mappaGrid; index as i"
+        cdkDropList
+        (cdkDropListDropped)="dropOmbrellone($event, tile)">
 
-    <mat-grid-tile
-      *ngFor="let tile of mappaGrid; index as i"
-      cdkDropList
-      (cdkDropListDropped)="dropOmbrellone($event, tile)">
-      <!-- <h6>{{ tile.iRiga }}:{{ tile.iColonna }}</h6> -->
-      <mat-card class="mat-elevation-z2"
-        *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone; else addombrellone"
-        [cdkDragData]="ombrellone"
-        cdkDrag
-        cdkDragPlaceholder>
-        <mat-card-header>
-          <mat-card-title>
-            <span><mat-icon>beach_access</mat-icon></span> <br />
-            <span style="color: black">{{ ombrellone.numero }} </span>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-actions>
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="editOmbrellone(ombrellone)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="deleteOmbrellone(ombrellone)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-      <ng-template #addombrellone>
-          <button
-            (click)="addOmbrellone(tile.iRiga, tile.iColonna)"
-            mat-mini-fab
-            color="primary"
-            aria-label="Nuovo Ombrellone">
-            <mat-icon>add</mat-icon>
-          </button>
-      </ng-template>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-
-  <br /><br />
+        <!-- <div class="rowColIndicator"><p>Fila {{ tile.iRiga }}:{{ tile.iColonna }}</p></div> -->
+        <div class="rowCardIndicator">
+          <mat-card
+            *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone; else addombrellone"
+            [ngClass]="{'mat-elevation-z2' : true,
+          'highlightedOmbrellone' : ombrellone.numero.includes(ombrellonename) && ombrellonename != ''}"
+            [cdkDragData]="ombrellone"
+            cdkDrag
+            cdkDragPlaceholder>
+            <mat-card-header>
+              <mat-card-title>
+                <span><mat-icon>beach_access</mat-icon></span> <br />
+                <span style="color: black">{{ ombrellone.numero }} </span>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-actions>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="editOmbrellone(ombrellone)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="deleteOmbrellone(ombrellone)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+          <ng-template #addombrellone>
+              <button
+                class="btnAddOmbrellone"
+                (click)="addOmbrellone(tile.iRiga, tile.iColonna)"
+                mat-mini-fab
+                color="primary"
+                aria-label="Nuovo Ombrellone">
+                <mat-icon>add</mat-icon>
+              </button>
+          </ng-template>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <br>
 </div>
 <div>
   <mat-progress-bar

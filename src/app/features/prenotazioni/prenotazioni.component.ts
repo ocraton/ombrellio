@@ -29,7 +29,7 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
   ombrelloniList: Ombrellone[];
   mappaGrid: Tile[] = [];
   public currentValue: string = null;
-  valueZoom: number = 100;
+  valueZoom: number = (localStorage.getItem("zoomLevelPrenotazioni")) ? Number(localStorage.getItem("zoomLevelPrenotazioni")) : 100;
   range = new FormGroup({
     dateStart: new FormControl(new Date(), [Validators.required]),
     dateEnd: new FormControl(new Date(), [Validators.required])
@@ -39,6 +39,7 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     private subService: SubscriptionService) { }
 
   ngOnInit() {
+    if(localStorage.getItem("zoomLevelPrenotazioni")) {this.valueZoom = Number(localStorage.getItem("zoomLevelPrenotazioni"))}
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
     }));
@@ -91,10 +92,11 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
 
   updateZoom(event) {
     this.valueZoom = event.value;
+    localStorage.setItem("zoomLevelPrenotazioni", this.valueZoom.toString());
   }
 
   getZoomVal() {
-    return { zoom: this.valueZoom + '%', width: this.valueZoom + '%' }
+    return { zoom: this.valueZoom + '%' }
   }
 
   formatLabel(value: number) {

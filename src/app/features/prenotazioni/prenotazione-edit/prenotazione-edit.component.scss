@@ -1,3 +1,34 @@
+.mat-card-header .mat-card-title {
+    margin-bottom: 0px;
+}
+
+.mat-card-title{
+  color:#673ab7;
+  font-weight: 200;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.mat-card-header {
+  text-align: center;
+  justify-content: center;
+}
+.mat-card-actions{
+  font-size: 1.8rem;
+  padding-top: 0%;
+  text-align: center;
+  justify-content: center;
+}
+
+mat-card {
+  width: 100px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  position: relative;
+}
+
 .ombrelloneLibero{
   background: #45cc47;
   color: #fff;

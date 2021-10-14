@@ -8,7 +8,7 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
       <mat-toolbar color="primary" >
-        <img src="https://www.ombrel.io/wp-content/uploads/2020/05/favicon.png" style="max-height:40px">
+        <mat-icon svgIcon="faviconOmbrelio" style="transform: scale(1.8);margin-left: 8px;display: block;"></mat-icon>
       </mat-toolbar>
     <mat-nav-list>
         <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
@@ -93,10 +93,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span style="cursor: pointer;" routerLink="">
-        <img src="https://www.ombrel.io/wp-content/uploads/2020/05/logoHorizontal.png"
-                  style="width: 110px;margin-top: 10px;">
-      </span>
+      <mat-icon svgIcon="logoOmbrelio" style="transform: scale(4.5);margin-left: 40px; display: block;"></mat-icon>
       <span class="toolbar-spacer"></span>
       <a mat-icon-button class="example-icon favorite-icon "
         href="https://m.me/ombrel.io"

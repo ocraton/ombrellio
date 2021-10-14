@@ -62,6 +62,12 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field *ngIf="!editMode">
+          <input matInput placeholder="Numero File Ombrelloni" formControlName="numero_file" >
+          <mat-error *ngIf="!chaletForm.get('numero_file').valid && chaletForm.get('numero_file').touched">
+            Numero file obbligatorio
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="!editMode">
           <input matInput placeholder="Numero Tavoli" formControlName="numero_tavoli" >
           <mat-error *ngIf="!chaletForm.get('numero_tavoli').valid && chaletForm.get('numero_tavoli').touched">
             Numero tavoli obbligatorio / soglia massima 400 tavoli

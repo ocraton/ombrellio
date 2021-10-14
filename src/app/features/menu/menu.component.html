@@ -1,28 +1,23 @@
-<div class="content" fxLayout="row wrap" fxLayoutGap="16px grid">
+<div class="content" fxLayout="row wrap">
   <div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" *ngIf="chaletUID != ''">
     <div *ngIf="chalet; else nodataex">
       <div id="coverMenu">
-        <img
-          src="https://www.ombrel.io/wp-content/uploads/2020/10/menuHeader-1.png"
-          class="img-menu"
-        />
+        <mat-icon svgIcon="menuHeader" style="color:white"  class="img-menu"></mat-icon>
       </div>
       <h2 class="text-center title-menu">{{ chalet.ragione_sociale }}</h2>
       <h4 class="text-center title-sub-menu">
         Info & Prenotazioni: {{ chalet.telefono }} <br />
-        <span
-          >{{ chalet.indirizzo.via }} n. {{ chalet.indirizzo.civico }} -
-          {{ chalet.indirizzo.cap }} {{ chalet.indirizzo.citta }} ({{
-            chalet.indirizzo.provincia
-          }})</span
-        >
+        <span>
+          {{ chalet.indirizzo.via }} n. {{ chalet.indirizzo.civico }} -
+          {{ chalet.indirizzo.cap }} {{ chalet.indirizzo.citta }}
+          ({{ chalet.indirizzo.provincia }})
+          </span>
         <br />
       </h4>
 
       <mat-expansion-panel
         *ngFor="let categoria of categorie | async"
-        class="mat-elevation-z0"
-      >
+        class="mat-elevation-z0">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h3 class="category-menu">{{ categoria.nome }}</h3>
@@ -35,6 +30,15 @@
                 <span>{{ prodotto.nome }}</span>
                 <br>
                 <span class="descrProd">{{ prodotto.descrizione }}</span>
+                <ul class="allergenilista" *ngIf="prodotto.allergeni">
+                  <li *ngFor="let allergene of prodotto.allergeni">
+                    {{ getAllergeneById(allergene) }}
+                  </li>
+                </ul>
+                <span class="descrProdMinQuantita" *ngIf="prodotto.min_quantita > 1">
+                   <br *ngIf="!prodotto.allergeni">
+                  Quantità minima: {{ prodotto.min_quantita }} porzioni
+                </span>
               </td>
               <td>
                 <span>{{ prodotto.prezzo }} €</span>
@@ -47,9 +51,7 @@
         <br /><br />
         Powered by <br />
         <a href="https://ombrel.io">
-          <img
-            src="https://www.ombrel.io/wp-content/uploads/2020/05/logoHorizontalhead.png"
-          />
+          <mat-icon svgIcon="logoOmbrelio" style="transform: scale(4.5); display: block; margin: 15px auto;"></mat-icon>
         </a>
         <br />
       </div>

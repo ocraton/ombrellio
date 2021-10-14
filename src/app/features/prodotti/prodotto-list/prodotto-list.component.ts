@@ -15,6 +15,7 @@ import * as prodottiState from '../store/prodotti.state';
 import * as fromApp from '../../../store/app.reducer';
 import * as ProdottiActions from '../store/prodotti.actions';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AllergeniService } from './../../../shared/services/allergeni.service';
 
 
 @Component({
@@ -27,13 +28,25 @@ export class ProdottoListComponent implements OnInit, OnDestroy {
   prodottoState: Observable<prodottiState.default>;
   prodotto: Prodotto = null;
   @Input() categoria: Categoria;
+  allergeni: any[];
 
   constructor(private store: Store<fromApp.AppState>,
     private subService: SubscriptionService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private allergeniService: AllergeniService) { }
 
   ngOnInit() {
+    this.allergeniService.getAllergeniList()
+      .subscribe(res =>
+        this.allergeni = res
+      );
+  }
 
+  getAllergeneById(allergene) {
+    var allerg = this.allergeni.filter(element => {
+      return element.id === allergene
+    })
+    return allerg[0].descrizione;
   }
 
   onOpencategoriaPanel() {

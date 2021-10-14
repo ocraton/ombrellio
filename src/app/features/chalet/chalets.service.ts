@@ -36,26 +36,31 @@ export class ChaletsService {
               );
     }
 
-    createChalet(chalet, numOmbrelloni, numeroTavoli) {
+  createChalet(chalet, numOmbrelloni, numeroTavoli, numeroFile) {
       delete chalet.id;
+      let nColonne = Math.floor(numOmbrelloni / numeroFile);
       return this.db.collection('chalet').add(chalet)
         .then((chaletItem) => {
-
-            for(let i = 1; i<=numOmbrelloni; i++){
-              this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
-                'numero': i.toString()
-              })
-            }
-            for (let i = 1; i <= numeroTavoli; i++){
-              this.db.collection(`chalet/${chaletItem.id}/tavoli`).add({
-                'numero': i.toString()
-              })
-            }
-            this.db.collection('utenti').doc(this.authUID).update({
-              'chalet_uid': chaletItem.id
+          let nColonnaIndex = 1;
+          let currentRiga = 1;
+          for(let i = 1; i<=numOmbrelloni; i++){
+            this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
+              'numero': i.toString(),
+              'colonna': (nColonnaIndex > nColonne) ? nColonnaIndex = 1 : nColonnaIndex++,
+              'riga': (nColonnaIndex > nColonne) ? currentRiga++ : currentRiga = currentRiga
             })
+          }
+          for (let i = 1; i <= numeroTavoli; i++){
+            this.db.collection(`chalet/${chaletItem.id}/tavoli`).add({
+              'numero': i.toString()
+            })
+          }
+          this.db.collection('utenti').doc(this.authUID).update({
+            'chalet_uid': chaletItem.id
+          })
 
           this.db.collection('codiciChalet').doc(chaletItem.id).set({ 'codice': chalet.codice_accesso })
+          this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': nColonne, 'numero_righe': numeroFile })
 
         });
 

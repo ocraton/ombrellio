@@ -1,10 +1,8 @@
-import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as ClientiActions from '../store/clienti.actions';
 import { Cliente } from '../cliente.model';
-import { Observable } from 'rxjs';
-import * as clientiState from '../store/clienti.state';
 import * as fromApp from '../../../store/app.reducer';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';

@@ -1,7 +1,24 @@
 .titleProdotto{font-weight: 300;font-size: 1.6rem;}
-.prodottoTitle{font-weight: 500;color:#673ab7;font-size: 1.1rem;}
+.prodottoTitle{font-weight: 800;color:#673ab7;font-size: 1.1rem;}
 .noProductAdvise{color: #26C6DA; font-size: 1.3rem; font-style: italic; font-weight: 300;}
 .mat-expansion-panel{ margin-bottom: 10px;}
 .prodottiListItem{ border-bottom: solid 1px #ccc; }
 .visibilityOffProd{background: #dadada;}
 .visibilityOffCat{background: #eaeaea;}
+ul.allergenilista {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+ul.allergenilista > li {
+  float: left;
+  margin: 3px 8px 3px 0px;
+  background: #8124e3;
+  color: #fff;
+  padding: 0px 6px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+

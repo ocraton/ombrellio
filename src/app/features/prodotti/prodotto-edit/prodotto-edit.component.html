@@ -13,23 +13,42 @@
   </mat-select>
 </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem">
-    <input #termcat matInput formControlName="nome" class="editNomeProd">
+    <input matInput formControlName="nome" class="editNomeProd" appCapitalizeCase>
     <mat-error *ngIf="!prodottoForm.get('nome').valid && prodottoForm.get('nome').touched">
       Inserire Nome / minimo tre lettere
     </mat-error>
   </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem">
-    <input #termcat matInput formControlName="descrizione" class="editNomeProd">
+    <input matInput formControlName="descrizione" class="editNomeProd" appCapitalizeCase>
     <mat-error *ngIf="!prodottoForm.get('descrizione').valid && prodottoForm.get('descrizione').touched">
       Descrizione minimo tre lettere
     </mat-error>
     <mat-error *ngIf="prodottoForm.get('descrizione').hasError('minLength')">minimo tre lettere</mat-error>
   </mat-form-field>
   <mat-form-field style="width:100%; font-size:1rem">
-    <input #termcat matInput formControlName="prezzo" class="editNomeProd">
+    <input matInput formControlName="prezzo" class="editNomeProd">
     <mat-error *ngIf="!prodottoForm.get('prezzo').valid && prodottoForm.get('prezzo').touched">
       Inserire Prezzo
     </mat-error>
+  </mat-form-field>
+
+  <div style="width:100%; font-size:1rem">
+    <p style="font-weight: 800;">Allergeni</p>
+    <mat-checkbox *ngFor="let data of allergeniData; let i=index"
+      (change)="onCheckboxChange($event)"
+      [value]="data.id"
+      [checked]="getProdottoHasAllergene(data.id)">
+      {{data.descrizione}}
+    </mat-checkbox>
+  </div>
+  <br>
+  <mat-form-field style="width:100%; font-size:1rem; margin-top: 10px;">
+    <mat-label>Quantità minima ordinabile</mat-label>
+    <mat-select formControlName="min_quantita">
+      <mat-option *ngFor="let a of [].constructor(4); let i = index"
+      [value]="i+1"
+      >{{ i+1 }}</mat-option>
+    </mat-select>
   </mat-form-field>
   </form>
 </mat-dialog-content>

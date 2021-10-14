@@ -1,11 +1,8 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as prenotazioniState from '../store/prenotazioni.state';
-import * as fromApp from '../../../store/app.reducer';
-import * as PrenotazioniActions from '../store/prenotazioni.actions';
+import { Component, OnInit, Input } from '@angular/core';
+
 import { PrenotazioneDetailComponent } from './../prenotazione-detail/prenotazione-detail.component';
 import { Prenotazione } from '../prenotazione.model';
-import { Observable } from 'rxjs';
+
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PrenotazioneCreateComponent } from '../prenotazione-create/prenotazione-create.component';

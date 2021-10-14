@@ -1,5 +1,5 @@
-.content > mat-card {
-    width: 200px;
+.content {
+    width: 100%;
 }
 
 .text-center{
@@ -8,9 +8,9 @@
 
 
 .title-menu{
-  font-weight: 100;
-  font-size: 4rem;
-  margin: 10px 0px 50px 0px;
+  font-weight: 600;
+  font-size: 2.2rem;
+  margin: 18px 0px 50px 0px;
 }
 
 .title-sub-menu{
@@ -58,7 +58,7 @@ mat-expansion-panel{
 }
 
 mat-expansion-panel-header{
-  margin: 20px 10px;
+  margin: 0px 10px;
 }
 
 body{
@@ -93,6 +93,14 @@ table.menulist td span.descrProd {
   position: relative;
 }
 
+table.menulist td span.descrProdMinQuantita{
+  font-weight: 400;
+  font-style: italic;
+  font-size: 0.8rem;;
+}
+
+
+
 
 table.menulist td:first-child::after {
   content: '';
@@ -100,11 +108,27 @@ table.menulist td:first-child::after {
   bottom: 0;
   width:1500px;
   height:0px ;
-  margin-left: 1em;
   border-bottom:2px dotted grey;
 }
 
 table.menulist td:last-child {
 	text-align:right;
 	width:3em;
+}
+
+ul.allergenilista {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+ul.allergenilista > li {
+  float: left;
+  margin: 3px 8px 3px 0px;
+  background: #404040;
+  color: #fff;
+  padding: 0px 6px;
+  font-size: 0.8rem;
+  border-radius: 6px;
 }

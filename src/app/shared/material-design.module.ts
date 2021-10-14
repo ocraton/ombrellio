@@ -159,10 +159,10 @@ xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;s
 })
 export class MaterialDesignModule {
   constructor(private iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    this.iconRegistry.addSvgIcon(
-      "messanger",
-      sanitizer.bypassSecurityTrustResourceUrl("../assets/messanger_icon.svg")
-    );
+    this.iconRegistry.addSvgIcon( "messanger", sanitizer.bypassSecurityTrustResourceUrl("../assets/messanger_icon.svg") );
+    this.iconRegistry.addSvgIcon( "logoOmbrelio", sanitizer.bypassSecurityTrustResourceUrl("../assets/ombrelio_logo.svg") );
+    this.iconRegistry.addSvgIcon( "faviconOmbrelio", sanitizer.bypassSecurityTrustResourceUrl("../assets/favicon.svg") );
+    this.iconRegistry.addSvgIcon("menuHeader", sanitizer.bypassSecurityTrustResourceUrl("../assets/menuHeader.svg") );
     this.iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
     this.iconRegistry.addSvgIconLiteral('youtube', sanitizer.bypassSecurityTrustHtml(YOUTUBE_ICON));
     this.iconRegistry.addSvgIconLiteral('telegram', sanitizer.bypassSecurityTrustHtml(TELEGRAM_ICON));

@@ -1,9 +1,9 @@
 <div class="flex-grid">
   <div class="col">
-<h2 class="titleSection">
-  <mat-icon class="icon mr15 valmiddle">book_online</mat-icon>
-  Prenotazioni
-</h2>
+    <h2 class="titleSection">
+      <mat-icon class="icon mr15 valmiddle">book_online</mat-icon>
+      Prenotazioni
+    </h2>
   </div>
     <div class="col" id="zoombox">
       <div style="float: right; font-size: 1rem">
@@ -11,10 +11,9 @@
         <mat-slider
           min="60"
           max="140"
-          #valueZoom
           (change)="updateZoom($event)"
           step="10"
-          value="100"
+          [value]="valueZoom"
           thumbLabel
           [displayWith]="formatLabel"
         ></mat-slider>
@@ -42,18 +41,25 @@
 </div>
 
 <div *ngIf="!(prenotazioneState | async).loading">
-
-  <mat-grid-list [cols]="(prenotazioneState | async).mappa.numero_colonne" rowHeight="150px" [ngStyle]="getZoomVal()">
+<div class="gridListContainer">
+  <mat-grid-list
+  [ngStyle]="getZoomVal()"
+  [style.width]="150*(prenotazioneState | async).mappa.numero_colonne+'px'"
+  [cols]="(prenotazioneState | async).mappa.numero_colonne"
+  rowHeight="130px">
     <mat-grid-tile *ngFor="let tile of mappaGrid; index as i;">
-        <!-- <h6>{{ tile.iRiga }}:{{ tile.iColonna }}</h6> -->
-        <app-prenotazione-edit
-        *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone;"
-        [ombrellone]="ombrellone"
-        [prenArray]="checkPrenotazione(ombrellone.id)"
-        [rangeDate]="{dataInizio:range.value['dateStart'],dataFine:range.value['dateEnd']}"></app-prenotazione-edit>
+        <!-- <div class="rowColIndicator"><p>Fila {{ tile.iRiga }}:{{ tile.iColonna }}</p></div> -->
+        <div class="rowCardIndicator">
+          <app-prenotazione-edit
+          *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone;"
+          [ombrellone]="ombrellone"
+          [prenArray]="checkPrenotazione(ombrellone.id)"
+          [rangeDate]="{dataInizio:range.value['dateStart'],dataFine:range.value['dateEnd']}"></app-prenotazione-edit>
+        </div>
     </mat-grid-tile>
   </mat-grid-list>
-  <br><br>
+  </div>
+  <br>
 </div>
 
 

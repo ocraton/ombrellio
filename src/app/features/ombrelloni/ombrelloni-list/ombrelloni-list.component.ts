@@ -29,15 +29,17 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
 
   ombrelloniState: Observable<ombrelloniState.default>;
   ombrelloni: Ombrellone[] = null;
+  ombrelloniSearched: Ombrellone[] = null;
   ombrellonename: string = "";
   mappaGrid: Tile[] = [];
-
+  valueZoom: number = (localStorage.getItem("zoomLevelOmbrelloni")) ? Number(localStorage.getItem("zoomLevelOmbrelloni")) : 100;
 
   constructor(private store: Store<fromApp.AppState>,
     private subService: SubscriptionService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("zoomLevelOmbrelloni")) { this.valueZoom = Number(localStorage.getItem("zoomLevelOmbrelloni")) }
     this.store.dispatch(OmbrelloniActions.FetchOmbrelloni());
     this.store.dispatch(OmbrelloniActions.FetchOmbrelloniMappa());
     this.ombrelloniState = this.store.select('ombrelloni');
@@ -121,6 +123,20 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
     dialogConfigDel.width = '30rem';
     dialogConfigDel.data = ombrellone;
     this.dialog.open(OmbrelloniDeleteComponent, dialogConfigDel);
+  }
+
+
+  updateZoom(event) {
+    this.valueZoom = event.value;
+    localStorage.setItem("zoomLevelOmbrelloni", this.valueZoom.toString());
+  }
+
+  getZoomVal() {
+    return { zoom: this.valueZoom + '%' }
+  }
+
+  formatLabel(value: number) {
+    return value + '%';
   }
 
   ngOnDestroy(): void {

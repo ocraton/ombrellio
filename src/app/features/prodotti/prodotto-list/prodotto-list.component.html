@@ -29,9 +29,17 @@
           *ngFor="let prodottoItem of (prodottoState | async).prodotto"
           [ngClass]="{'visibilityOnProd' : prodottoItem.visibile || prodottoItem.visibile == undefined,
                                    'visibilityOffProd': !prodottoItem.visibile}">
-          <h3 matLine class="prodottoTitle"> {{ prodottoItem.nome }} </h3>
+          <h3 matLine style="font-weight: 800;color:#673ab7;font-size: 1.1rem;"> {{ prodottoItem.nome }} </h3>
           <p matLine> {{ prodottoItem.descrizione }} </p>
-          <p matLine class="demo-2"> {{ prodottoItem.prezzo }} € </p>
+          <div matLine>
+            <ul class="allergenilista">
+              <li *ngFor="let allergene of prodottoItem.allergeni">
+                {{ getAllergeneById(allergene) }}
+              </li>
+            </ul>
+          </div>
+          <p matLine style="font-style: italic;" *ngIf="prodottoItem.min_quantita > 1">Quantità minima: {{ prodottoItem.min_quantita }} </p>
+          <p matLine> {{ prodottoItem.prezzo }} € </p>
           <button mat-icon-button
             color="primary"
             (click)="editProdotto(prodottoItem)">
