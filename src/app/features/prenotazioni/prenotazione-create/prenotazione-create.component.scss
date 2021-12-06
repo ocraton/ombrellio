@@ -20,3 +20,24 @@
 .successCard h1 {
   margin: 0px;
 }
+
+.inputAttrezzature {
+  width: 1.4rem;
+  height: 1.4rem;
+  font-size: 1.2rem;
+  border: none;
+  text-align: center;
+}
+
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px 0px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

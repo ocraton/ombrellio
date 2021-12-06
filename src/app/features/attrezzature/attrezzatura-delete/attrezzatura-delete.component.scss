@@ -1,0 +1,19 @@
+.editNomeCat{font-size: 1.2rem;}
+.pardeletecatadvise{font-size: 1.2rem;font-style: italic;}
+.iconpardeletecatadvise{font-size: 4rem;}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+.form-container > * {
+  width: 100%;
+}
+
+.showChangeCodiceAttrezzatura{
+    font-style: italic;
+    color: red;
+    font-size: 0.8rem;
+    margin: 0px 0px 30px 0px;
+}

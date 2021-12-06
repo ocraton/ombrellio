@@ -1,3 +1,4 @@
+import { Attrezzatura } from './../../attrezzature/attrezzatura.model';
 import { Prenotazione } from './../prenotazione.model';
 import { PrenotazioniService } from './../prenotazioni.service';
 import { Injectable } from '@angular/core';
@@ -74,12 +75,24 @@ export class PrenotazioniEffects {
       }))
   );
 
+  attrezzatureFetch$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(PrenotazioniActions.FetchPrenotazioniAttrezzature),
+      switchMap(() => {
+        return this.prenotazioniService.getAttrezzature().pipe(
+          takeUntil(this.subService.unsubscribe$)
+        )
+      }),
+      map((data: Attrezzatura[]) => {
+        return PrenotazioniActions.SetPrenotazioniAttrezzature({ payload: data });
+      }))
+  );
+
   createPrenotazioniCliente$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(PrenotazioniActions.CreatePrenotazioniCliente),
       map(action => action.payload),
       switchMap((payload: { cliente: Cliente }) => {
-        console.log('effectCreatePrenotazioniCliente')
         return this.prenotazioniService.createCliente(payload.cliente).then(
           res => PrenotazioniActions.CreatePrenotazioniClienteSuccess()
         ).catch(
@@ -93,8 +106,8 @@ export class PrenotazioniEffects {
     this.actions.pipe(
       ofType(PrenotazioniActions.CreatePrenotazione),
       map(action => action),
-      switchMap((action : { ombrellone: Ombrellone, cliente: Cliente, rangeDate: any }) => {
-        return this.prenotazioniService.createPrenotazione(action.ombrellone, action.cliente, action.rangeDate).then(
+      switchMap((action: { ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }) => {
+        return this.prenotazioniService.createPrenotazione(action.ombrellone, action.cliente, action.rangeDate, action.attrezzature, action.isPagato, action.acconto, action.prezzo, action.note).then(
           res => PrenotazioniActions.CreatePrenotazioneSuccess()
         ).catch(
           error => PrenotazioniActions.CreatePrenotazioneFail(error)

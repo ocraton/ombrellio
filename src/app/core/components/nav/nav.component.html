@@ -67,6 +67,11 @@
             <a mat-list-item routerLinkActive="active" routerLink="/user/ombrelloni">
               <mat-icon class="icon mr15" color="primary">beach_access</mat-icon> Ombrelloni</a>
         </mat-sidenav-container>
+
+        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+            <a mat-list-item routerLinkActive="active" routerLink="/user/attrezzature">
+              <mat-icon class="icon mr15" color="primary">support</mat-icon> Attrezzature</a>
+        </mat-sidenav-container>
         <mat-divider></mat-divider>
         <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
             <a mat-list-item routerLinkActive="active" routerLink="/user/tavoli">

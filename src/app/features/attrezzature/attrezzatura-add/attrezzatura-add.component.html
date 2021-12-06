@@ -1,0 +1,18 @@
+<form [formGroup]="attrezzaturaForm" (ngSubmit)="onSave()"
+        #formDirective="ngForm"
+        class="form-container">
+  <mat-form-field style="width:100%; font-size:1rem">
+    <input #termcat matInput formControlName="nome">
+    <mat-error *ngIf="!attrezzaturaForm.get('nome').valid && attrezzaturaForm.get('nome').touched">
+      Attrezzatura obbligatorio / minimo tre lettere
+    </mat-error>
+  </mat-form-field>
+  <br>
+  <button
+    mat-raised-button
+    *ngIf="!(attrezzaturaState | async).loading"
+    [disabled]="!attrezzaturaForm.valid"
+    color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+  </form>

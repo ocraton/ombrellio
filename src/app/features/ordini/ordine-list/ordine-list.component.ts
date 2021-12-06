@@ -21,7 +21,7 @@ export class OrdineListComponent implements OnInit, OnDestroy {
   @ViewChild('searchbox') searchbox: ElementRef<HTMLInputElement>
   searched = false;
   visibleCounter = false;
-  valueZoom:number = 100;
+  valueZoom: number = (localStorage.getItem("zoomLevelOrdini")) ? Number(localStorage.getItem("zoomLevelOrdini")) : 100;
   today: string;
   datesCompare = this.dateservice.dateBuildGMT1();
 
@@ -31,6 +31,7 @@ export class OrdineListComponent implements OnInit, OnDestroy {
     private clockService: ClockService) { }
 
   ngOnInit() {
+    if (localStorage.getItem("zoomLevelOrdini")) { this.valueZoom = Number(localStorage.getItem("zoomLevelOrdini")) }
     this.clockService.time.subscribe((now: Date) => {
       this.today = now.toISOString();
       let nowhourminutes = now.getHours() + now.getMinutes() + now.getSeconds();
@@ -61,9 +62,10 @@ export class OrdineListComponent implements OnInit, OnDestroy {
 
   updateZoom(event) {
     this.valueZoom = event.value;
+    localStorage.setItem("zoomLevelOrdini", this.valueZoom.toString());
   }
 
-  getZoomVal(){
+  getZoomVal() {
     return { zoom: this.valueZoom + '%' }
   }
 

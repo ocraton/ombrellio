@@ -21,13 +21,14 @@ export class OrdineListAnnullatiComponent implements OnInit, OnDestroy {
   visibleCounter = false;
   @ViewChild('searchbox') searchbox: ElementRef<HTMLInputElement>
   searched = false;
-  valueZoom: number = 100;
+  valueZoom: number = (localStorage.getItem("zoomLevelOrdiniAnnullati")) ? Number(localStorage.getItem("zoomLevelOrdiniAnnullati")) : 100;
 
   constructor(private store: Store<fromApp.AppState>,
               private subService: SubscriptionService,
               private clockService: ClockService) { }
 
   ngOnInit() {
+    if (localStorage.getItem("zoomLevelOrdiniAnnullati")) { this.valueZoom = Number(localStorage.getItem("zoomLevelOrdiniAnnullati")) }
     this.clockService.time.subscribe((now: Date) =>
       this.today = now.toISOString()
     );
@@ -56,6 +57,7 @@ export class OrdineListAnnullatiComponent implements OnInit, OnDestroy {
 
   updateZoom(event) {
     this.valueZoom = event.value;
+    localStorage.setItem("zoomLevelOrdiniAnnullati", this.valueZoom.toString());
   }
 
   getZoomVal() {

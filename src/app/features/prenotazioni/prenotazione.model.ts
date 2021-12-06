@@ -1,3 +1,5 @@
+import { Attrezzatura } from './../attrezzature/attrezzatura.model';
+
 export class Prenotazione {
 
   public id: string;
@@ -11,24 +13,30 @@ export class Prenotazione {
   public numero_ombrellone: string;
   public uid_ombrellone: string;
   public uid_cliente: string;
+  public attrezzature: any[];
+  public isPagato: boolean;
+
 
 
   constructor( id: string, chalet_uid: string, cognome_cliente: string,
               nome_cliente: string, data_inizio: Date, data_fine: Date,
               anno_inizio: number, anno_fine: number,
-              numero_ombrellone: string, uid_ombrellone: string, uid_cliente: string ) {
+              numero_ombrellone: string, uid_ombrellone: string, uid_cliente: string,
+    attrezzature: any[], isPagato: boolean ) {
 
-              this.id = id;
-              this.chalet_uid = chalet_uid;
-              this.cognome_cliente = cognome_cliente;
-              this.nome_cliente = nome_cliente;
-              this.data_inizio = data_inizio;
-              this.data_fine = data_fine;
-              this.anno_inizio = anno_inizio;
-              this.anno_fine = anno_fine;
-              this.numero_ombrellone = numero_ombrellone;
-              this.uid_ombrellone = uid_ombrellone;
-              this.uid_cliente = uid_cliente;
+            this.id = id;
+            this.chalet_uid = chalet_uid;
+            this.cognome_cliente = cognome_cliente;
+            this.nome_cliente = nome_cliente;
+            this.data_inizio = data_inizio;
+            this.data_fine = data_fine;
+            this.anno_inizio = anno_inizio;
+            this.anno_fine = anno_fine;
+            this.numero_ombrellone = numero_ombrellone;
+            this.uid_ombrellone = uid_ombrellone;
+            this.uid_cliente = uid_cliente;
+            this.attrezzature = attrezzature;
+            this.isPagato = isPagato;
 
     }
 

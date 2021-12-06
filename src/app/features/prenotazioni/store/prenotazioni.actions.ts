@@ -1,3 +1,4 @@
+import { Attrezzatura } from './../../attrezzature/attrezzatura.model';
 import { createAction, props } from '@ngrx/store';
 import { Cliente } from '../../clienti/cliente.model';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
@@ -97,7 +98,7 @@ export const CreatePrenotazioniClienteFail = createAction(
 
 export const CreatePrenotazione = createAction(
   '[Prenotazioni] Create_Prenotazione',
-  props<{ ombrellone: Ombrellone, cliente: Cliente, rangeDate: any }>()
+  props<{ ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }>()
 );
 
 export const CreatePrenotazioneSuccess = createAction(
@@ -123,4 +124,14 @@ export const DeletePrenotazioneFail = createAction(
   '[Prenotazioni] Delete_Prenotazione_Fail',
   props<{ payload: string }>()
 );
+
+export const FetchPrenotazioniAttrezzature = createAction(
+  '[Prenotazioni] Fetch_Prenotazioni_Attrezzature'
+);
+
+export const SetPrenotazioniAttrezzature = createAction(
+  '[Prenotazioni] Set_Prenotazioni_Attrezzature',
+  props<{ payload: Attrezzatura[] }>()
+);
+
 

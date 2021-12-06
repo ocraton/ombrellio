@@ -1,0 +1,68 @@
+
+  <div class="mb20 mt20 gridAttrezzature">
+    <div class="pCol5">
+        <h3>Aggiungi Attrezzatura ({{ (attrezzaturaState | async).attrezzatura.length }})</h3>
+        <app-attrezzatura-add
+        *ngIf="(attrezzaturaState | async).attrezzatura.length < 20; else nomoreaddcat"
+        [lastAttrezzatura]="(attrezzaturaState | async).attrezzatura.length">
+        </app-attrezzatura-add>
+        <ng-template #nomoreaddcat>
+        <mat-card>
+          <span class="maxCatLimit">
+            Hai raggiunto il numero massimo di attrezzature.
+          </span>
+        </mat-card>
+      </ng-template>
+    </div>
+    <div class="pCol7">
+      <h3>Ordina le attrezzature trascinando gli elementi</h3>
+      <div *ngIf="!(attrezzaturaState | async).loading" class="scrollListCat">
+      <div *ngIf="(attrezzaturaState | async).attrezzatura.length > 0; else noattrezzatures" >
+          <div cdkDropList class="attrezzature-list" (cdkDropListDropped)="drop($event)">
+            <div [ngClass]="{'attrezzatura-box-not-visibile': !attrezzaturaItem.visibile,
+                              'attrezzatura-box': attrezzaturaItem.visibile}"
+             *ngFor="let attrezzaturaItem of attrezzature" cdkDrag cdkDragLockAxis="y">
+              <span class="catListText">
+                {{ attrezzaturaItem.ordinamento }} - {{ attrezzaturaItem.nome }}
+              </span>
+              <mat-action-list>
+              <button mat-icon-button
+                color="primary"
+                (click)="editCateogoria(attrezzaturaItem)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button
+                color="primary"
+                (click)="deleteCateogoria(attrezzaturaItem)">
+                <mat-icon>delete</mat-icon>
+              </button>
+                <button mat-icon-button
+                  *ngIf="attrezzaturaItem.visibile || attrezzaturaItem.visibile == undefined; else buttonInvisibile"
+                  color="primary"
+                  (click)="onChangeAttrezzaturaVisibile(attrezzaturaItem, false)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <ng-template #buttonInvisibile>
+                  <button mat-icon-button
+                    color="primary"
+                    (click)="onChangeAttrezzaturaVisibile(attrezzaturaItem,true)">
+                    <mat-icon>visibility_off</mat-icon>
+                  </button>
+                </ng-template>
+              </mat-action-list>
+            </div>
+          </div>
+      </div>
+      <ng-template #noattrezzatures>
+        <mat-card><i>nessuna attrezzatura presente</i></mat-card>
+      </ng-template>
+      </div>
+      <div>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="(attrezzaturaState | async).loading"
+        ></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+

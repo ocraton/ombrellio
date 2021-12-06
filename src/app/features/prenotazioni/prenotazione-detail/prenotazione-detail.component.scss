@@ -1,6 +1,39 @@
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.mat-list-item{
+  height: 1.8rem;;
+}
+
 .datePrenotazione{
     font-size: 1rem;
     font-weight: 300;
+}
+.mat-card{
+  width: 95%;
+  background: azure;
+  margin-bottom: 12px;
+}
+
+.listCardPrenotazioni {
+    height: 250px;
+    overflow-y: auto;
+}
+
+
+.mat-card-content {
+  margin-bottom: 0px;
 }
 
 .titoloPrenotazione{

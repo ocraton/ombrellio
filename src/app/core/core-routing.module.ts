@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('../features/categorie/categorie.module').then(m => m.CategorieModule)
       },
       {
+        path: 'attrezzature',
+        loadChildren: () => import('../features/attrezzature/attrezzature.module').then(m => m.AttrezzatureModule)
+      },
+      {
         path: 'ordini',
         loadChildren: () => import('../features/ordini/ordini.module').then(m => m.OrdiniModule)
       },

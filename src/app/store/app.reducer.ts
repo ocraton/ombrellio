@@ -28,6 +28,9 @@ import * as prenotazioniState from '../features/prenotazioni/store/prenotazioni.
 import * as fromCategorie from '../features/categorie/store/categorie.reducer';
 import * as categorieState from '../features/categorie/store/categorie.state';
 
+import * as fromAttrezzature from '../features/attrezzature/store/attrezzature.reducer';
+import * as attrezzatureState from '../features/attrezzature/store/attrezzature.state';
+
 import * as fromProdotti from '../features/prodotti/store/prodotti.reducer';
 import * as prodottiState from '../features/prodotti/store/prodotti.state';
 
@@ -43,6 +46,7 @@ export interface AppState {
   ordini: ordiniState.default;
   prenotazioni: prenotazioniState.default;
   categorie: categorieState.default;
+  attrezzature: attrezzatureState.default;
   prodotti: prodottiState.default;
   utenti: utentiState.default;
 }
@@ -56,6 +60,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   ordini: fromOrdini.OrdiniReducer,
   prenotazioni: fromPrenotazioni.PrenotazioniReducer,
   categorie: fromCategorie.CategorieReducer,
+  attrezzature: fromAttrezzature.AttrezzatureReducer,
   prodotti: fromProdotti.ProdottiReducer,
   utenti: fromUtenti.UtentiReducer,
 };

@@ -32,14 +32,16 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
   ombrelloniSearched: Ombrellone[] = null;
   ombrellonename: string = "";
   mappaGrid: Tile[] = [];
-  valueZoom: number = (localStorage.getItem("zoomLevelOmbrelloni")) ? Number(localStorage.getItem("zoomLevelOmbrelloni")) : 100;
+  matGridListRowHeight = 130;
+  matGridListCellWidth = 150;
+  valueZoom: number = (localStorage.getItem("zoomLevelOmbrelloniGrid")) ? Number(localStorage.getItem("zoomLevelOmbrelloniGrid")) : 100;
 
   constructor(private store: Store<fromApp.AppState>,
     private subService: SubscriptionService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem("zoomLevelOmbrelloni")) { this.valueZoom = Number(localStorage.getItem("zoomLevelOmbrelloni")) }
+    this.initZoomLevel();
     this.store.dispatch(OmbrelloniActions.FetchOmbrelloni());
     this.store.dispatch(OmbrelloniActions.FetchOmbrelloniMappa());
     this.ombrelloniState = this.store.select('ombrelloni');
@@ -125,15 +127,27 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
     this.dialog.open(OmbrelloniDeleteComponent, dialogConfigDel);
   }
 
-
   updateZoom(event) {
     this.valueZoom = event.value;
-    localStorage.setItem("zoomLevelOmbrelloni", this.valueZoom.toString());
+    let calcRowHeightGrid = 130 - ((130 * event.value) / 100)
+    this.matGridListRowHeight = 130-calcRowHeightGrid;
+    localStorage.setItem("zoomLevelOmbrelloniGrid", this.valueZoom.toString());
+  }
+
+  initZoomLevel() {
+    if (localStorage.getItem("zoomLevelOmbrelloniGrid")) {
+      this.valueZoom = Number(localStorage.getItem("zoomLevelOmbrelloniGrid"))
+      let calcRowHeightGrid = 130 - ((130 * this.valueZoom) / 100)
+      this.matGridListRowHeight = 130 - calcRowHeightGrid;
+      let calcCellWidth = 150 - ((150 * this.valueZoom) / 100)
+      this.matGridListCellWidth = 150 - calcCellWidth;
+    }
   }
 
   getZoomVal() {
     return { zoom: this.valueZoom + '%' }
   }
+
 
   formatLabel(value: number) {
     return value + '%';

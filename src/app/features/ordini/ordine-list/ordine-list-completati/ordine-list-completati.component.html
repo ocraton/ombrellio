@@ -16,12 +16,8 @@
   <div class="col" id="zoombox">
     <div style="float: right;font-size:1rem;">
       <p style="padding: 0px 8px;margin: 10px 0px 0px 0px;">Zoom</p>
-      <mat-slider min="60" max="140"
-      #valueZoom (change)="updateZoom($event)"
-      step="10"
-      value="100"
-      thumbLabel
-      [displayWith]="formatLabel"></mat-slider>
+      <mat-slider min="60" max="140" (change)="updateZoom($event)" step="10" [value]="valueZoom" thumbLabel
+        [displayWith]="formatLabel"></mat-slider>
     </div>
   </div>
 </div>

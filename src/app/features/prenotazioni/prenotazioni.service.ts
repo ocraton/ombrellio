@@ -9,6 +9,7 @@ import { Ombrellone } from '../ombrelloni/ombrellone.model';
 import { DatesService } from 'src/app/shared/services/dates.service';
 import { Cliente } from '../clienti/cliente.model';
 import { Mappa } from './mappa.model';
+import { Attrezzatura } from '../attrezzature/attrezzatura.model';
 
 
 @Injectable()
@@ -111,12 +112,29 @@ export class PrenotazioniService {
 
   }
 
+  getAttrezzature(): Observable<Attrezzatura[]> {
+
+    let attrezzature = this.db.collection(`chalet/${this.chaletUID}/attrezzature`, ref =>
+      ref.orderBy('ordinamento')
+      .limit(1000)
+    );
+
+    return attrezzature.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Attrezzatura;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+
+  }
+
   createCliente(cliente: Cliente) {
     return this.db.collection(`chalet/${this.chaletUID}/clienti`).add(cliente)
   }
 
 
-  createPrenotazione(ombrellone: Ombrellone, cliente: Cliente, rangeDate: any){
+  createPrenotazione(ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string){
     return this.db.collection(`chalet/${this.chaletUID}/prenotazioni`).add({
       anno_fine: rangeDate.dataFine.getFullYear(),
       anno_inizio: rangeDate.dataInizio.getFullYear(),
@@ -128,6 +146,11 @@ export class PrenotazioniService {
       numero_ombrellone: ombrellone.numero,
       uid_ombrellone: ombrellone.id,
       uid_cliente: cliente.id,
+      attrezzature: attrezzature,
+      is_pagato: isPagato,
+      acconto: acconto,
+      prezzo: prezzo,
+      note: note
     })
   }
 

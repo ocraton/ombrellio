@@ -37,7 +37,7 @@ export class SharemenuComponent implements OnInit {
     var divToPrint = document.getElementById('qrCodeP');
     var newWin = window.open('', 'Print-Window');
     newWin.document.open();
-    newWin.document.write('<html><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" media="print"/><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+    newWin.document.write('<html><style>img{width:400px}</style><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
     newWin.document.close();
     setTimeout(function () {
       newWin.close();

@@ -21,13 +21,14 @@ export class OrdineListCompletatiComponent implements OnInit, OnDestroy {
   today: string;
   visibleCounter = false;
   searched = false;
-  valueZoom: number = 100;
+  valueZoom: number = (localStorage.getItem("zoomLevelOrdiniCompletati")) ? Number(localStorage.getItem("zoomLevelOrdiniCompletati")) : 100;
 
   constructor(private store: Store<fromApp.AppState>,
               private subService: SubscriptionService,
               private clockService: ClockService) { }
 
   ngOnInit() {
+    if (localStorage.getItem("zoomLevelOrdiniCompletati")) { this.valueZoom = Number(localStorage.getItem("zoomLevelOrdiniCompletati")) }
     this.clockService.time.subscribe((now: Date) =>
       this.today = now.toISOString()
     );
@@ -57,6 +58,7 @@ export class OrdineListCompletatiComponent implements OnInit, OnDestroy {
 
   updateZoom(event) {
     this.valueZoom = event.value;
+    localStorage.setItem("zoomLevelOrdiniCompletati", this.valueZoom.toString());
   }
 
   getZoomVal() {

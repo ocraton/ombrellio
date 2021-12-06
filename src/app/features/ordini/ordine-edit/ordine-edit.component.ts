@@ -19,7 +19,9 @@ export class OrdineEditComponent implements OnInit {
 
   constructor(private store: Store<fromApp.AppState>) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ordine.contenuto.sort((a, b) => { return a['portata'] - b['portata'] })
+  }
 
 
   onSave() {
@@ -40,6 +42,25 @@ export class OrdineEditComponent implements OnInit {
     this.ordine.completato = true;
     this.ordine.annullato = false;
     this.onSave();
+  }
+
+  printOrdine(ordineid) {
+    var divToPrint = document.getElementById(ordineid);
+    var newWin = window.open('', 'Print-Window');
+    newWin.document.open();
+    newWin.document.write(`<html>
+    <style>
+    @media print {
+        h2 { color: #c6c6c6;}
+    }
+    </style>
+    <body onload="window.print()">
+    ${divToPrint.innerHTML}
+    </body></html>`);
+    newWin.document.close();
+    setTimeout(function () {
+      newWin.close();
+    }, 10);
   }
 
   recuperaOrdine(){

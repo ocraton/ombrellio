@@ -1,0 +1,38 @@
+<div *ngIf="!(attrezzaturaState | async).canDeleteLoading">
+<div *ngIf="(attrezzaturaState | async).canDelete; else notedelete">
+  <mat-dialog-content>
+    <h2>Cancellare: {{ attrezzatura.nome }} ?</h2>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-raised-button mt20 w-100"  (click)="close()"
+            mat-raised-button color="accent">ANNULLA</button>
+            <button class="mat-raised-button mt20 w-100" (click)="onDelete()"
+            mat-raised-button color="warn">CANCELLA
+            <mat-icon class="icon">delete</mat-icon></button>
+  </mat-dialog-actions>
+</div>
+
+<ng-template #notedelete>
+<mat-dialog-content>
+  <p class="pardeletecatadvise">
+    <mat-icon color="accent" class="iconpardeletecatadvise" >announcement</mat-icon>
+    <br>
+    Non puoi cancellare questa attrezzatura perché ha dei prodotti associati.
+    <br><br>
+    Per poter rimuovere questa attrezzatura
+    assegna i prodotti ad un'altra attrezzatura o cancellali.
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="mat-raised-button mt20 w-100" (click)="close()"
+          mat-raised-button color="accent">CHIUDI</button>
+</mat-dialog-actions>
+</ng-template>
+
+      </div>
+      <div>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="(attrezzaturaState | async).canDeleteLoading"
+        ></mat-progress-bar>
+      </div>
