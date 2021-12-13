@@ -116,6 +116,20 @@ export class PrenotazioniEffects {
     )
   );
 
+  updatePrenotazione$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(PrenotazioniActions.UpdatePrenotazione),
+      map(action => action),
+      switchMap((action: { idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }) => {
+        return this.prenotazioniService.updatePrenotazione(action.idPrenotazione, action.ombrellone, action.cliente, action.rangeDate, action.attrezzature, action.isPagato, action.acconto, action.prezzo, action.note).then(
+          res => PrenotazioniActions.UpdatePrenotazioneSuccess()
+        ).catch(
+          error => PrenotazioniActions.UpdatePrenotazioneFail(error)
+        )
+      })
+    )
+  );
+
   deletePrenotazione$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(PrenotazioniActions.DeletePrenotazione),

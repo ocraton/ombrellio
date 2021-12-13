@@ -127,6 +127,29 @@ const reducer = createReducer(
     };
   }),
 
+  on(PrenotazioniActions.UpdatePrenotazione, (state: PrenotazioniState) => {
+    return {
+      ...state,
+      loading: true
+    };
+  }),
+
+  on(PrenotazioniActions.UpdatePrenotazioneSuccess, (state: PrenotazioniState) => {
+    return {
+      ...state,
+      loading: false,
+      error: null
+    };
+  }),
+
+  on(PrenotazioniActions.UpdatePrenotazioneFail, (state: PrenotazioniState, { payload }) => {
+    return {
+      ...state,
+      loading: false,
+      error: payload
+    };
+  }),
+
   on(PrenotazioniActions.CreatePrenotazioniCliente, (state: PrenotazioniState) => ({
     ...state,
     loading: false,

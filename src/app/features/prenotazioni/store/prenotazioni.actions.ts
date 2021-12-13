@@ -54,20 +54,6 @@ export const FetchCountPrenotazioni = createAction(
   '[Prenotazioni] Fetch_Count_Prenotazioni'
 );
 
-export const UpdatePrenotazione = createAction(
-  '[Prenotazioni] Update_Prenotazione',
-  props<{ payload: Prenotazione }>()
-);
-
-export const UpdatePrenotazioneSuccess = createAction(
-  '[Prenotazioni] Update_Prenotazione_success'
-);
-
-export const UpdatePrenotazioneFail = createAction(
-  '[Prenotazioni] Update_Prenotazione_fail',
-  props<{payload: string}>()
-);
-
 export const FilterPrenotazioni = createAction(
   '[Prenotazioni] Filter_Prenotazioni',
   props<{ numOmbrellone: string }>()
@@ -107,6 +93,20 @@ export const CreatePrenotazioneSuccess = createAction(
 
 export const CreatePrenotazioneFail = createAction(
   '[Prenotazioni] Create_Prenotazione_Fail',
+  props<{ payload: string }>()
+);
+
+export const UpdatePrenotazione = createAction(
+  '[Prenotazioni] Update_Prenotazione',
+  props<{ idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }>()
+);
+
+export const UpdatePrenotazioneSuccess = createAction(
+  '[Prenotazioni] Update_Prenotazione_Success'
+);
+
+export const UpdatePrenotazioneFail = createAction(
+  '[Prenotazioni] Update_Prenotazione_Fail',
   props<{ payload: string }>()
 );
 

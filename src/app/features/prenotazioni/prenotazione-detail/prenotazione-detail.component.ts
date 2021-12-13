@@ -2,6 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Prenotazione } from '../prenotazione.model';
+import { PrenotazioneCreateComponent } from '../prenotazione-create/prenotazione-create.component';
 import * as fromApp from '../../../store/app.reducer';
 import * as PrenotazioniActions from '../store/prenotazioni.actions';
 import { Observable } from 'rxjs';
@@ -21,6 +22,7 @@ export class PrenotazioneDetailComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>,
     public dialogRef: MatDialogRef<PrenotazioneDetailComponent>,
     private subService: SubscriptionService,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit(): void {
@@ -38,6 +40,18 @@ export class PrenotazioneDetailComponent implements OnInit, OnDestroy {
         })
     });
 
+  }
+
+  openPrenotaDialog(uid_prenotazione, ombrellone, dataInizio, dataFine, uid_cliente) {
+    this.dialog.open(PrenotazioneCreateComponent, {
+      width: '1000px',
+      data: {
+        idPrenotazione: uid_prenotazione,
+        idCliente: uid_cliente,
+        ombrellone: ombrellone,
+        rangeDate: { 'dataInizio': new Date(dataInizio['seconds'] * 1000), 'dataFine': new Date(dataFine['seconds'] * 1000)}
+      }
+    });
   }
 
   closePrenDetail(): void {

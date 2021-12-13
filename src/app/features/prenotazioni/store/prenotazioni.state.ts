@@ -15,7 +15,6 @@ export default class PrenotazioniState {
   loadingClienti: boolean;
   loadingAttrezzature: boolean;
   deleteLoading: boolean;
-  isPagato: boolean;
   error: any | null;
 }
 
@@ -31,7 +30,6 @@ export const initializeState = (): PrenotazioniState => {
     loadingClienti: true,
     loadingAttrezzature: true,
     deleteLoading: false,
-    isPagato: false,
     error: null
    };
 };

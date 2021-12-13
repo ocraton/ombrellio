@@ -1,10 +1,15 @@
 <div class="cardListItem">
   <mat-card class="example-card" [ngClass]="{'ombrelloneLibero' : prenArray.length == 0,
-                                   'ombrelloneOccupato': prenArray.length > 0}">
+                                   'ombrelloneOccupato': prenArray.length > 0,
+                                  'highlightedOmbrellone' : ombrellone.numero.includes(ombrellonename) && ombrellonename != ''}">
     <mat-card-header>
       <mat-card-title>
-        <span style="color: #ffffff"><mat-icon>beach_access</mat-icon></span> <br />
-        <span style="color: #ffffff">{{ ombrellone.numero }} </span>
+        <span
+        [ngStyle]="{'color':ombrellone.numero.includes(ombrellonename) && ombrellonename != '' ? '#000' : '#fff' }"
+        ><mat-icon>beach_access</mat-icon></span> <br />
+        <span
+        [ngStyle]="{'color':ombrellone.numero.includes(ombrellonename) && ombrellonename != '' ? '#000' : '#fff' }"
+        >{{ ombrellone.numero }} </span>
       </mat-card-title>
     </mat-card-header>
     <mat-card-actions>

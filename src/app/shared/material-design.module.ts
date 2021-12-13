@@ -34,6 +34,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 const THUMBUP_ICON = `
   <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
@@ -102,7 +104,8 @@ xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;s
     ClipboardModule,
     FlexLayoutModule,
     MatSliderModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatStepperModule
   ],
   exports: [
     MatToolbarModule,
@@ -135,7 +138,8 @@ xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;s
     ClipboardModule,
     FlexLayoutModule,
     MatSliderModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatStepperModule
   ],
   entryComponents: [],
   providers: [

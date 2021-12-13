@@ -21,8 +21,8 @@
     </div>
 </div>
 
-<h3 style="font-weight:300;font-style: italic;">Seleziona le date per sapere se gli ombrelloni sono liberi in quell'intervallo </h3>
-<div fxLayout="row" style="margin-bottom: 20px; margin-top: 20px;">
+
+<div fxLayout="row" style="margin: 0px;">
   <br>
   <mat-form-field appearance="fill" style="width:300px">
     <mat-label>Data Inizio e Data Fine</mat-label>
@@ -41,6 +41,9 @@
 </div>
 
 <div *ngIf="!(prenotazioneState | async).loading">
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="Cerca Ombrellone" #term (keyup)="setSearch(term.value)" style="width: 100%" />
+    </mat-form-field>
 <div class="gridListContainer">
   <mat-grid-list
   [ngStyle]="getZoomVal()"
@@ -53,6 +56,7 @@
           <app-prenotazione-edit
           *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone;"
           [ombrellone]="ombrellone"
+          [ombrellonename]="ombrellonename"
           [prenArray]="checkPrenotazione(ombrellone.id)"
           [rangeDate]="{dataInizio:range.value['dateStart'],dataFine:range.value['dateEnd']}"></app-prenotazione-edit>
         </div>

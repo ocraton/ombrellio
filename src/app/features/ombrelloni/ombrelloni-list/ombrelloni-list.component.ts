@@ -2,7 +2,7 @@ import { OmbrelloniCreateComponent } from './../ombrelloni-create/ombrelloni-cre
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import * as ombrelloniState from '../store/ombrelloni.state';
 import * as fromApp from '../../../store/app.reducer';
 
@@ -129,8 +129,10 @@ export class OmbrelloniListComponent implements OnInit, OnDestroy {
 
   updateZoom(event) {
     this.valueZoom = event.value;
-    let calcRowHeightGrid = 130 - ((130 * event.value) / 100)
-    this.matGridListRowHeight = 130-calcRowHeightGrid;
+    let calcRowHeightGrid = 130 - ((130 * this.valueZoom) / 100)
+    this.matGridListRowHeight = 130 - calcRowHeightGrid;
+    let calcCellWidth = 150 - ((150 * this.valueZoom) / 100)
+    this.matGridListCellWidth = 150 - calcCellWidth;
     localStorage.setItem("zoomLevelOmbrelloniGrid", this.valueZoom.toString());
   }
 

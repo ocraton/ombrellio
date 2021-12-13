@@ -17,6 +17,7 @@ export class PrenotazioneEditComponent implements OnInit {
   @Input() ombrellone: Ombrellone;
   @Input() prenArray: Prenotazione[];
   @Input() rangeDate: Date[];
+  @Input() ombrellonename: string;
 
   constructor(public dialog: MatDialog) { }
 

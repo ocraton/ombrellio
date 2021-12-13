@@ -2,7 +2,7 @@
 
 <div *ngIf="data.prenotazioni.length > 0; else noPrenotazioni" class="listCardPrenotazioni">
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let element of data.prenotazioni;let i = index" hideToggle>
+  <mat-expansion-panel *ngFor="let element of data.prenotazioni;let i = index" hideToggle class="panelPren mat-elevation-z0">
     <mat-expansion-panel-header>
       <mat-panel-title>
                   <mat-icon mat-list-icon color="primary">beach_access</mat-icon>
@@ -17,8 +17,10 @@
     </mat-expansion-panel-header>
     <mat-list>
       <mat-list-item *ngIf="element.attrezzature.length > 0">
-        <b>Attrezzature:&nbsp;&nbsp;</b> <span *ngFor="let attrezzatura of element.attrezzature; let i = index">
-          {{ attrezzatura.nome }}: {{ attrezzatura.quantita }} &nbsp; </span>
+        <b>Attrezzature:&nbsp;&nbsp;</b>
+        <ng-container *ngFor="let attrezzatura of element.attrezzature; let i = index">
+          <span *ngIf="attrezzatura.quantita > 0"> {{ attrezzatura.nome }}: {{ attrezzatura.quantita }} </span>&nbsp;
+        </ng-container>
       </mat-list-item>
       <mat-list-item>
         <b>Pagato:&nbsp;&nbsp;</b>
@@ -38,6 +40,9 @@
     </mat-list>
 
     <mat-action-row>
+          <button mat-raised-button color="accent" (click)="openPrenotaDialog(element.id, data.ombrellone, element.data_inizio, element.data_fine, element.uid_cliente)" title="Modifica Prenotazione">
+            <mat-icon>edit</mat-icon>
+          </button>
           <button mat-raised-button color="warn" (click)="cancellaPrenotazione(element.id, i)" title="Cancella Prenotazione">
             <mat-icon>delete</mat-icon>
           </button>

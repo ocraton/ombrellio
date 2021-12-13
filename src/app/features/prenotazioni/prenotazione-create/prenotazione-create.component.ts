@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import * as prenotazioniState from '../store/prenotazioni.state';
 import * as fromApp from '../../../store/app.reducer';
@@ -14,6 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Attrezzatura } from './../../attrezzature/attrezzatura.model';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-prenotazione-create',
@@ -24,18 +25,20 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
 
   searched = false;
   prenotazioniState: Observable<prenotazioniState.default>;
-  @ViewChild('searchbox') searchbox: ElementRef<HTMLInputElement>
   clienti: Cliente = null;
   clientePren: Cliente = null;
   displayedColumns: string[] = ['nome', 'cognome', 'telefono', 'email', 'action'];
   dataSource = new MatTableDataSource<Cliente>();
   prenotazioneEffettuata = false;
+  modificaPrenotazioneEffettuata = false;
   isPagato = false;
   acconto = 0;
   prezzo = 0;
   note = '';
   attrezzatureArray = [];
   pagamentiForm: FormGroup;
+  visibleFormCreaCliente = false;
+  idPrenModifica = null;
 
   @ViewChild(MatSort, { static: false })
   set sort(v: MatSort) {
@@ -45,10 +48,13 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
   set paginator(v: MatPaginator) {
     this.dataSource.paginator = v;
   }
+  @ViewChild('searchbox') searchbox: ElementRef<HTMLInputElement>
+  @ViewChild(MatHorizontalStepper) stepper: MatHorizontalStepper;
 
   constructor(
     private store: Store<fromApp.AppState>,
     public dialogRef: MatDialogRef<PrenotazioneCreateComponent>,
+    private dialogRefAll: MatDialog,
     private subService: SubscriptionService,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) { }
 
@@ -57,9 +63,25 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioniAttrezzature());
     this.store.select('prenotazioni').subscribe(res => {
       this.dataSource.data = res.clienti as Cliente[];
+      if (this.data.idPrenotazione) { // modifica prenotazione
+        var prenazioneDaModificare = res.prenotazione.filter(prenEdit => prenEdit.id == this.data.idPrenotazione);
+        this.initClienteModifica(this.dataSource.data);
+        this.initFormPagamenti(prenazioneDaModificare[0]?.prezzo, prenazioneDaModificare[0]?.acconto, prenazioneDaModificare[0]?.note);
+        this.idPrenModifica = prenazioneDaModificare[0]?.id;
+        prenazioneDaModificare[0]?.attrezzature.forEach(attrezzatura => {
+          const index = this.attrezzatureArray.findIndex((e) => e.id === attrezzatura.id);
+          if (index === -1) {
+            this.attrezzatureArray.push(attrezzatura);
+          } else {
+            this.attrezzatureArray[index] = attrezzatura;
+          }
+        });
+        this.isPagato = (typeof (prenazioneDaModificare[0]?.is_pagato) == 'undefined') ? false : prenazioneDaModificare[0]?.is_pagato;
+      } else { // nuova prenotazione
+        this.initFormPagamenti(null, null, '');
+      }
     })
     this.prenotazioniState = this.store.select('prenotazioni');
-    this.initFormPagamenti();
   }
 
 
@@ -87,43 +109,92 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     })
   }
 
-  initFormPagamenti() {
+  modificaPrenotazioneOmbrellone(){
+    var ombrellone: Ombrellone = this.data.ombrellone
+    var cliente: Cliente = this.clientePren
+    var rangeDate: any = this.data.rangeDate
+    this.attrezzatureArray.forEach((element, index, object) => {
+      delete element.ordinamento; delete element.visibile;
+      if (element.quantita == 0) { object.splice(index, 1); }
+    })
+    var attrezzature = this.attrezzatureArray;
+    var isPagato = this.isPagato;
+    this.acconto = this.pagamentiForm.get('accontoForm').value;
+    var acconto = this.acconto;
+    this.prezzo = this.pagamentiForm.get('prezzoForm').value;
+    var prezzo = this.prezzo;
+    this.note = this.pagamentiForm.get('noteForm').value;
+    var note = this.note;
+    var idPrenotazione = this.idPrenModifica;
+    this.store.dispatch(PrenotazioniActions.UpdatePrenotazione({idPrenotazione, ombrellone, cliente, rangeDate, attrezzature, isPagato, acconto, prezzo, note }));
+    this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
+      startDate: rangeDate.dataInizio, endDate: rangeDate.dataFine
+    }));
+    this.store.select('prenotazioni').subscribe(() => {
+      this.prenotazioneEffettuata = true
+      this.modificaPrenotazioneEffettuata = true
+    })
+  }
+
+  checkAttrezzaturaQuantitaValueById(idAttrezzatura) {
+    let attrezzatura = this.attrezzatureArray.filter(a => a.id == idAttrezzatura);
+    let val = (typeof (attrezzatura[0]?.quantita) == 'undefined') ? 0 : attrezzatura[0]?.quantita;
+    return val;
+  }
+
+  initClienteModifica(clienteEdit){
+    let clienteModifica = clienteEdit.filter(cliente => {
+      return cliente.id == this.data.idCliente
+    });
+    this.clientePren = clienteModifica[0];
+  }
+
+  initFormPagamenti(prezzoForm, accontoForm, noteForm) {
+
     this.pagamentiForm = this.fb.group({
-      'prezzoForm': [null, Validators.pattern('^\\d*(\\,\\d{1,2})?$')],
-      'accontoForm': [null, Validators.pattern('^\\d*(\\,\\d{1,2})?$')],
-      'noteForm': [''],
+      'prezzoForm': [prezzoForm, Validators.pattern('^\\d*(\\,\\d{1,2})?$')],
+      'accontoForm': [accontoForm, Validators.pattern('^\\d*(\\,\\d{1,2})?$')],
+      'noteForm': [noteForm],
     });
   }
 
   attrezzaturaAddRemove(attrezzatura: any, action_type){
 
+    const index = this.attrezzatureArray.findIndex((e) => e.id === attrezzatura.id);
+
     if (attrezzatura.quantita == null) { attrezzatura.quantita = 0;}
 
     switch (action_type) {
       case "add":
-        attrezzatura.quantita++;
+        if (index === -1) {
+          attrezzatura.quantita++;
+          this.attrezzatureArray.push(attrezzatura);
+        } else {
+          this.attrezzatureArray[index].quantita++;
+        }
         break;
 
       case "remove":
-        attrezzatura.quantita--;
+        if (index === -1) {
+          attrezzatura.quantita++;
+          this.attrezzatureArray.push(attrezzatura);
+        } else {
+          this.attrezzatureArray[index].quantita--;
+        }
         break;
 
       default:
         break;
     }
 
-    const index = this.attrezzatureArray.findIndex((e) => e.id === attrezzatura.id);
+  }
 
-    if (index === -1) {
-      this.attrezzatureArray.push(attrezzatura);
-    } else {
-      this.attrezzatureArray[index] = attrezzatura;
-    }
-
+  showFormCliente() {
+    this.visibleFormCreaCliente = !this.visibleFormCreaCliente
   }
 
   closePrenCreate(): void {
-    this.dialogRef.close();
+    this.dialogRefAll.closeAll();
   }
 
   applyFilter(event: Event) {

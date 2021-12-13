@@ -154,6 +154,27 @@ export class PrenotazioniService {
     })
   }
 
+  updatePrenotazione(idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string){
+
+    return this.db.collection(`chalet/${this.chaletUID}/prenotazioni`).doc(idPrenotazione).set({
+      anno_fine: rangeDate.dataFine.getFullYear(),
+      anno_inizio: rangeDate.dataInizio.getFullYear(),
+      cognome_cliente: cliente.cognome,
+      nome_cliente: cliente.nome,
+      data_fine: rangeDate.dataFine,
+      data_inizio: rangeDate.dataInizio,
+      data_prenotazione: new Date,
+      numero_ombrellone: ombrellone.numero,
+      uid_ombrellone: ombrellone.id,
+      uid_cliente: cliente.id,
+      attrezzature: attrezzature,
+      is_pagato: isPagato,
+      acconto: acconto,
+      prezzo: prezzo,
+      note: note
+    })
+  }
+
   deletePrenotazione(uid_prenotazione) {
     return this.db.doc(`chalet/${this.chaletUID}/prenotazioni/${uid_prenotazione}`).delete()
   }

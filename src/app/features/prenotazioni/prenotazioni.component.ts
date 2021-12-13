@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+
 import * as prenotazioniState from './store/prenotazioni.state';
 import * as fromApp from '../../store/app.reducer';
 import * as PrenotazioniActions from './store/prenotazioni.actions';
@@ -27,6 +28,8 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
   prenotazioneState: Observable<prenotazioniState.default>;
   prenArray: Prenotazione[];
   ombrelloniList: Ombrellone[];
+  ombrelloniSearched: Ombrellone[] = null;
+  ombrellonename: string = "";
   mappaGrid: Tile[] = [];
   public currentValue: string = null;
   valueZoom: number = (localStorage.getItem("zoomLevelPrenotazioni")) ? Number(localStorage.getItem("zoomLevelPrenotazioni")) : 100;
@@ -107,6 +110,9 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     this.subService.unsubscribeComponent$.next();
   }
 
+  setSearch(termSearch) {
+    this.ombrellonename = termSearch
+  }
 
 }
 
