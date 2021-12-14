@@ -113,7 +113,7 @@ export class PrenotazioniEffects {
           error => PrenotazioniActions.CreatePrenotazioneFail(error)
         )
       })
-    )
+    ), { dispatch: false }
   );
 
   updatePrenotazione$: Observable<Action> = createEffect(() =>
@@ -127,7 +127,7 @@ export class PrenotazioniEffects {
           error => PrenotazioniActions.UpdatePrenotazioneFail(error)
         )
       })
-    )
+    ), { dispatch: false }
   );
 
   deletePrenotazione$: Observable<Action> = createEffect(() =>
@@ -139,20 +139,8 @@ export class PrenotazioniEffects {
         ).catch(
           error => PrenotazioniActions.DeletePrenotazioneFail(error)
         )
-      ))
+      )), { dispatch: false }
   );
-
-  // prenotazioneFetch$: Observable<Action> = createEffect(() =>
-  //   this.actions.pipe(
-  //     ofType(PrenotazioniActions.FetchPrenotazione),
-  //     switchMap(({idPrenotazione}) => {
-  //       return this.prenotazioniService.getPrenotazione(idPrenotazione)
-  //     }),
-  //     map((prenotazione: Prenotazione) => {
-  //       return PrenotazioniActions.SetPrenotazione({ payload: prenotazione })
-  //     }))
-  //   );
-
 
 
 }
