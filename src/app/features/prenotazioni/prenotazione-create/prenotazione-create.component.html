@@ -157,7 +157,7 @@
                   <mat-form-field>
                     <input matInput type="text" class="form-control" placeholder="Acconto" formControlName="accontoForm">
                     <mat-error *ngIf="!pagamentiForm.get('accontoForm').valid && pagamentiForm.get('accontoForm').touched">
-                      Inserire un numero con virgola
+                      Inserire un numero esempio: 10.50
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -167,7 +167,7 @@
                   <mat-form-field>
                     <input matInput type="text" class="form-control" placeholder="Prezzo" formControlName="prezzoForm">
                     <mat-error *ngIf="!pagamentiForm.get('prezzoForm').valid && pagamentiForm.get('prezzoForm').touched">
-                      Inserire un numero con virgola
+                      Inserire un numero esempio: 10.50
                     </mat-error>
                   </mat-form-field>
                 </div>

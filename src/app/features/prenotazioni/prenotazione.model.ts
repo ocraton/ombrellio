@@ -39,7 +39,7 @@ export class Prenotazione {
             this.uid_ombrellone = uid_ombrellone;
             this.uid_cliente = uid_cliente;
             this.attrezzature = attrezzature;
-    this.is_pagato = is_pagato;
+            this.is_pagato = is_pagato;
             this.acconto = acconto;
             this.prezzo = prezzo;
             this.note = note;

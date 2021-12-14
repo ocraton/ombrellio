@@ -154,19 +154,5 @@ export class PrenotazioniEffects {
   //   );
 
 
-  // updatePrenotazione$: Observable<Action> = createEffect(() =>
-  //   this.actions.pipe(
-  //     ofType(PrenotazioniActions.UpdatePrenotazione),
-  //     map(action => action.payload),
-  //     switchMap((prenotazione: Prenotazione) =>
-  //       this.prenotazioniService.updatePrenotazione(prenotazione).then(
-  //         () => PrenotazioniActions.UpdatePrenotazioneSuccess()
-  //       ).catch(
-  //         error => PrenotazioniActions.UpdatePrenotazioneFail(error)
-  //       )
-  //     )
-  //   )
-  // );
-
 
 }

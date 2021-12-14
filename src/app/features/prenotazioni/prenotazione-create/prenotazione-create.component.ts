@@ -95,9 +95,9 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     var attrezzature = this.attrezzatureArray;
     var isPagato = this.isPagato;
     this.acconto = this.pagamentiForm.get('accontoForm').value;
-    var acconto = this.acconto;
+    var acconto: number = this.acconto;
     this.prezzo = this.pagamentiForm.get('prezzoForm').value;
-    var prezzo = this.prezzo;
+    var prezzo: number = this.prezzo;
     this.note = this.pagamentiForm.get('noteForm').value;
     var note = this.note;
     this.store.dispatch(PrenotazioniActions.CreatePrenotazione({ ombrellone, cliente, rangeDate, attrezzature, isPagato, acconto, prezzo, note }));
@@ -152,8 +152,8 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
   initFormPagamenti(prezzoForm, accontoForm, noteForm) {
 
     this.pagamentiForm = this.fb.group({
-      'prezzoForm': [prezzoForm, Validators.pattern('^\\d*(\\,\\d{1,2})?$')],
-      'accontoForm': [accontoForm, Validators.pattern('^\\d*(\\,\\d{1,2})?$')],
+      'prezzoForm': [prezzoForm, Validators.compose([Validators.pattern('^\\d*(\\.\\d{1,2})?$')])],
+      'accontoForm': [accontoForm, Validators.compose([Validators.pattern('^\\d*(\\.\\d{1,2})?$')])],
       'noteForm': [noteForm],
     });
   }

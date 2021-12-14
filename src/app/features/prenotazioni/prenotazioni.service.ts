@@ -148,8 +148,8 @@ export class PrenotazioniService {
       uid_cliente: cliente.id,
       attrezzature: attrezzature,
       is_pagato: isPagato,
-      acconto: acconto,
-      prezzo: prezzo,
+      acconto: Number(acconto),
+      prezzo: Number(prezzo),
       note: note
     })
   }
@@ -169,8 +169,8 @@ export class PrenotazioniService {
       uid_cliente: cliente.id,
       attrezzature: attrezzature,
       is_pagato: isPagato,
-      acconto: acconto,
-      prezzo: prezzo,
+      acconto: Number(acconto),
+      prezzo: Number(prezzo),
       note: note
     })
   }
