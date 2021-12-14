@@ -38,7 +38,7 @@ export class ChaletsService {
 
   createChalet(chalet, numOmbrelloni, numeroTavoli, numeroFile) {
       delete chalet.id;
-      let nColonne = Math.floor(numOmbrelloni / numeroFile);
+      let nColonne = Math.floor(numOmbrelloni / numeroFile) * 2;
       return this.db.collection('chalet').add(chalet)
         .then((chaletItem) => {
           let nColonnaIndex = 1;
@@ -46,8 +46,8 @@ export class ChaletsService {
           for(let i = 1; i<=numOmbrelloni; i++){
             this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
               'numero': i.toString(),
-              'colonna': (nColonnaIndex > nColonne) ? nColonnaIndex = 1 : nColonnaIndex++,
-              'riga': (nColonnaIndex > nColonne) ? currentRiga++ : currentRiga = currentRiga
+              'colonna': nColonnaIndex > nColonne ? (nColonnaIndex = 1) : (nColonnaIndex += 2) - 2,
+              'riga': nColonnaIndex > nColonne ? currentRiga++ : (currentRiga = currentRiga)
             })
           }
           for (let i = 1; i <= numeroTavoli; i++){
@@ -60,7 +60,7 @@ export class ChaletsService {
           })
 
           this.db.collection('codiciChalet').doc(chaletItem.id).set({ 'codice': chalet.codice_accesso })
-          this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': (nColonne*2)-1, 'numero_righe': numeroFile })
+          this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': nColonne, 'numero_righe': numeroFile })
 
         });
 
