@@ -3,9 +3,6 @@ import { MaterialDesignModule } from './../../shared/material-design.module';
 import { PrenotazioniRoutingModule } from './prenotazioni-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrenotazioniComponent } from './prenotazioni.component';
-import { PrenotazioneEditComponent } from './prenotazione-edit/prenotazione-edit.component';
-import { PrenotazioneDetailComponent } from './prenotazione-detail/prenotazione-detail.component';
 
 import { EffectsModule } from '@ngrx/effects';
 import { PrenotazioniEffects } from './store/prenotazioni.effects';
@@ -14,13 +11,18 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { StoreModule } from '@ngrx/store';
 import { PrenotazioniService } from './prenotazioni.service';
+import { PrenotazioniComponent } from './prenotazioni.component';
+import { PrenotazioneEditComponent } from './prenotazione-edit/prenotazione-edit.component';
+import { PrenotazioneDetailComponent } from './prenotazione-detail/prenotazione-detail.component';
 import { PrenotazioneCreateComponent } from './prenotazione-create/prenotazione-create.component';
 import { PrenotazioneClienteCreateComponent } from './prenotazione-cliente-create/prenotazione-cliente-create.component';
+import { PrenotazioniListComponent } from './prenotazione-list/prenotazioni-list.component';
 
 
 @NgModule({
   declarations: [
     PrenotazioniComponent,
+    PrenotazioniListComponent,
     PrenotazioneEditComponent,
     PrenotazioneDetailComponent,
     PrenotazioneCreateComponent,

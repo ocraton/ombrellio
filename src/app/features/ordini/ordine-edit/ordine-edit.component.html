@@ -62,13 +62,12 @@
             [selected]="prodotto.consegnato"
             [value]="prodotto"
             [ngClass]="{'itemWithNote' : prodotto.nota}">
+            <p style="padding: 8px 0px;color: #26C6DC;font-weight: bold;">
+              Portata:
+              <span *ngIf="prodotto.portata; else noprodottoportata">{{ prodotto.portata }}</span>
+              <ng-template #noprodottoportata>1</ng-template>
+            </p>
             <p>
-              <span>
-                Portata:
-                <span *ngIf="prodotto.portata; else noprodottoportata">{{ prodotto.portata }}</span>
-                <ng-template #noprodottoportata>1</ng-template>
-              </span>
-              <br>
               <span style="font-weight: bold;" >( {{ prodotto.quantita }} ) </span>
               <span style="font-size: 1.1rem;"> {{ prodotto.nome_prodotto }}</span>
 

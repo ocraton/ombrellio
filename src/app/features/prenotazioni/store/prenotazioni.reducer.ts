@@ -15,6 +15,11 @@ const reducer = createReducer(
       loading: true
   })),
 
+  on(PrenotazioniActions.FetchPrenotazioniLista, (state: PrenotazioniState) => ({
+      ...state,
+      loading: true
+  })),
+
   on(PrenotazioniActions.SetPrenotazioni, (state: PrenotazioniState, {payload}) => ({
     ...state,
     prenotazione: payload,

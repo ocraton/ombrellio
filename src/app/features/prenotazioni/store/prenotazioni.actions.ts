@@ -15,6 +15,9 @@ export const FetchPrenotazioni = createAction(
   '[Prenotazioni] Fetch_Prenotazioni',
   props<{ startDate: Date, endDate: Date }>()
 );
+export const FetchPrenotazioniLista = createAction(
+  '[Prenotazioni] Fetch_Prenotazioni_Lista'
+);
 
 export const SetPrenotazioni = createAction(
   '[Prenotazioni] Set_Prenotazioni',

@@ -62,6 +62,24 @@ export class PrenotazioniService {
 
   }
 
+  getAllLista(): Observable<Prenotazione[]> {
+
+    let prenotazioni = this.db.collection(`chalet/${this.chaletUID}/prenotazioni`, ref =>
+      ref.orderBy('data_prenotazione', 'desc')
+        .limit(5000)
+    );
+
+    return prenotazioni.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Prenotazione;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+
+  }
+
+
   getAllOmbrelloni(): Observable<Ombrellone[]> {
 
     let ombrelloni = this.db.collection(`chalet/${this.chaletUID}/ombrelloni`, ref =>

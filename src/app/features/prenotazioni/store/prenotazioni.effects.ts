@@ -34,6 +34,19 @@ export class PrenotazioniEffects {
       }))
     );
 
+  prenotazioniListaFetch$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(PrenotazioniActions.FetchPrenotazioniLista),
+      switchMap(() => {
+        return this.prenotazioniService.getAllLista().pipe(
+          takeUntil(this.subService.unsubscribe$)
+        )
+      }),
+      map((data: Prenotazione[]) => {
+        return PrenotazioniActions.SetPrenotazioni({ payload: data });
+      }))
+    );
+
   prenotazioniombrelloniFetch$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(PrenotazioniActions.FetchPrenotazioniOmbrelloni),

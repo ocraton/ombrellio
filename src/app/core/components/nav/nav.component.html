@@ -57,6 +57,10 @@
             <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni">
             <mat-icon class="icon mr15" color="primary">book_online</mat-icon> Prenotazioni</a>
         </mat-sidenav-container>
+        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+            <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni/prenotazionilist">
+            <mat-icon class="icon mr15" color="primary">list_alt</mat-icon> Prenotazioni Lista</a>
+        </mat-sidenav-container>
         <mat-divider></mat-divider>
         <mat-sidenav-container>
             <a mat-list-item routerLinkActive="active" routerLink="/user/chalets">

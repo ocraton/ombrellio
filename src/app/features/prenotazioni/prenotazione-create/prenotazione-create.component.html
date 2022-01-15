@@ -88,7 +88,7 @@
                 </p>
                 <button mat-raised-button aria-label="seleziona un altro cliente" style="float: left"
                   title="seleziona un altro cliente" (click)="removeCliente()">
-                  Modifica
+                  Seleziona altro cliente
                 </button>
           </ng-template>
         </div>
@@ -155,7 +155,7 @@
                 </div>
                 <div class="column">
                   <mat-form-field>
-                    <input matInput type="text" class="form-control" placeholder="Acconto" formControlName="accontoForm">
+                    <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control" placeholder="Acconto" formControlName="accontoForm">
                     <mat-error *ngIf="!pagamentiForm.get('accontoForm').valid && pagamentiForm.get('accontoForm').touched">
                       Inserire un numero esempio: 10.50
                     </mat-error>
@@ -165,7 +165,7 @@
               <div class="row">
                 <div class="column">
                   <mat-form-field>
-                    <input matInput type="text" class="form-control" placeholder="Prezzo" formControlName="prezzoForm">
+                    <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control" placeholder="Prezzo" formControlName="prezzoForm">
                     <mat-error *ngIf="!pagamentiForm.get('prezzoForm').valid && pagamentiForm.get('prezzoForm').touched">
                       Inserire un numero esempio: 10.50
                     </mat-error>
@@ -222,25 +222,22 @@
                       €</span>
                   </mat-list-item>
                   <mat-divider></mat-divider>
-                  <mat-list-item *ngIf="pagamentiForm.get('noteForm').value.length > 0">
+                  <mat-list-item *ngIf="pagamentiForm.get('noteForm').value != ''">
                     <div>
                       <b>Note: &nbsp;</b>
-                      <span *ngIf="pagamentiForm.get('noteForm').value.length > 0"> {{ pagamentiForm.get('noteForm').value }} </span>
+                      <span *ngIf="pagamentiForm.get('noteForm').value != ''"> {{ pagamentiForm.get('noteForm').value }} </span>
                     </div>
                   </mat-list-item>
               </mat-list>
               <br>
-  <button mat-raised-button color="primary" *ngIf="this.data.idPrenotazione; else prenlabel"
-    [disabled]="!clientePren || !pagamentiForm.valid" style="float: right; margin-right: 40px"
-    (click)="modificaPrenotazioneOmbrellone()">
-    MODIFICA PRENOTAZIONE </button>
-    <ng-template #prenlabel>
-        <button mat-raised-button color="primary"
+
+
+        <button mat-raised-button color="primary" *ngIf="!this.data.idPrenotazione"
           [disabled]="!clientePren || !pagamentiForm.valid" style="float: right; margin-right: 40px"
           (click)="prenotaOmbrellone()">
           PRENOTA
         </button>
-    </ng-template>
+
       <div align="right">
         <button *ngIf="!prenotazioneEffettuata" mat-button color="primary" matStepperPrevious>Indietro</button>
       </div>
@@ -250,10 +247,16 @@
 
 </mat-horizontal-stepper>
 
-<button *ngIf="!prenotazioneEffettuata" mat-raised-button color="accent" style="float: right"
+<button *ngIf="!prenotazioneEffettuata" mat-raised-button color="accent" style="float: right; margin-left: 30px"
   (click)="closePrenCreate()">
   Chiudi
 </button>
+
+  <button mat-raised-button color="primary" *ngIf="this.data.idPrenotazione"
+    [disabled]="!clientePren || !pagamentiForm.valid" style="float: right;"
+    (click)="modificaPrenotazioneOmbrellone()">
+    MODIFICA PRENOTAZIONE </button>
+
 
 
 
