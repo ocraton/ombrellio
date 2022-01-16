@@ -15,6 +15,7 @@ export class Prenotazione {
   public uid_cliente: string;
   public attrezzature: any[];
   public is_pagato: boolean;
+  public is_stagionale: boolean;
   public acconto: number;
   public prezzo: number;
   public note: string;
@@ -25,7 +26,7 @@ export class Prenotazione {
               nome_cliente: string, data_inizio: Date, data_fine: Date,
               anno_inizio: number, anno_fine: number,
               numero_ombrellone: string, uid_ombrellone: string, uid_cliente: string,
-    attrezzature: any[], is_pagato: boolean, acconto: number, prezzo: number, note: string ) {
+    attrezzature: any[], is_pagato: boolean, is_stagionale: boolean, acconto: number, prezzo: number, note: string ) {
 
             this.id = id;
             this.chalet_uid = chalet_uid;
@@ -40,6 +41,7 @@ export class Prenotazione {
             this.uid_cliente = uid_cliente;
             this.attrezzature = attrezzature;
             this.is_pagato = is_pagato;
+            this.is_stagionale = is_stagionale;
             this.acconto = acconto;
             this.prezzo = prezzo;
             this.note = note;

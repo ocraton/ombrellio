@@ -152,7 +152,7 @@ export class PrenotazioniService {
   }
 
 
-  createPrenotazione(ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string){
+  createPrenotazione(ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string){
     return this.db.collection(`chalet/${this.chaletUID}/prenotazioni`).add({
       anno_fine: rangeDate.dataFine.getFullYear(),
       anno_inizio: rangeDate.dataInizio.getFullYear(),
@@ -166,13 +166,23 @@ export class PrenotazioniService {
       uid_cliente: cliente.id,
       attrezzature: attrezzature,
       is_pagato: isPagato,
+      is_stagionale: isStagionale,
       acconto: Number(acconto),
       prezzo: Number(prezzo),
       note: note
     })
   }
 
-  updatePrenotazione(idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string){
+  updatePrenotazione(idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string){
+
+    attrezzature = attrezzature.filter(item => item.quantita !== 0);
+
+    attrezzature.slice().forEach(function (item) {
+      item.attrezzaturaUid = item.id;
+      delete item.id;
+      delete item.ordinamento;
+      delete item.visibile;
+    });
 
     return this.db.collection(`chalet/${this.chaletUID}/prenotazioni`).doc(idPrenotazione).set({
       anno_fine: rangeDate.dataFine.getFullYear(),
@@ -187,6 +197,7 @@ export class PrenotazioniService {
       uid_cliente: cliente.id,
       attrezzature: attrezzature,
       is_pagato: isPagato,
+      is_stagionale: isStagionale,
       acconto: Number(acconto),
       prezzo: Number(prezzo),
       note: note

@@ -40,6 +40,13 @@
   (click)="findPrenotazione()">CERCA</button>
 </div>
 
+<div style="width: 40%;">
+  <mat-list class="inline-list">
+    <mat-list-item> <mat-icon style="color:#45cc47">circle</mat-icon> &nbsp; Libero </mat-list-item>
+    <mat-list-item> <mat-icon style="color:#F44336">circle</mat-icon>&nbsp; Occuapto </mat-list-item>
+    <mat-list-item> <mat-icon style="color:#673ab7">circle</mat-icon> &nbsp;Stagionale </mat-list-item>
+  </mat-list>
+</div>
 <div *ngIf="!(prenotazioneState | async).loading">
     <mat-form-field style="width: 100%">
       <input matInput placeholder="Cerca Ombrellone" #term (keyup)="setSearch(term.value)" style="width: 100%" />

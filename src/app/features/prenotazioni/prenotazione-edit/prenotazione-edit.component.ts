@@ -26,7 +26,11 @@ export class PrenotazioneEditComponent implements OnInit {
   openDetailDialog(): void {
     this.dialog.open(PrenotazioneDetailComponent, {
       width: '700px',
-      data: { prenotazioni: this.prenArray, ombrellone: this.ombrellone}
+      data: {
+        prenotazioni: this.prenArray,
+        ombrellone: this.ombrellone,
+        rangeDateForm: this.rangeDate
+      }
     });
   }
 

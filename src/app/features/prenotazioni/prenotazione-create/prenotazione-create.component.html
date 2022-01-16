@@ -154,6 +154,11 @@
                     Pagato</mat-slide-toggle>
                 </div>
                 <div class="column">
+                  <mat-slide-toggle class="mb20" [checked]="isStagionale"
+                    (change)="selectIsStagionale($event)">
+                    Stagionale</mat-slide-toggle>
+                </div>
+                <div class="column">
                   <mat-form-field>
                     <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control" placeholder="Acconto" formControlName="accontoForm">
                     <mat-error *ngIf="!pagamentiForm.get('accontoForm').valid && pagamentiForm.get('accontoForm').touched">
@@ -214,10 +219,14 @@
                     <b>Pagato: &nbsp;</b>
                     <span *ngIf="isPagato; else nopagato"> SI </span>
                     <ng-template #nopagato> NO </ng-template>
-                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    <b>Stagionale: &nbsp;</b>
+                    <span *ngIf="isStagionale; else nostagionale"> SI </span>
+                    <ng-template #nostagionale> NO </ng-template>
+                    &nbsp;&nbsp;&nbsp;
                     <span *ngIf="pagamentiForm.get('accontoForm').value > 0"> <b>Acconto:</b> {{ pagamentiForm.get('accontoForm').value }}
                       €</span>
-                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <span *ngIf="pagamentiForm.get('prezzoForm').value > 0"> <b>Prezzo:</b> {{ pagamentiForm.get('prezzoForm').value }}
                       €</span>
                   </mat-list-item>
@@ -252,7 +261,7 @@
   Chiudi
 </button>
 
-  <button mat-raised-button color="primary" *ngIf="this.data.idPrenotazione"
+  <button mat-raised-button color="primary" *ngIf="this.data.idPrenotazione && !prenotazioneEffettuata"
     [disabled]="!clientePren || !pagamentiForm.valid" style="float: right;"
     (click)="modificaPrenotazioneOmbrellone()">
     MODIFICA PRENOTAZIONE </button>

@@ -87,7 +87,7 @@ export const CreatePrenotazioniClienteFail = createAction(
 
 export const CreatePrenotazione = createAction(
   '[Prenotazioni] Create_Prenotazione',
-  props<{ ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }>()
+  props<{ ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string }>()
 );
 
 export const CreatePrenotazioneSuccess = createAction(
@@ -101,7 +101,7 @@ export const CreatePrenotazioneFail = createAction(
 
 export const UpdatePrenotazione = createAction(
   '[Prenotazioni] Update_Prenotazione',
-  props<{ idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }>()
+  props<{ idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string }>()
 );
 
 export const UpdatePrenotazioneSuccess = createAction(

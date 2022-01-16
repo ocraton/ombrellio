@@ -49,7 +49,8 @@ export class PrenotazioneDetailComponent implements OnInit, OnDestroy {
         idPrenotazione: uid_prenotazione,
         idCliente: uid_cliente,
         ombrellone: ombrellone,
-        rangeDate: { 'dataInizio': new Date(dataInizio['seconds'] * 1000), 'dataFine': new Date(dataFine['seconds'] * 1000)}
+        rangeDate: { 'dataInizio': new Date(dataInizio['seconds'] * 1000), 'dataFine': new Date(dataFine['seconds'] * 1000)},
+        rangeDateForm: this.data.rangeDateForm
       }
     });
   }

@@ -119,8 +119,8 @@ export class PrenotazioniEffects {
     this.actions.pipe(
       ofType(PrenotazioniActions.CreatePrenotazione),
       map(action => action),
-      switchMap((action: { ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }) => {
-        return this.prenotazioniService.createPrenotazione(action.ombrellone, action.cliente, action.rangeDate, action.attrezzature, action.isPagato, action.acconto, action.prezzo, action.note).then(
+      switchMap((action: { ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string }) => {
+        return this.prenotazioniService.createPrenotazione(action.ombrellone, action.cliente, action.rangeDate, action.attrezzature, action.isPagato, action.isStagionale, action.acconto, action.prezzo, action.note).then(
           res => PrenotazioniActions.CreatePrenotazioneSuccess()
         ).catch(
           error => PrenotazioniActions.CreatePrenotazioneFail(error)
@@ -133,8 +133,8 @@ export class PrenotazioniEffects {
     this.actions.pipe(
       ofType(PrenotazioniActions.UpdatePrenotazione),
       map(action => action),
-      switchMap((action: { idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, acconto: number, prezzo: number, note: string }) => {
-        return this.prenotazioniService.updatePrenotazione(action.idPrenotazione, action.ombrellone, action.cliente, action.rangeDate, action.attrezzature, action.isPagato, action.acconto, action.prezzo, action.note).then(
+      switchMap((action: { idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string }) => {
+        return this.prenotazioniService.updatePrenotazione(action.idPrenotazione, action.ombrellone, action.cliente, action.rangeDate, action.attrezzature, action.isPagato, action.isStagionale, action.acconto, action.prezzo, action.note).then(
           res => PrenotazioniActions.UpdatePrenotazioneSuccess()
         ).catch(
           error => PrenotazioniActions.UpdatePrenotazioneFail(error)
