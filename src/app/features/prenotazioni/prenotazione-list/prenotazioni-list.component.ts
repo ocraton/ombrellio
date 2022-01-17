@@ -59,7 +59,7 @@ export class PrenotazioniListComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.DeletePrenotazione({ uid_prenotazione: uid_prenotazione }));
   }
 
-  openPrenotaDialog(uid_prenotazione, uid_ombrellone, numero_ombrellone, dataInizio, dataFine, uid_cliente) {
+  openPrenotaDialog(uid_prenotazione, uid_ombrellone, numero_ombrellone, dataInizio, dataFine, dataPrenotazione, uid_cliente) {
     var ombrellone: Ombrellone = {id: uid_ombrellone, numero: numero_ombrellone, riga: null, colonna: null }
     const dialogConfigDel = new MatDialogConfig();
     dialogConfigDel.disableClose = true;
@@ -69,7 +69,9 @@ export class PrenotazioniListComponent implements OnInit, OnDestroy {
       idPrenotazione: uid_prenotazione,
       idCliente: uid_cliente,
       ombrellone: ombrellone,
-      rangeDate: { 'dataInizio': new Date(dataInizio['seconds'] * 1000), 'dataFine': new Date(dataFine['seconds'] * 1000) }
+      rangeDate: { 'dataInizio': new Date(dataInizio['seconds'] * 1000), 'dataFine': new Date(dataFine['seconds'] * 1000) },
+      data_prenotazione: dataPrenotazione,
+      editFromListView: true
     };
     this.dialog.open(PrenotazioneCreateComponent, dialogConfigDel);
   }

@@ -33,6 +33,7 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
   modificaPrenotazioneEffettuata = false;
   isPagato = false;
   isStagionale = false;
+  editFromListView = false;
   acconto = 0;
   prezzo = 0;
   note = '';
@@ -65,6 +66,7 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     this.store.select('prenotazioni').subscribe(res => {
       this.dataSource.data = res.clienti as Cliente[];
       if (this.data.idPrenotazione) { // modifica prenotazione
+        if (this.data.editFromListView) this.editFromListView = true;
         var prenazioneDaModificare = res.prenotazione.filter(prenEdit => prenEdit.id == this.data.idPrenotazione);
         this.initClienteModifica(this.dataSource.data);
         this.initFormPagamenti(prenazioneDaModificare[0]?.prezzo, prenazioneDaModificare[0]?.acconto, prenazioneDaModificare[0]?.note);
@@ -120,6 +122,7 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     var ombrellone: Ombrellone = this.data.ombrellone;
     var cliente: Cliente = this.clientePren;
     var rangeDate: any = this.data.rangeDate;
+    var dataPrenotazione: any = this.data.data_prenotazione;
     var attrezzature = this.attrezzatureArray;
     var isPagato = this.isPagato;
     var isStagionale = this.isStagionale;
@@ -130,10 +133,14 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     this.note = this.pagamentiForm.get('noteForm').value;
     var note = this.note;
     var idPrenotazione = this.idPrenModifica;
-    this.store.dispatch(PrenotazioniActions.UpdatePrenotazione({ idPrenotazione, ombrellone, cliente, rangeDate, attrezzature, isPagato, isStagionale, acconto, prezzo, note }));
-    this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
-      startDate: this.data.rangeDateForm.dataInizio, endDate: this.data.rangeDateForm.dataFine
-    }));
+    this.store.dispatch(PrenotazioniActions.UpdatePrenotazione({ idPrenotazione, ombrellone, cliente, rangeDate, dataPrenotazione, attrezzature, isPagato, isStagionale, acconto, prezzo, note }));
+    if (this.editFromListView){
+      this.store.dispatch(PrenotazioniActions.FetchPrenotazioniLista());
+    } else {
+      this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
+        startDate: this.data.rangeDateForm.dataInizio, endDate: this.data.rangeDateForm.dataFine
+      }));
+    }
     this.store.select('prenotazioni').subscribe(() => {
       this.prenotazioneEffettuata = true
       this.modificaPrenotazioneEffettuata = true

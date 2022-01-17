@@ -173,7 +173,7 @@ export class PrenotazioniService {
     })
   }
 
-  updatePrenotazione(idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string){
+  updatePrenotazione(idPrenotazione: string, ombrellone: Ombrellone, cliente: Cliente, rangeDate: any, dataPrenotazione: Date, attrezzature: any[], isPagato: boolean, isStagionale: boolean, acconto: number, prezzo: number, note: string){
 
     attrezzature = attrezzature.filter(item => item.quantita !== 0);
 
@@ -191,7 +191,7 @@ export class PrenotazioniService {
       nome_cliente: cliente.nome,
       data_fine: this.dateservice.dateEndBuildGMT1(rangeDate.dataFine),
       data_inizio: this.dateservice.dateStartBuildGMT1(rangeDate.dataInizio),
-      data_prenotazione: new Date,
+      data_prenotazione: dataPrenotazione,
       numero_ombrellone: ombrellone.numero,
       uid_ombrellone: ombrellone.id,
       uid_cliente: cliente.id,

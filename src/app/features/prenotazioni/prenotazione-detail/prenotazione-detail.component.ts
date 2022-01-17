@@ -42,7 +42,7 @@ export class PrenotazioneDetailComponent implements OnInit, OnDestroy {
 
   }
 
-  openPrenotaDialog(uid_prenotazione, ombrellone, dataInizio, dataFine, uid_cliente) {
+  openPrenotaDialog(uid_prenotazione, ombrellone, dataInizio, dataFine, data_prenotazione, uid_cliente) {
     this.dialog.open(PrenotazioneCreateComponent, {
       width: '1000px',
       data: {
@@ -50,7 +50,8 @@ export class PrenotazioneDetailComponent implements OnInit, OnDestroy {
         idCliente: uid_cliente,
         ombrellone: ombrellone,
         rangeDate: { 'dataInizio': new Date(dataInizio['seconds'] * 1000), 'dataFine': new Date(dataFine['seconds'] * 1000)},
-        rangeDateForm: this.data.rangeDateForm
+        rangeDateForm: this.data.rangeDateForm,
+        data_prenotazione: data_prenotazione
       }
     });
   }
