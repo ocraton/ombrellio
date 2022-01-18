@@ -17,6 +17,7 @@ import { PrenotazioneDetailComponent } from './prenotazione-detail/prenotazione-
 import { PrenotazioneCreateComponent } from './prenotazione-create/prenotazione-create.component';
 import { PrenotazioneClienteCreateComponent } from './prenotazione-cliente-create/prenotazione-cliente-create.component';
 import { PrenotazioniListComponent } from './prenotazione-list/prenotazioni-list.component';
+import { PrenotazioneListDeleteComponent } from './prenotazione-list/prenotazione-list-delete/prenotazione-list-delete.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PrenotazioniListComponent } from './prenotazione-list/prenotazioni-list
     PrenotazioneEditComponent,
     PrenotazioneDetailComponent,
     PrenotazioneCreateComponent,
-    PrenotazioneClienteCreateComponent
+    PrenotazioneClienteCreateComponent,
+    PrenotazioneListDeleteComponent
   ],
   imports: [
     CommonModule,

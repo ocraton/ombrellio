@@ -108,7 +108,7 @@
               </mat-card-title>
               <mat-card-content>
         <div *ngIf="!(prenotazioniState | async).loadingAttrezzature">
-          <mat-list role="list">
+          <mat-list role="list" *ngIf="(prenotazioniState | async).attrezzature.length > 0; else noAttrezzature">
             <ng-container *ngFor="let attrezzatura of (prenotazioniState | async).attrezzature; let i = index">
                 <mat-list-item role="listitem" *ngIf="attrezzatura.visibile">
                   <div style="width:30%" [ngStyle]="checkAttrezzaturaQuantitaValueById(attrezzatura.id) > 0 && { 'font-weight': 'bold', 'color': '#673BB6' }">
@@ -131,6 +131,10 @@
                 </mat-list-item>
             </ng-container>
           </mat-list>
+          <ng-template #noAttrezzature>
+            <h3 style="font-weight: 300;">Non ci sono attrezzature, se vuoi crearle vai nella sezione <b>Attrezzature</b></h3>
+          </ng-template>
+
         </div>
         <div align="right">
           <button mat-button color="primary" matStepperPrevious>Indietro</button>

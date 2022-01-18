@@ -38,7 +38,7 @@ export class UtentiCreateComponent implements OnInit {
     this.utente.chalet_uid = '';
     this.utente.userType = 'demo';
     this.utente.data_rinnovo = new Date();
-    this.utente.data_scadenza = new Date(2021, 11, 31); //scadenza impostata al 31 dicembre 2021
+    this.utente.data_scadenza = new Date(2022, 11, 31); //scadenza impostata al 31 dicembre 2022
     if (this.utenteForm.valid){
       this.store.dispatch(UtentiActions.CreateUtente({ payload: { utente: this.utente } }));
       this.store.select('utenti')

@@ -13,7 +13,7 @@ import * as PrenotazioniActions from '../store/prenotazioni.actions';
 import { SubscriptionService } from '../../../core/services/subscription.service';
 import { Prenotazione } from '../prenotazione.model';
 import { PrenotazioneCreateComponent } from '../prenotazione-create/prenotazione-create.component';
-
+import { PrenotazioneListDeleteComponent } from './prenotazione-list-delete/prenotazione-list-delete.component';
 
 export interface Tile {
   iRiga: number;
@@ -55,8 +55,13 @@ export class PrenotazioniListComponent implements OnInit, OnDestroy {
     })
   }
 
-  cancellaPrenotazione(uid_prenotazione) {
-    this.store.dispatch(PrenotazioniActions.DeletePrenotazione({ uid_prenotazione: uid_prenotazione }));
+  cancellaPrenotazione(uid_prenotazionente, numero_ombrellone) {
+    const dialogConfigDel = new MatDialogConfig();
+    dialogConfigDel.disableClose = true;
+    dialogConfigDel.autoFocus = true;
+    dialogConfigDel.width = '30rem';
+    dialogConfigDel.data = { uidPrenotazione: uid_prenotazionente, numberoOmbrellone: numero_ombrellone};
+    this.dialog.open(PrenotazioneListDeleteComponent, dialogConfigDel);
   }
 
   openPrenotaDialog(uid_prenotazione, uid_ombrellone, numero_ombrellone, dataInizio, dataFine, dataPrenotazione, uid_cliente) {
@@ -90,4 +95,5 @@ export class PrenotazioniListComponent implements OnInit, OnDestroy {
 
 
 }
+
 
