@@ -36,8 +36,9 @@ export class ChaletsService {
               );
     }
 
-  createChalet(chalet, numOmbrelloni, numeroTavoli, numeroFile) {
+  createChalet(chalet, numOmbrelloni: number, numeroTavoli: number, numeroFile: number) {
       delete chalet.id;
+
       let nColonne = Math.floor(numOmbrelloni / numeroFile) * 2;
       return this.db.collection('chalet').add(chalet)
         .then((chaletItem) => {
@@ -60,7 +61,7 @@ export class ChaletsService {
           })
 
           this.db.collection('codiciChalet').doc(chaletItem.id).set({ 'codice': chalet.codice_accesso })
-          this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': nColonne, 'numero_righe': numeroFile })
+          this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': nColonne, 'numero_righe': Number(numeroFile) })
 
         });
 

@@ -1,27 +1,21 @@
 <div class="cardListItem">
-  <mat-card class="example-card" [ngClass]="{'ombrelloneLibero' : prenArray.length == 0,
+  <mat-card
+    matTooltip="{{getTooltipText()}}"
+    matTooltipClass="my-tooltip"
+    style="box-shadow: none;"
+  (click)="prenArray.length > 0 ? openDetailDialog() : openPrenotaDialog()"
+  class="example-card" [ngClass]="{'ombrelloneLibero' : prenArray.length == 0,
                                    'ombrelloneOccupato': prenArray.length > 0,
                                    'ombrelloneStagionale': prenArray.length > 0 && prenArray[0].is_stagionale,
                                   'highlightedOmbrellone' : ombrellone.numero.includes(ombrellonename) && ombrellonename != ''}">
     <mat-card-header>
       <mat-card-title>
-        <span
-        [ngStyle]="{'color':ombrellone.numero.includes(ombrellonename) && ombrellonename != '' ? '#000' : '#fff' }"
-        ><mat-icon>beach_access</mat-icon></span> <br />
+
         <span
         [ngStyle]="{'color':ombrellone.numero.includes(ombrellonename) && ombrellonename != '' ? '#000' : '#fff' }"
         >{{ ombrellone.numero }} </span>
       </mat-card-title>
     </mat-card-header>
-    <mat-card-actions>
-      <button
-      style="line-height: 24px;"
-      *ngIf="prenArray.length > 0; else prenotabtn"
-        mat-raised-button (click)="openDetailDialog()">Dettagli</button>
-      <ng-template #prenotabtn>
-        <button mat-raised-button style="line-height: 24px;" (click)="openPrenotaDialog()">Prenota</button>
-      </ng-template>
-    </mat-card-actions>
   </mat-card>
 </div>
 

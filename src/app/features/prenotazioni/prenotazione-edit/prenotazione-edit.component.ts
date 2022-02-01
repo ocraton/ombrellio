@@ -6,6 +6,7 @@ import { Prenotazione } from '../prenotazione.model';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PrenotazioneCreateComponent } from '../prenotazione-create/prenotazione-create.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-prenotazione-edit',
@@ -44,6 +45,21 @@ export class PrenotazioneEditComponent implements OnInit {
     });
   }
 
-
+  getTooltipText() {
+    let prenTooltip = '';
+    if (this.prenArray.length > 0) {
+      this.prenArray.forEach(item => {
+        let pagato = item.is_pagato ? 'SI' : 'NO';
+        let dataInizio = new Date(item.data_inizio['seconds'] * 1000);
+        let dataFine = new Date(item.data_fine['seconds'] * 1000);
+        prenTooltip = prenTooltip +
+          `${item.nome_cliente.toUpperCase()} ${item.cognome_cliente.toUpperCase()}
+        Dal ${dataInizio.getDate()}/${dataInizio.getMonth()+1}/${dataInizio.getFullYear()} al ${dataFine.getDate()}/${dataFine.getMonth() + 1}/${dataFine.getFullYear()}
+        Pagato: ${pagato} | Prezzo: ${item.prezzo} € \n
+        `;
+      })
+    }
+    return prenTooltip;
+  }
 
 }

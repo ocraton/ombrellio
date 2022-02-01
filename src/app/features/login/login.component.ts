@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   authState: Observable<authState.default>;
   model: any = {};
   loginerror = false;
+  today = new Date();
 
   constructor(private store: Store<fromApp.AppState>) { }
 

@@ -31,22 +31,28 @@ export class AuthService {
           this.db.doc('utenti/'+user.uid).valueChanges().pipe(
             takeUntil(this.subService.unsubscribe$)
           ).subscribe(utente => {
-              this.auth = {
-                email: user.email,
-                password: '',
-                uid: user.uid,
-                chaletUID: utente['chalet_uid']
-              };
-              if(utente['chalet_uid'] != ''){
-                if (this.router.url != `/menu/${utente['chalet_uid']}`){
-                  this.router.navigate(['/user/ordini']);
+            let dataScadenza = new Date(utente['data_scadenza']['seconds'] * 1000);
+            let today = new Date();
+            this.auth = {
+              email: user.email,
+              password: '',
+              uid: user.uid,
+              chaletUID: utente['chalet_uid'],
+            };
+            if (dataScadenza.getTime() > today.getTime()){
+              if (utente['chalet_uid'] != '') {
+                if (this.router.url != `/menu/${utente['chalet_uid']}`) {
+                  this.router.navigate(['/user/prenotazioni']);
                 }
               } else {
                 this.router.navigate(['/user/chalets']);
               }
-              this.store.dispatch(AuthActions.LogInSuccess({payload: this.auth}))
+              this.store.dispatch(AuthActions.LogInSuccess({ payload: this.auth }))
+            } else {
+              this.router.navigate(['/login/servizioscaduto']);
             }
-          )
+
+            })
       } else {
             var re = new RegExp("^\/menu\/([a-zA-Z0-9]){20,30}$");
             if(re.test(this.router.url)){

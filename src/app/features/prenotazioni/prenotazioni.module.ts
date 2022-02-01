@@ -12,6 +12,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { PrenotazioniService } from './prenotazioni.service';
 import { PrenotazioniComponent } from './prenotazioni.component';
+import { LegendaDialogComponent } from './legenda-dialog.component';
 import { PrenotazioneEditComponent } from './prenotazione-edit/prenotazione-edit.component';
 import { PrenotazioneDetailComponent } from './prenotazione-detail/prenotazione-detail.component';
 import { PrenotazioneCreateComponent } from './prenotazione-create/prenotazione-create.component';
@@ -28,7 +29,8 @@ import { PrenotazioneListDeleteComponent } from './prenotazione-list/prenotazion
     PrenotazioneDetailComponent,
     PrenotazioneCreateComponent,
     PrenotazioneClienteCreateComponent,
-    PrenotazioneListDeleteComponent
+    PrenotazioneListDeleteComponent,
+    LegendaDialogComponent
   ],
   imports: [
     CommonModule,

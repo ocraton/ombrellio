@@ -29,6 +29,8 @@
     "@ngrx/store-devtools": "^10.0.0-beta.1",
     "@techiediaries/ngx-qrcode": "^9.1.0",
     "firebase": "^7.24.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

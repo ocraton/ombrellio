@@ -12,48 +12,6 @@
       </mat-toolbar>
     <mat-nav-list>
         <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
-            <a mat-list-item routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}" routerLink="/user/ordini">
-              <mat-icon class="icon mr15" color="primary">menu_book</mat-icon> Ordini</a>
-            <a mat-list-item routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}" routerLink="/user/ordini/completati">
-              <mat-icon class="icon mr15" color="primary">local_library</mat-icon> Completati</a>
-            <a mat-list-item routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}" routerLink="/user/ordini/annullati">
-              <mat-icon class="icon mr15" color="primary">layers_clear</mat-icon> Annullati</a>
-            <mat-divider></mat-divider>
-        </mat-sidenav-container>
-        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
-            <div class="nested-menu">
-              <a mat-list-item (click)="addExpandClass('pages')">
-                  <mat-icon class="sidenav-icon mr15" color="primary">restaurant_menu</mat-icon>
-                  Menù
-                  <mat-icon class="sidenav-icon mr15" style="margin-left: 116px;" color="primary">add</mat-icon>
-              </a>
-              <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
-                  <li>
-                    <a mat-list-item routerLinkActive="active" routerLink="/user/categorie">
-                      <mat-icon class="sidenav-icon mr15" color="primary">receipt_long</mat-icon>
-                       Categorie
-                    </a>
-                  </li>
-                  <li>
-                    <a mat-list-item routerLinkActive="active" routerLink="/user/prodotti">
-                        <mat-icon class="sidenav-icon mr15" color="primary">fastfood</mat-icon>
-                        Prodotti
-                    </a>
-                  </li>
-                  <li>
-                    <a mat-list-item routerLinkActive="active" routerLink="/user/prodotti/sharemenu">
-                        <mat-icon class="sidenav-icon mr15" color="primary">share</mat-icon>
-                        Condividi
-                    </a>
-                  </li>
-              </ul>
-            </div>
-            <mat-divider></mat-divider>
-        </mat-sidenav-container>
-        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
             <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni">
             <mat-icon class="icon mr15" color="primary">book_online</mat-icon> Prenotazioni</a>
         </mat-sidenav-container>
@@ -78,15 +36,61 @@
         </mat-sidenav-container>
         <mat-divider></mat-divider>
         <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
-            <a mat-list-item routerLinkActive="active" routerLink="/user/tavoli">
-              <mat-icon class="icon mr15" color="primary">deck</mat-icon> Tavoli</a>
-        </mat-sidenav-container>
-        <mat-divider></mat-divider>
-        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
             <a mat-list-item routerLinkActive="active" routerLink="/user/clienti">
               <mat-icon class="icon mr15" color="primary">people_alt</mat-icon> Clienti</a>
         </mat-sidenav-container>
         <mat-divider></mat-divider>
+                <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+                  <div class="nested-menu">
+                    <a mat-list-item (click)="addExpandClass('pages')">
+                      <mat-icon class="sidenav-icon mr15" color="primary">restaurant_menu</mat-icon>
+                      Menù
+                      <mat-icon class="sidenav-icon mr15" style="margin-left: 116px;" color="primary">add</mat-icon>
+                    </a>
+                    <ul class="nested submenu" [class.expand]="showMenu === 'pages'">
+                      <li>
+                        <a mat-list-item routerLinkActive="active" routerLink="/user/categorie">
+                          <mat-icon class="sidenav-icon mr15" color="primary">receipt_long</mat-icon>
+                          Categorie
+                        </a>
+                      </li>
+                      <li>
+                        <a mat-list-item routerLinkActive="active" routerLink="/user/prodotti">
+                          <mat-icon class="sidenav-icon mr15" color="primary">fastfood</mat-icon>
+                          Prodotti
+                        </a>
+                      </li>
+                      <li>
+                        <a mat-list-item routerLinkActive="active" routerLink="/user/prodotti/sharemenu">
+                          <mat-icon class="sidenav-icon mr15" color="primary">share</mat-icon>
+                          Condividi
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <mat-divider></mat-divider>
+                </mat-sidenav-container>
+                        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+                          <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/user/ordini">
+                            <mat-icon class="icon mr15" color="primary">menu_book</mat-icon> Ordini
+                          </a>
+                          <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            routerLink="/user/ordini/completati">
+                            <mat-icon class="icon mr15" color="primary">local_library</mat-icon> Completati
+                          </a>
+                          <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            routerLink="/user/ordini/annullati">
+                            <mat-icon class="icon mr15" color="primary">layers_clear</mat-icon> Annullati
+                          </a>
+                          <mat-divider></mat-divider>
+                        </mat-sidenav-container>
+                        <mat-divider></mat-divider>
+                                <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+                                  <a mat-list-item routerLinkActive="active" routerLink="/user/tavoli">
+                                    <mat-icon class="icon mr15" color="primary">deck</mat-icon> Tavoli
+                                  </a>
+                                </mat-sidenav-container>
+                                <mat-divider></mat-divider>
         <a mat-list-item  (click)="onLogout()">
           <mat-icon class="icon mr15" color="primary">logout</mat-icon> Logout</a>
           <mat-divider></mat-divider>

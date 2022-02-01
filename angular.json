@@ -35,6 +35,8 @@
             "allowedCommonJsDependencies": [
               "lodash",
               "qrcode",
+              "core-js",
+              "raf",
               "@firebase/firestore",
               "@angular/fire/firestore",
               "@firebase/app",

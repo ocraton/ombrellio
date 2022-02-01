@@ -2,31 +2,32 @@
     margin-bottom: 0px;
 }
 
+::ng-deep .mat-tooltip  {
+    white-space: pre-line !important;
+}
+
 .mat-card-title{
   color:#673ab7;
-  font-weight: 200;
-  font-size: 1.2rem;
-  text-align: center;
+  font-size: 0.9rem;
+  padding-top: 12px;
 }
 .mat-card-header {
   text-align: center;
   justify-content: center;
 }
 .mat-card-actions{
-  font-size: 1.8rem;
+  font-size: 0.8rem;
   padding-top: 0%;
   text-align: center;
   justify-content: center;
 }
 
 mat-card {
-  width: 100px;
-  height: 80px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: #fff;
-  position: relative;
+  padding: 1px;
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
 }
 
 .ombrelloneLibero{
