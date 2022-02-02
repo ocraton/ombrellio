@@ -5,6 +5,8 @@ import * as fromApp from '../../../store/app.reducer';
 import * as authState from './../store/auth.state';
 import { Observable } from 'rxjs';
 
+import * as AuthActions from '../../../features/login/store/auth.actions';
+
 @Component({
     selector: 'app-servizio-scaduto',
     templateUrl: './servizio-scaduto.component.html',
@@ -22,5 +24,8 @@ export class ServizioScadutoComponent implements OnInit {
     this.authState = this.store.select('auth');
   }
 
+  onLogout() {
+    this.store.dispatch(AuthActions.Logout());
+  }
 
 }
