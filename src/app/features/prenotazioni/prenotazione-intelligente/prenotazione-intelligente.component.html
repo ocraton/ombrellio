@@ -1,0 +1,77 @@
+<div class="flex-grid" style="height: 80px;">
+  <div style="width: 90%;">
+    <h2 class="titleSection">
+      <mat-icon class="icon mr15 valmiddle">auto_fix_high</mat-icon>
+      Prenotazioni SMART
+    </h2>
+  </div>
+
+  <div style="width: 10%;">
+    <button mat-stroked-button
+    (click)="openLegendaDialog()"
+    style="margin-top: 10px;float: right;">Legenda</button>
+  </div>
+</div>
+
+<div *ngIf="giorni.length <= 7; else sogliaGiorni">
+
+<mat-card class="riepilogoSmart mat-elevation-z0 scrollable-content">
+  <mat-card-content>
+  <mat-nav-list class="list-horizontal">
+    <div mat-nav-list-item *ngFor="let giornoRiep of giorni; index as i;" class="mat-nav-list-item">
+      <div *ngIf="giornoRiep.uidOmbrellone != ''; else iconnoselectrep" class="badgeSel">
+        {{ giornoRiep.numeroOmbrellone }}
+      </div>
+      <ng-template #iconnoselectrep>
+        <mat-icon color="warn" style="vertical-align: middle;">remove_circle</mat-icon>
+      </ng-template>
+      {{ giornoRiep.dataInizio | date:'dd/MM/yyyy' }}
+    </div>
+  </mat-nav-list>
+  </mat-card-content>
+
+</mat-card>
+<div style="width: 100%; text-align: center; margin: 0;">
+    <button id="btnPren" style="margin: 10px"
+    [disabled]="!checkTuttiGiorniSelezionati()"
+    (click)="openPrenotaDialog()"
+    mat-raised-button color="primary">PRENOTA
+      <mat-icon class="icon">auto_fix_high</mat-icon>
+    </button>
+</div>
+<mat-accordion>
+
+  <mat-expansion-panel *ngFor="let giorno of giorni; index as i;" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      <div *ngIf="giorno.uidOmbrellone != ''; else iconnoselect" class="badgeSel">
+        {{ giorno.numeroOmbrellone }}
+      </div>
+      <ng-template #iconnoselect>
+        <mat-icon color="warn" >remove_circle</mat-icon>
+      </ng-template>
+      </mat-panel-title>
+      <mat-panel-description [ngClass]="{'descriptionSel' : giorno.uidOmbrellone != ''}">
+       {{ giorno.dataInizio | date:'dd/MM/yyyy' }}
+       &nbsp;&nbsp;  <span style="color: #26c6da;">{{ giorno.dataInizio | italianDate:'EEEE'  }}</span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <section class="grid-1">
+      <div *ngFor="let item of getOmbrelloniDisponibiliFromData(giorno.dataInizio)"
+        (click)="selezionaOmbrellone(giorno.dataInizio, item)"
+        [ngClass]="{'ombrellSel': giorno.uidOmbrellone == item.id, 'itemOmbrellone': giorno.uidOmbrellone != item.id}"
+        >
+        {{ item.numero }}
+      </div>
+    </section>
+  </mat-expansion-panel>
+
+
+
+</mat-accordion>
+</div>
+<ng-template #sogliaGiorni>
+  <p class="parSupSoglia"> E' stata superata la soglia dei giorni. <br> La prenotazione SMART ha una soglia di 7 giorni</p>
+</ng-template>
+

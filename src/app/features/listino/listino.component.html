@@ -1,0 +1,38 @@
+<h2 class="titleSection">
+  <mat-icon class="icon mr5 valmiddle">euro</mat-icon>
+  Listino
+</h2>
+
+<div *ngIf="!(listinoState | async).loading">
+
+<mat-accordion>
+
+  <mat-expansion-panel *ngFor="let mese of (listinoState | async).listino">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span class="meseTitle">
+         {{ getMese(mese.numero_mese) }}
+        </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <section>
+      <mat-selection-list>
+        <mat-list-item *ngFor="let item of mese.prezzi | keyvalue">
+          <div matLine>
+          <div class="rangeItem">Dal giorno {{ item.value.range_inizio }}
+             al giorno {{ item.value.range_fine }}</div>
+          <div class="prezzoItem">{{ item.value.prezzo }}</div>
+          </div>
+        </mat-list-item>
+      </mat-selection-list>
+    </section>
+  </mat-expansion-panel>
+
+
+</mat-accordion>
+
+</div>
+<div>
+  <mat-progress-bar mode="indeterminate" *ngIf="(listinoState | async).prodottiCategorieLoading"></mat-progress-bar>
+</div>

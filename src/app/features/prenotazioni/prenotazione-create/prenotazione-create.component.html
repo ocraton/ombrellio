@@ -1,4 +1,4 @@
-<h2 id="titleCreatePrenotazioniModal">
+<h2 id="titleCreatePrenotazioniModal" *ngIf="!prenotazioneSmart">
   Prenota l'ombrellone
   <span style="color: #673ab7; font-weight: 600">{{
     data.ombrellone.numero
@@ -14,6 +14,22 @@
     </span>
   </ng-template>
 </h2>
+
+<h3 id="titleCreatePrenotazioniModal" *ngIf="prenotazioneSmart">
+  <span style="font-weight: 800;">  Date/ Ombrelloni: PrenotazioneSmart</span><br>
+  <span *ngFor="let element of prenRangeGiorniOmbrelloni" style="font-size: 0.9rem;">
+    <span *ngIf="element.dataInizio.getTime() < element.dataFine.getTime(); else dataInizioFinediversesmart">
+    Dal {{ element.dataInizio | date: 'dd/MM/yyyy' }} al
+      {{ element.dataFine | date: 'dd/MM/yyyy' }}
+    </span>
+    <ng-template #dataInizioFinediversesmart>
+      <span>
+        Il giorno: <b>{{ element.dataInizio | date: "dd-MM-yyyy" }}</b>
+      </span>
+    </ng-template>
+    ( <b>{{ element.numeroOmbrellone }} </b>) |
+    </span>
+</h3>
 
 <mat-divider></mat-divider>
 

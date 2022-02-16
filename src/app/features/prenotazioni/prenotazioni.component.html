@@ -20,19 +20,30 @@
       <div class="col0">
         <button id="btnFindPren" style="margin: 10px"
         [disabled]="!range.valid" mat-raised-button color="primary"
-          (click)="findPrenotazione()">CERCA</button>
+          (click)="findPrenotazione()">CERCA
+        <mat-icon class="icon">search</mat-icon>
+        </button>
       </div>
       <div class="col0">
         <button id="btnStampaMappa" style="margin: 10px"
         [disabled]="!range.valid" mat-raised-button color="accent"
+        matTooltip="STAMPA"
         (click)="generatePDF()"
         *ngIf="!loadStampa"
-          >STAMPA </button>
+          ><mat-icon class="icon">print</mat-icon> </button>
           <mat-spinner
           mode="indeterminate"
           color="accent"
           style="margin:15px"
           diameter="30" *ngIf="loadStampa"></mat-spinner>
+      </div>
+      <div class="col0">
+        <button id="btnFindPren" style="margin: 10px"
+        [disabled]="setSogliaGiorniPrenSmart() >= sogliaGiorni"
+        (click)="loadPrenotazioniSmart()"
+        mat-raised-button color="primary" matTooltip="PRENOTAZIONE SMART">
+          <mat-icon class="icon">auto_fix_high</mat-icon>
+        </button>
       </div>
     </div>
   <div style="width: 10%;">

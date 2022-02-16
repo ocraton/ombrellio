@@ -40,7 +40,8 @@ const reducer = createReducer(
   on(PrenotazioniActions.FetchPrenotazioniOmbrelloni, (state: PrenotazioniState) => {
     return {
       ...state,
-      loading: true
+      loading: true,
+      loadedOmbrelloni: false
     };
   }),
 
@@ -48,7 +49,8 @@ const reducer = createReducer(
     return {
       ...state,
       ombrellone: payload,
-      loading: false
+      loading: false,
+      loadedOmbrelloni: true
     };
   }),
 

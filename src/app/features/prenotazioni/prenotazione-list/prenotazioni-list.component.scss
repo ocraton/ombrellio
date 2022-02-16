@@ -1,3 +1,29 @@
+.statoPren{
+  text-align: center;
+  width: fit-content;
+  padding: 8px;
+  border-radius: 100px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.prenInCorso{
+  background: #fc9727;
+}
+
+.prenInArrivo{
+  background: #26C6DA;
+}
+
+.prenTerminata{
+  background: #647d8b;
+}
+
+.prenStagionale{
+  background: #5f46ac;
+}
+
 @media screen and (max-width: 960px) {
 
     .emaildata {

@@ -49,6 +49,34 @@
       <td mat-cell *matCellDef="let element"> {{ element.data_prenotazione.toMillis() | date: 'dd/MM/yyyy' }} </td>
     </ng-container>
 
+    <ng-container matColumnDef="statopren">
+      <th mat-header-cell *matHeaderCellDef > Stato</th>
+      <td mat-cell *matCellDef="let element">
+
+        <div *ngIf="element.data_inizio.toMillis() <= currentDate.getTime() &&
+          element.data_fine.toMillis() >= currentDate.getTime() && !element.is_stagionale"
+          class="statoPren prenInCorso">
+          In corso
+        </div>
+
+        <div *ngIf="element.data_inizio.toMillis() >= currentDate.getTime()"
+          class="statoPren prenInArrivo">
+          In arrivo
+        </div>
+
+        <div *ngIf="element.data_fine.toMillis() >= currentDate.getTime() && element.is_stagionale"
+        class="statoPren prenStagionale">
+          Stagionale
+        </div>
+
+        <div *ngIf="element.data_fine.toMillis() < currentDate.getTime()"
+        class="statoPren prenTerminata">
+          Terminata
+        </div>
+
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="is_pagato">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Pagato</th>
       <td mat-cell *matCellDef="let element">
@@ -57,10 +85,24 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="prezzo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezzo €</th>
+      <td mat-cell *matCellDef="let element"> {{ element.prezzo | number : '1.2-2' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acconto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Acconto €</th>
+      <td mat-cell *matCellDef="let element"> {{ element.acconto | number : '1.2-2' }} </td>
+    </ng-container>
+
 
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef class="action"> </th>
     <td mat-cell *matCellDef="let element" class="action">
+      <button mat-icon-button color="primary"
+      (click)="openDetailDialog(element)">
+        <mat-icon>preview</mat-icon>
+      </button>
       <button mat-icon-button color="primary"
       (click)="openPrenotaDialog(element.id, element.uid_ombrellone, element.numero_ombrellone, element.data_inizio, element.data_fine, element.data_prenotazione, element.uid_cliente)">
         <mat-icon>edit</mat-icon>
@@ -68,6 +110,7 @@
       <button mat-icon-button color="primary" (click)="cancellaPrenotazione(element.id, element.numero_ombrellone)">
         <mat-icon>delete</mat-icon>
       </button>
+
 
     </td>
   </ng-container>

@@ -14,6 +14,8 @@ import { SubscriptionService } from '../../../core/services/subscription.service
 import { Prenotazione } from '../prenotazione.model';
 import { PrenotazioneCreateComponent } from '../prenotazione-create/prenotazione-create.component';
 import { PrenotazioneListDeleteComponent } from './prenotazione-list-delete/prenotazione-list-delete.component';
+import { PrenotazioneDetailComponent } from '../prenotazione-detail/prenotazione-detail.component';
+import { DetailPrenotazioneDialogComponent } from './detail-prenotazione-dialog.component';
 
 export interface Tile {
   iRiga: number;
@@ -29,8 +31,21 @@ export interface Tile {
 export class PrenotazioniListComponent implements OnInit, OnDestroy {
 
   prenotazioneState: Observable<prenotazioniState.default>;
-  displayedColumns: string[] = ['ombrellone', 'data_inizio', 'data_fine', 'nome_cliente', 'cognome_cliente', 'data_prenotazione', 'is_pagato', 'action'];
+  displayedColumns: string[] = [
+    'ombrellone',
+    'data_inizio',
+    'data_fine',
+    'nome_cliente',
+    'cognome_cliente',
+    'data_prenotazione',
+    'is_pagato',
+    'prezzo',
+    'acconto',
+    'statopren',
+    'action'
+  ];
   dataSource = new MatTableDataSource<Prenotazione>();
+  currentDate = new Date();
 
   @ViewChild(MatSort, { static: false })
 
@@ -79,6 +94,15 @@ export class PrenotazioniListComponent implements OnInit, OnDestroy {
       editFromListView: true
     };
     this.dialog.open(PrenotazioneCreateComponent, dialogConfigDel);
+  }
+
+  openDetailDialog(prenotazione): void {
+    this.dialog.open(DetailPrenotazioneDialogComponent, {
+      width: '700px',
+      data: {
+        prenotazioneData: prenotazione
+      }
+    });
   }
 
   applyFilter(event: Event) {

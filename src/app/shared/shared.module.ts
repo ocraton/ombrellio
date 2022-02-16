@@ -1,3 +1,4 @@
+import { DateItalianPipe } from './pipe/date-italian.pipe';
 import { DatesService } from './services/dates.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,8 @@ import { AllergeniService } from './services/allergeni.service';
 
 @NgModule({
   declarations: [
-    CapitalizedTextDirective
+    CapitalizedTextDirective,
+    DateItalianPipe
   ],
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { AllergeniService } from './services/allergeni.service';
   ],
   exports: [
     CapitalizedTextDirective,
+    DateItalianPipe,
     NgxQRCodeModule
   ],
   providers: [TranslateService, DatesService, ClockService, AllergeniService]

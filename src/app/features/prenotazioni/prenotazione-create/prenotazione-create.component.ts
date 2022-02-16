@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component, ElementRef, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -15,6 +16,14 @@ import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Attrezzatura } from './../../attrezzature/attrezzatura.model';
 import { MatHorizontalStepper } from '@angular/material/stepper';
+import { Router } from '@angular/router';
+
+export interface OmbrelloneSelezionato {
+  dataInizio: Date;
+  dataFine: Date;
+  uidOmbrellone: string;
+  numeroOmbrellone: string;
+}
 
 @Component({
   selector: 'app-prenotazione-create',
@@ -41,6 +50,8 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
   pagamentiForm: FormGroup;
   visibleFormCreaCliente = false;
   idPrenModifica = null;
+  prenotazioneSmart = false;
+  prenRangeGiorniOmbrelloni: OmbrelloneSelezionato[] = [];
 
   @ViewChild(MatSort, { static: false })
   set sort(v: MatSort) {
@@ -57,6 +68,7 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     private store: Store<fromApp.AppState>,
     public dialogRef: MatDialogRef<PrenotazioneCreateComponent>,
     private dialogRefAll: MatDialog,
+    private router: Router,
     private subService: SubscriptionService,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder) { }
 
@@ -84,6 +96,10 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
         this.isStagionale = (typeof (prenazioneDaModificare[0]?.is_stagionale) == 'undefined') ? false : prenazioneDaModificare[0]?.is_stagionale;
       } else { // nuova prenotazione
         this.initFormPagamenti(null, null, '');
+        if (this.data.prenotazioneSmart){
+          this.prenotazioneSmart = this.data.prenotazioneSmart;
+          this.prenRangeGiorniOmbrelloni = this.data.prenRangeGiorniOmbrelloni;
+        }
       }
     })
     this.prenotazioniState = this.store.select('prenotazioni');
@@ -91,9 +107,7 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
 
 
   prenotaOmbrellone(){
-    var ombrellone: Ombrellone = this.data.ombrellone
     var cliente: Cliente = this.clientePren
-    var rangeDate: any = this.data.rangeDate
     this.attrezzatureArray.forEach(element => {
       element.attrezzaturaUid = element.id;
       delete element.id;
@@ -109,7 +123,35 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     var prezzo: number = this.prezzo;
     this.note = this.pagamentiForm.get('noteForm').value;
     var note = this.note;
-    this.store.dispatch(PrenotazioniActions.CreatePrenotazione({ ombrellone, cliente, rangeDate, attrezzature, isPagato, isStagionale, acconto, prezzo, note }));
+    var rangeDate: any = this.data.rangeDate;
+    if (!this.prenotazioneSmart){
+      var ombrellone: Ombrellone = this.data.ombrellone;
+      this.store.dispatch(PrenotazioniActions.CreatePrenotazione({
+        ombrellone, cliente, rangeDate, attrezzature, isPagato, isStagionale, acconto, prezzo, note
+      }));
+    } else {
+      let prezzoGiornaliero = 0;
+      let accontoGiornaliero = 0;
+      if(prezzo != null || prezzo != 0){
+        prezzoGiornaliero = prezzo / this.data.numeroGiorniPrenotazione;
+        accontoGiornaliero = acconto / this.data.numeroGiorniPrenotazione;
+      }
+      for (let index = 0; index < this.prenRangeGiorniOmbrelloni.length; index++) {
+          const item = this.prenRangeGiorniOmbrelloni[index];
+          let ombrellone = { id: item.uidOmbrellone, numero: item.numeroOmbrellone, colonna: 0, riga: 0 };
+          let rangeDate: any = { dataInizio: item.dataInizio, dataFine: item.dataFine };
+          let giorniRange = this.numeroGiorniTra2Date(item.dataInizio, item.dataFine) + 1;
+          let prezzo = prezzoGiornaliero * giorniRange;
+          let acconto = accontoGiornaliero * giorniRange;
+          this.store.dispatch(PrenotazioniActions.CreatePrenotazione({
+            ombrellone, cliente, rangeDate, attrezzature, isPagato, isStagionale, acconto, prezzo, note
+          }));
+      }
+      this.store.select('prenotazioni').subscribe(() => {
+        this.prenotazioneEffettuata = true
+      });
+      return this.router.navigate(['/user/prenotazioni']);
+    }
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: rangeDate.dataInizio, endDate: rangeDate.dataFine
     }));
@@ -145,6 +187,12 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
       this.prenotazioneEffettuata = true
       this.modificaPrenotazioneEffettuata = true
     })
+  }
+
+  numeroGiorniTra2Date(dataInizio, dataFine) {
+    let sogliaCalc = (dataFine.getTime()
+      - dataInizio.getTime()) / (1000 * 3600 * 24);
+    return sogliaCalc;
   }
 
   checkAttrezzaturaQuantitaValueById(idAttrezzatura) {

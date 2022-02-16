@@ -25,10 +25,10 @@ const routes: Routes = [
         path: 'attrezzature',
         loadChildren: () => import('../features/attrezzature/attrezzature.module').then(m => m.AttrezzatureModule)
       },
-      {
-        path: 'ordini',
-        loadChildren: () => import('../features/ordini/ordini.module').then(m => m.OrdiniModule)
-      },
+      // {
+      //   path: 'ordini',
+      //   loadChildren: () => import('../features/ordini/ordini.module').then(m => m.OrdiniModule)
+      // },
       {
         path: 'chalets',
         loadChildren: () => import('../features/chalet/chalet.module').then(m => m.ChaletModule)
@@ -37,10 +37,10 @@ const routes: Routes = [
         path: 'clienti',
         loadChildren: () => import('../features/clienti/clienti.module').then(m => m.ClientiModule)
       },
-      {
-        path: 'tavoli',
-        loadChildren: () => import('../features/tavoli/tavoli.module').then(m => m.TavoliModule)
-      },
+      // {
+      //   path: 'tavoli',
+      //   loadChildren: () => import('../features/tavoli/tavoli.module').then(m => m.TavoliModule)
+      // },
       {
         path: 'ombrelloni',
         loadChildren: () => import('../features/ombrelloni/ombrelloni.module').then(m => m.OmbrelloniModule)
@@ -48,6 +48,10 @@ const routes: Routes = [
       {
         path: 'prenotazioni',
         loadChildren: () => import('../features/prenotazioni/prenotazioni.module').then(m => m.PrenotazioniModule)
+      },
+      {
+        path: 'listino',
+        loadChildren: () => import('../features/listino/listino.module').then(m => m.ListinoModule)
       },
     ]
   },

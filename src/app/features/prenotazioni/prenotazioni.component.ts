@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Ombrellone } from './../ombrelloni/ombrellone.model';
@@ -39,9 +40,13 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     dateStart: new FormControl(new Date(), [Validators.required]),
     dateEnd: new FormControl(new Date(), [Validators.required])
   });
+  sogliaGiorni = 7;
+
 
   constructor(private store: Store<fromApp.AppState>,
-    private subService: SubscriptionService,public dialog: MatDialog) { }
+    private subService: SubscriptionService,
+    private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
@@ -54,7 +59,8 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
       this.prenArray = pren.prenotazione;
       this.ombrelloniList = pren.ombrellone;
       this.buildGrid(pren.mappa.numero_righe, pren.mappa.numero_colonne)
-    })
+    });
+    this.setSogliaGiorniPrenSmart();
   }
 
   generatePDF() {
@@ -119,6 +125,10 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
     }));
+    this.prenotazioneState.subscribe(p => {
+      p.dataInizio = this.range.value['dateStart'];
+      p.dataFine = this.range.value['dateEnd'];
+    });
   }
 
   ngOnDestroy(): void {
@@ -127,6 +137,18 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
 
   setSearch(termSearch) {
     this.ombrellonename = termSearch
+  }
+
+  loadPrenotazioniSmart() {
+    this.router.navigate(['/user/prenotazioni/prenotazionismart']);
+  }
+
+  setSogliaGiorniPrenSmart(){
+    if (this.range.value['dateEnd'] != null){
+      let sogliaCalc = (this.range.value['dateEnd'].getTime()
+        - this.range.value['dateStart'].getTime()) / (1000 * 3600 * 24);
+      return sogliaCalc
+    }
   }
 
 }

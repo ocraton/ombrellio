@@ -19,6 +19,11 @@
             <a mat-list-item routerLinkActive="active" routerLink="/user/prenotazioni/prenotazionilist">
             <mat-icon class="icon mr15" color="primary">list_alt</mat-icon> Prenotazioni Lista</a>
         </mat-sidenav-container>
+        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+          <a mat-list-item routerLinkActive="active" routerLink="/user/listino">
+            <mat-icon class="icon mr15" color="primary">euro</mat-icon> Listino
+          </a>
+        </mat-sidenav-container>
         <mat-divider></mat-divider>
         <mat-sidenav-container>
             <a mat-list-item routerLinkActive="active" routerLink="/user/chalets">
@@ -68,9 +73,9 @@
                       </li>
                     </ul>
                   </div>
-                  <mat-divider></mat-divider>
                 </mat-sidenav-container>
-                        <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
+                <mat-divider></mat-divider>
+                        <!-- <mat-sidenav-container *ngIf="(chaletuidobs | async) != ''">
                           <a mat-list-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/user/ordini">
                             <mat-icon class="icon mr15" color="primary">menu_book</mat-icon> Ordini
                           </a>
@@ -90,7 +95,7 @@
                                     <mat-icon class="icon mr15" color="primary">deck</mat-icon> Tavoli
                                   </a>
                                 </mat-sidenav-container>
-                                <mat-divider></mat-divider>
+                                <mat-divider></mat-divider> -->
         <a mat-list-item  (click)="onLogout()">
           <mat-icon class="icon mr15" color="primary">logout</mat-icon> Logout</a>
           <mat-divider></mat-divider>

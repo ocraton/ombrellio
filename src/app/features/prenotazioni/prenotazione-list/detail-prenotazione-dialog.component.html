@@ -1,0 +1,46 @@
+<h3>
+    <mat-icon mat-list-icon color="primary">beach_access</mat-icon> Dettaglio prenotazione: <br>
+
+    {{ prenotazione.cognome_cliente }} {{ prenotazione.nome_cliente }}
+
+            <span
+              *ngIf="nDataInizio < nDataFine; else dataInizioFinediverse">
+              Dal: <b>{{ prenotazione.data_inizio['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b> Al:
+              <b>{{ prenotazione.data_fine['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b></span>
+            <ng-template #dataInizioFinediverse>
+              <span >
+                Il giorno: <b>{{ prenotazione.data_inizio['seconds'] * 1000 | date:'dd/MM/yyyy' }}</b>
+              </span>
+            </ng-template>
+
+  </h3>
+
+<mat-list>
+  <mat-list-item *ngIf="prenotazione.attrezzature.length > 0">
+    <b>Attrezzature:&nbsp;&nbsp;</b>
+    <ng-container *ngFor="let attrezzatura of prenotazione.attrezzature; let i = index">
+      <span *ngIf="attrezzatura.quantita > 0"> {{ attrezzatura.nome }}: {{ attrezzatura.quantita }} </span>&nbsp;
+    </ng-container>
+  </mat-list-item>
+  <mat-list-item>
+    <b>Pagato:&nbsp;&nbsp;</b>
+    <span *ngIf="prenotazione.is_pagato; else nopagato"> SI </span>
+    <ng-template #nopagato> NO </ng-template>
+    &nbsp;&nbsp;
+    <b>Stagionale:&nbsp;&nbsp;</b>
+    <span *ngIf="prenotazione.is_stagionale; else nostagionale"> SI </span>
+    <ng-template #nostagionale> NO </ng-template>
+    &nbsp;&nbsp;
+    <span *ngIf="prenotazione.acconto > 0"> <b>Acconto:</b> {{ prenotazione.acconto }}
+      €</span>
+    &nbsp;&nbsp;
+    <span *ngIf="prenotazione.prezzo > 0"> <b>Prezzo:</b> {{ prenotazione.prezzo }}
+      €</span>
+  </mat-list-item>
+  <mat-list-item *ngIf="prenotazione.note != ''">
+    <b>Note:&nbsp;&nbsp;</b>
+    <p> {{ prenotazione.note }} </p>
+  </mat-list-item>
+</mat-list>
+
+<button mat-raised-button color="accent" style="float: right;" (click)="closePrenDetail()">CHIUDI</button>

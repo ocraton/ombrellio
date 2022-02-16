@@ -1,0 +1,109 @@
+.badgeSel{
+  width: 2.2em;
+  height: 2.2em;
+  background: #673ab7;
+  padding: 1px;
+  border-radius: 100px;
+  color: #fff;
+  line-height: 2.2em;
+  font-size: 0.7rem;
+  text-align: center;
+  display: inline-block;
+}
+
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -6px;
+    margin-right: 10px;
+}
+
+.descriptionSel{
+  font-weight: 800;
+  color: #673ab7;
+}
+
+.ombrellSel{
+  border-radius: 8px;
+  background: #673ab7;
+  text-align: center;
+  cursor: pointer;
+}
+
+.giornoRiepOmbrellone{
+  font-size: 1rem;
+  font-weight: 800;
+  color: #26C6DA;
+}
+
+.parSupSoglia{
+  font-size: 1.5rem;
+    font-weight: 200;
+    color: red;
+}
+
+.itemOmbrellone{
+  border-radius: 8px;
+  background: #45cc47;
+  text-align: center;
+  cursor: pointer;
+}
+
+.riepilogoSmart{
+  border: 1px solid #e4e4e4;
+}
+
+mat-nav-list.list-horizontal {
+ display: flex;
+ flex-direction: row;
+ height: 27px;
+}
+
+div.mat-nav-list-item{
+  margin: 0px 20px 0px 0px;
+}
+
+.mat-card.scrollable-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  > .mat-card-content {
+    overflow-y: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  h2 {font-size: 1.2rem;}
+}
+
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+.col0 {
+  flex: 0;
+}
+
+@media (max-width: 400px) {
+  .flex-grid {
+    display: block;
+  }
+}
+
+.grid-1 {
+  display: grid;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  grid-template-columns: repeat(14, 1fr);
+  grid-gap: 4px;
+
+}
+.grid-1 div {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 8px;
+  }
+

@@ -37,6 +37,9 @@ import * as prodottiState from '../features/prodotti/store/prodotti.state';
 import * as fromUtenti from '../features/utenti/store/utenti.reducer';
 import * as utentiState from '../features/utenti/store/utenti.state';
 
+import * as fromListino from '../features/listino/store/listino.reducer';
+import * as listinoState from '../features/listino/store/listino.state';
+
 export interface AppState {
   auth: authState.default;
   chalet: chaletState.default;
@@ -49,6 +52,7 @@ export interface AppState {
   attrezzature: attrezzatureState.default;
   prodotti: prodottiState.default;
   utenti: utentiState.default;
+  listino: listinoState.default;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -63,6 +67,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   attrezzature: fromAttrezzature.AttrezzatureReducer,
   prodotti: fromProdotti.ProdottiReducer,
   utenti: fromUtenti.UtentiReducer,
+  listino: fromListino.ListinoReducer,
 };
 
 export const getAuthState = createFeatureSelector<authState.default>('auth');

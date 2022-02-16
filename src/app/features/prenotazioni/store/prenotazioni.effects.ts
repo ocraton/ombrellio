@@ -1,3 +1,4 @@
+import { Ombrellone } from './../../ombrelloni/ombrellone.model';
 import { Attrezzatura } from './../../attrezzature/attrezzatura.model';
 import { Prenotazione } from './../prenotazione.model';
 import { PrenotazioniService } from './../prenotazioni.service';
@@ -8,10 +9,10 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import * as PrenotazioniActions from './prenotazioni.actions';
 import { Action } from '@ngrx/store';
 import { SubscriptionService } from '../../../core/services/subscription.service';
-import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { Utente } from '../../utenti/utente.model';
 import { Cliente } from '../../clienti/cliente.model';
 import { Mappa } from '../mappa.model';
+
 
 @Injectable()
 export class PrenotazioniEffects {
@@ -20,11 +21,10 @@ export class PrenotazioniEffects {
               private subService: SubscriptionService,
               private actions: Actions) { }
 
-
   prenotazioniFetch$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(PrenotazioniActions.FetchPrenotazioni),
-      switchMap(({startDate, endDate}) => {
+      switchMap(({ startDate, endDate }) => {
         return this.prenotazioniService.getAll(startDate, endDate).pipe(
           takeUntil(this.subService.unsubscribe$)
         )
@@ -32,7 +32,7 @@ export class PrenotazioniEffects {
       map((data: Prenotazione[]) => {
         return PrenotazioniActions.SetPrenotazioni({ payload: data });
       }))
-    );
+  );
 
   prenotazioniListaFetch$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
@@ -50,16 +50,11 @@ export class PrenotazioniEffects {
   prenotazioniombrelloniFetch$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(PrenotazioniActions.FetchPrenotazioniOmbrelloni),
-      switchMap(() => {
-        return this.prenotazioniService.getAllOmbrelloni().pipe(
-          takeUntil(this.subService.unsubscribe$)
-        )
-      }),
-      map((data: Ombrellone[]) => {
-        return PrenotazioniActions.SetPrenotazioniOmbrelloni({ payload: data });
-      })
-    )
-  );
+      switchMap(() => this.prenotazioniService.getAllOmbrelloni()
+        .pipe( takeUntil(this.subService.unsubscribe$) )
+      ),
+      map((data: Ombrellone[]) => PrenotazioniActions.SetPrenotazioniOmbrelloni({ payload: data }))
+    ));
 
   prenotazioniMappaFetch$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
