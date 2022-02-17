@@ -4,6 +4,7 @@ import { Cliente } from '../../clienti/cliente.model';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { Mappa } from '../mappa.model';
 import { Prenotazione } from '../prenotazione.model';
+import { Listino } from '../../listino/listino.model';
 
 
 export const SetCountPrenotazioni = createAction(
@@ -135,6 +136,15 @@ export const FetchPrenotazioniAttrezzature = createAction(
 export const SetPrenotazioniAttrezzature = createAction(
   '[Prenotazioni] Set_Prenotazioni_Attrezzature',
   props<{ payload: Attrezzatura[] }>()
+);
+
+export const FetchPrenotazioniListino = createAction(
+  '[Prenotazioni] Fetch_Prenotazioni_Listino'
+);
+
+export const SetPrenotazioniListino = createAction(
+  '[Prenotazioni] Set_Prenotazioni_Listino',
+  props<{ payload: Listino[] }>()
 );
 
 

@@ -3,11 +3,13 @@ import { Mappa } from './../mappa.model';
 import { Cliente } from '../../clienti/cliente.model';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { Prenotazione } from '../prenotazione.model';
+import { Listino } from '../../listino/listino.model';
 
 export default class PrenotazioniState {
   prenotazione: Prenotazione[];
   ombrellone: Ombrellone[];
   clienti: Cliente[];
+  listino: Listino[];
   dataInizio: Date;
   dataFine: Date;
   attrezzature: Attrezzatura[];
@@ -26,6 +28,7 @@ export const initializeState = (): PrenotazioniState => {
     prenotazione: [],
     ombrellone: [],
     clienti: [],
+    listino: [],
     dataInizio: new Date(),
     dataFine: new Date(),
     attrezzature: [],

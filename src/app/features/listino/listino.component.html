@@ -5,9 +5,10 @@
 
 <div *ngIf="!(listinoState | async).loading">
 
-<mat-accordion>
 
-  <mat-expansion-panel *ngFor="let mese of (listinoState | async).listino">
+
+  <mat-expansion-panel *ngFor="let mese of (listinoState | async).listino"
+  style="margin-bottom: 8px;">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <span class="meseTitle">
@@ -22,7 +23,7 @@
           <div matLine>
           <div class="rangeItem">Dal giorno {{ item.value.range_inizio }}
              al giorno {{ item.value.range_fine }}</div>
-          <div class="prezzoItem">{{ item.value.prezzo }}</div>
+          <div class="prezzoItem">{{ item.value.prezzo }} €</div>
           </div>
         </mat-list-item>
       </mat-selection-list>
@@ -30,7 +31,7 @@
   </mat-expansion-panel>
 
 
-</mat-accordion>
+
 
 </div>
 <div>

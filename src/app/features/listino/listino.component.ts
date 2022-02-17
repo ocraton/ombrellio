@@ -56,7 +56,7 @@ export class ListinoComponent implements OnInit, OnDestroy {
   }
 
   getMese(numeroMese: number){
-    return Mesi[numeroMese].toString();
+    return Mesi[numeroMese-1].toString();
   }
 
 

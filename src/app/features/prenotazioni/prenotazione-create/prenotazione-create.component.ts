@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { Component, ElementRef, Inject, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -6,7 +5,6 @@ import * as prenotazioniState from '../store/prenotazioni.state';
 import * as fromApp from '../../../store/app.reducer';
 import * as PrenotazioniActions from '../store/prenotazioni.actions';
 import { SubscriptionService } from '../../../core/services/subscription.service';
-import { Prenotazione } from '../prenotazione.model';
 import { Observable } from 'rxjs';
 import { Cliente } from '../../clienti/cliente.model';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,9 +12,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Ombrellone } from '../../ombrelloni/ombrellone.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Attrezzatura } from './../../attrezzature/attrezzatura.model';
 import { MatHorizontalStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
+import { Listino } from '../../listino/listino.model';
 
 export interface OmbrelloneSelezionato {
   dataInizio: Date;
@@ -52,6 +50,7 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
   idPrenModifica = null;
   prenotazioneSmart = false;
   prenRangeGiorniOmbrelloni: OmbrelloneSelezionato[] = [];
+  listino: Listino[] = [];
 
   @ViewChild(MatSort, { static: false })
   set sort(v: MatSort) {
@@ -75,15 +74,17 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioniClienti());
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioniAttrezzature());
+    this.store.dispatch(PrenotazioniActions.FetchPrenotazioniListino());
     this.store.select('prenotazioni').subscribe(res => {
       this.dataSource.data = res.clienti as Cliente[];
+      this.listino = res.listino;
       if (this.data.idPrenotazione) { // modifica prenotazione
         if (this.data.editFromListView) this.editFromListView = true;
-        var prenazioneDaModificare = res.prenotazione.filter(prenEdit => prenEdit.id == this.data.idPrenotazione);
+        var prenotazioneDaModificare = res.prenotazione.filter(prenEdit => prenEdit.id == this.data.idPrenotazione);
         this.initClienteModifica(this.dataSource.data);
-        this.initFormPagamenti(prenazioneDaModificare[0]?.prezzo, prenazioneDaModificare[0]?.acconto, prenazioneDaModificare[0]?.note);
-        this.idPrenModifica = prenazioneDaModificare[0]?.id;
-        prenazioneDaModificare[0]?.attrezzature.forEach(attrezzatura => {
+        this.initFormPagamenti(prenotazioneDaModificare[0]?.prezzo, prenotazioneDaModificare[0]?.acconto, prenotazioneDaModificare[0]?.note);
+        this.idPrenModifica = prenotazioneDaModificare[0]?.id;
+        prenotazioneDaModificare[0]?.attrezzature.forEach(attrezzatura => {
           attrezzatura.id = attrezzatura.attrezzaturaUid;
           const index = this.attrezzatureArray.findIndex((e) => e.id === attrezzatura.id);
           if (index === -1) {
@@ -92,10 +93,11 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
             this.attrezzatureArray[index] = attrezzatura;
           }
         });
-        this.isPagato = (typeof (prenazioneDaModificare[0]?.is_pagato) == 'undefined') ? false : prenazioneDaModificare[0]?.is_pagato;
-        this.isStagionale = (typeof (prenazioneDaModificare[0]?.is_stagionale) == 'undefined') ? false : prenazioneDaModificare[0]?.is_stagionale;
+        this.isPagato = (typeof (prenotazioneDaModificare[0]?.is_pagato) == 'undefined') ? false : prenotazioneDaModificare[0]?.is_pagato;
+        this.isStagionale = (typeof (prenotazioneDaModificare[0]?.is_stagionale) == 'undefined') ? false : prenotazioneDaModificare[0]?.is_stagionale;
       } else { // nuova prenotazione
-        this.initFormPagamenti(null, null, '');
+        let prezzoCalcolato = this.calcolaPrezzo();
+        this.initFormPagamenti(prezzoCalcolato, null, '');
         if (this.data.prenotazioneSmart){
           this.prenotazioneSmart = this.data.prenotazioneSmart;
           this.prenRangeGiorniOmbrelloni = this.data.prenRangeGiorniOmbrelloni;
@@ -193,6 +195,47 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     let sogliaCalc = (dataFine.getTime()
       - dataInizio.getTime()) / (1000 * 3600 * 24);
     return sogliaCalc;
+  }
+
+  calcolaPrezzo(){
+    let dataInizio = new Date(this.data.rangeDate.dataInizio);
+    let dataFine = new Date(this.data.rangeDate.dataFine);
+    let arrayPrezziGiorno = [];
+    let contaGiorni = 0;
+    let prezzoFinale = null;
+    const theDate = dataInizio;
+    let currentMonth = dataInizio.getMonth()+1;
+    while (theDate.getTime() <= dataFine.getTime()) {
+
+      if (theDate.getMonth()+1 == currentMonth){
+        contaGiorni++;
+      } else {
+        arrayPrezziGiorno.push(this.getPrezzoDaListino(contaGiorni, currentMonth));
+        contaGiorni = 1;
+        currentMonth = theDate.getMonth()+1;
+      }
+
+      theDate.setDate(theDate.getDate() + 1);
+    }
+    arrayPrezziGiorno.push(this.getPrezzoDaListino(contaGiorni, currentMonth));
+    let sommau = arrayPrezziGiorno.reduce((partialSum, a) => partialSum + a, 0);
+    prezzoFinale = sommau;
+    arrayPrezziGiorno = [];
+    return prezzoFinale == 0 ? null : prezzoFinale;
+  }
+
+  getPrezzoDaListino(giorniInPrenotazione, mese){
+    let listinoMese = this.listino.filter(res => res.numero_mese == mese );
+    if (listinoMese[0] != null) {
+      let listinoMesePrezzi = listinoMese[0].prezzi;
+      for (let oj in listinoMesePrezzi){
+        if (giorniInPrenotazione >= listinoMesePrezzi[oj].range_inizio
+            && giorniInPrenotazione <= listinoMesePrezzi[oj].range_fine) {
+              return listinoMesePrezzi[oj].prezzo * giorniInPrenotazione
+            }
+      }
+    }
+    return null;
   }
 
   checkAttrezzaturaQuantitaValueById(idAttrezzatura) {

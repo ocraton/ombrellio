@@ -12,6 +12,7 @@ import { SubscriptionService } from '../../../core/services/subscription.service
 import { Utente } from '../../utenti/utente.model';
 import { Cliente } from '../../clienti/cliente.model';
 import { Mappa } from '../mappa.model';
+import { Listino } from '../../listino/listino.model';
 
 
 @Injectable()
@@ -96,6 +97,19 @@ export class PrenotazioniEffects {
       }))
   );
 
+  listinoFetch$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(PrenotazioniActions.FetchPrenotazioniListino),
+      switchMap(() => {
+        return this.prenotazioniService.getListino().pipe(
+          takeUntil(this.subService.unsubscribe$)
+        )
+      }),
+      map((data: Listino[]) => {
+        return PrenotazioniActions.SetPrenotazioniListino({ payload: data });
+      }))
+  );
+
   createPrenotazioniCliente$: Observable<Action> = createEffect(() =>
     this.actions.pipe(
       ofType(PrenotazioniActions.CreatePrenotazioniCliente),
@@ -143,11 +157,11 @@ export class PrenotazioniEffects {
       ofType(PrenotazioniActions.DeletePrenotazione),
       switchMap((prenotazione) =>
         this.prenotazioniService.deletePrenotazione(prenotazione.uid_prenotazione).then(
-          () => PrenotazioniActions.DeletePrenotazioneSuccess({payload: prenotazione.uid_prenotazione})
+          () => PrenotazioniActions.DeletePrenotazioneSuccess({payload: 'success'})
         ).catch(
           error => PrenotazioniActions.DeletePrenotazioneFail(error)
         )
-      )), { dispatch: false }
+      ))
   );
 
 

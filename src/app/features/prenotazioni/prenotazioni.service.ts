@@ -10,6 +10,7 @@ import { DatesService } from 'src/app/shared/services/dates.service';
 import { Cliente } from '../clienti/cliente.model';
 import { Mappa } from './mappa.model';
 import { Attrezzatura } from '../attrezzature/attrezzatura.model';
+import { Listino } from '../listino/listino.model';
 
 
 @Injectable()
@@ -140,6 +141,22 @@ export class PrenotazioniService {
     return attrezzature.snapshotChanges().pipe(
       map((actions => actions.map(a => {
         const data = a.payload.doc.data() as Attrezzatura;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      })))
+    );
+
+  }
+
+  getListino(): Observable<Listino[]> {
+
+    let listino = this.db.collection(`chalet/${this.chaletUID}/listino`, ref =>
+      ref.limit(20)
+    );
+
+    return listino.snapshotChanges().pipe(
+      map((actions => actions.map(a => {
+        const data = a.payload.doc.data() as Listino;
         const id = a.payload.doc.id;
         return { id, ...data };
       })))

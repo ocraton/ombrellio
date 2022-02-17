@@ -207,6 +207,15 @@ const reducer = createReducer(
     loadingAttrezzature: false
   })),
 
+  on(PrenotazioniActions.FetchPrenotazioniListino, (state: PrenotazioniState) => ({
+    ...state,
+  })),
+
+  on(PrenotazioniActions.SetPrenotazioniListino, (state: PrenotazioniState, { payload }) => ({
+    ...state,
+    listino: payload
+  })),
+
 )
 
 export function PrenotazioniReducer(
