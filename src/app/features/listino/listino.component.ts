@@ -14,11 +14,6 @@ import { SubscriptionService } from '../../core/services/subscription.service';
 import { Listino } from './listino.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-export interface Tile {
-  iRiga: number;
-  iColonna: number;
-  ombrellone: Ombrellone;
-}
 
 enum Mesi {
   Gennaio,

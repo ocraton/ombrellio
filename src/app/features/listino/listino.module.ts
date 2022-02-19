@@ -12,12 +12,14 @@ import { SharedModule } from '../../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { ListinoService } from './listino.service';
 import { ListinoComponent } from './listino.component';
+import { ListinoEditComponent } from './listino-edit/listino-edit.component';
 
 
 
 @NgModule({
   declarations: [
-    ListinoComponent
+    ListinoComponent,
+    ListinoEditComponent
   ],
   imports: [
     CommonModule,

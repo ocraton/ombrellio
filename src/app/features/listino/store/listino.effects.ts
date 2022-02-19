@@ -29,5 +29,33 @@ export class ListinoEffects {
       }))
   );
 
+  updateListino$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(ListinoActions.UpdateListino),
+      map(action => action),
+      switchMap((action: { idListinoMese, numeroMese, valori}) => {
+        return this.listinoService.updateListino(action.idListinoMese, action.numeroMese, action.valori).then(
+          res => ListinoActions.UpdateListinoSuccess()
+        ).catch(
+          error => ListinoActions.UpdateListinoFail(error)
+        )
+      })
+    )
+  );
+
+  createListino$: Observable<Action> = createEffect(() =>
+    this.actions.pipe(
+      ofType(ListinoActions.CreateListino),
+      map(action => action),
+      switchMap((action: { numeroMese, valori}) => {
+        return this.listinoService.createListino(action.numeroMese, action.valori).then(
+          res => ListinoActions.CreateListinoSuccess()
+        ).catch(
+          error => ListinoActions.CreateListinoFail(error)
+        )
+      })
+    )
+  );
+
 
 }

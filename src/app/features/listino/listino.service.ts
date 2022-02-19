@@ -37,5 +37,56 @@ export class ListinoService {
 
   }
 
+  createListino(numeroMese: number, valori: any[]) {
+    var lastday = function (y, m) {
+      return new Date(y, m, 0).getDate();
+    }
+    return this.db.collection(`chalet/${this.chaletUID}/listino`).add({
+      numero_mese: numeroMese,
+      prezzi: {
+        1: {
+          prezzo: parseFloat(valori['prezzo_range_1']),
+          range_inizio: 1,
+          range_fine: 8,
+        },
+        2: {
+          prezzo: parseFloat(valori['prezzo_range_2']),
+          range_inizio: 9,
+          range_fine: 20,
+        },
+        3: {
+          prezzo: parseFloat(valori['prezzo_range_3']),
+          range_inizio: 21,
+          range_fine: lastday(new Date().getFullYear(), numeroMese),
+        },
+      }
+    });
+  }
+
+  updateListino(idlistinoMese: string, numeroMese: number, valori: any[]) {
+    var lastday = function (y, m) {
+      return new Date(y, m, 0).getDate();
+    }
+    return this.db.collection(`chalet/${this.chaletUID}/listino`).doc(idlistinoMese).update({
+      prezzi: {
+          1: {
+            prezzo: parseFloat(valori['prezzo_range_1']),
+            range_inizio: 1,
+            range_fine: 8,
+          },
+          2: {
+            prezzo: parseFloat(valori['prezzo_range_2']),
+            range_inizio: 9,
+            range_fine: 20,
+          },
+          3: {
+            prezzo: parseFloat(valori['prezzo_range_3']),
+            range_inizio: 21,
+            range_fine: lastday(new Date().getFullYear(), numeroMese),
+          },
+      }
+    });
+  }
+
 }
 

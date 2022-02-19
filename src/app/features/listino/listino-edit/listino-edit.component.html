@@ -1,0 +1,36 @@
+<h2>Modifica Listino</h2>
+
+<div *ngFor="let item of arrayFormListini">
+<form [formGroup]="item.nomeForm"
+    (ngSubmit)="onSave(item.numeroMese)" #formDirective="ngForm" class="formCardMese">
+  <mat-card class="example-card">
+    <mat-card-title>{{ item.nomeMese }}</mat-card-title>
+    <mat-card-subtitle>Imposta il prezzo giornaliero per il periodo indicato</mat-card-subtitle>
+    <mat-card-content>
+      <div style="display: flex;">
+        <div style="flex: 1;">
+          <mat-form-field>
+            <input matInput formControlName="prezzo_range_1" placeholder="Dal 1 all' 8">
+          </mat-form-field>
+        </div>
+        <div style="flex: 1;">
+          <mat-form-field>
+            <input matInput formControlName="prezzo_range_2" placeholder="Dal 9 al 20">
+          </mat-form-field>
+        </div>
+        <div style="flex: 1;">
+          <mat-form-field>
+            <input matInput formControlName="prezzo_range_3" placeholder="Dal 21 a fine mese">
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button *ngIf="!(listinoState | async).loading" mat-raised-button color="primary" type="submit">Salva</button>
+      <mat-spinner diameter="30" *ngIf="(listinoState | async).loading"></mat-spinner>
+    </mat-card-actions>
+  </mat-card>
+</form>
+</div>
+
+
