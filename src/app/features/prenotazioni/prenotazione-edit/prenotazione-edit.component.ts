@@ -52,9 +52,18 @@ export class PrenotazioneEditComponent implements OnInit {
         let pagato = item.is_pagato ? 'SI' : 'NO';
         let dataInizio = new Date(item.data_inizio['seconds'] * 1000);
         let dataFine = new Date(item.data_fine['seconds'] * 1000);
+        let dateStart = `${dataInizio.getDate() }/${dataInizio.getMonth()+1}/${ dataInizio.getFullYear()}`;
+        let dateEnd = `${dataFine.getDate()}/${dataFine.getMonth() + 1}/${dataFine.getFullYear()}`;
+        let stringPeriodo = '';
+        if (dateStart == dateEnd) {
+          stringPeriodo = `Il giorno: ${dateStart}`;
+        }
+        else {
+          stringPeriodo = `Dal ${dateStart} al ${dateEnd}`;
+        }
         prenTooltip = prenTooltip +
           `${item.nome_cliente.toUpperCase()} ${item.cognome_cliente.toUpperCase()}
-        Dal ${dataInizio.getDate()}/${dataInizio.getMonth()+1}/${dataInizio.getFullYear()} al ${dataFine.getDate()}/${dataFine.getMonth() + 1}/${dataFine.getFullYear()}
+        ${stringPeriodo}
         Pagato: ${pagato} | Prezzo: ${item.prezzo} € \n
         `;
       })

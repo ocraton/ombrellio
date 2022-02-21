@@ -38,6 +38,7 @@ enum Mesi {
 export class ListinoComponent implements OnInit, OnDestroy {
 
   listinoState: Observable<listinoState.default>;
+  listino: Listino[];
 
 
   constructor(private store: Store<fromApp.AppState>,
@@ -48,6 +49,9 @@ export class ListinoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.dispatch(ListinoActions.FetchListino());
     this.listinoState = this.store.select('listino');
+    this.store.select('listino').subscribe(res => {
+      this.listino = res.listino.sort((a, b) => (a.numero_mese > b.numero_mese) ? 1 : -1);
+    });
   }
 
   getMese(numeroMese: number){
