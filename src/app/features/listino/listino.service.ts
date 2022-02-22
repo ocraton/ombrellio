@@ -72,11 +72,11 @@ export class ListinoService {
           1: {
             prezzo: parseFloat(valori['prezzo_range_1']),
             range_inizio: 1,
-            range_fine: 8,
+            range_fine: 7,
           },
           2: {
             prezzo: parseFloat(valori['prezzo_range_2']),
-            range_inizio: 9,
+            range_inizio: 8,
             range_fine: 20,
           },
           3: {
