@@ -77,18 +77,7 @@ const reducer = createReducer(
     };
   }),
 
-  on(ChaletActions.CheckCodiceUnivoco, (state: ChaletState, {}) => {
-    return {
-      ...state
-    };
-  }),
 
-  on(ChaletActions.SetCodiceChaletUnivoco, (state: ChaletState, { payload }) => {
-    return {
-      ...state,
-      codicechaletUnivoco: payload
-    };
-  })
 
 )
 

@@ -31,12 +31,4 @@ export const CreateChaletFail = createAction(
 
 export const FetchChalets = createAction('[Chalet] Fetch_chalets');
 
-export const CheckCodiceUnivoco = createAction(
-  '[Chalet] Check_codice_univoco',
-  props<{ codice_accesso: string }>()
-);
 
-export const SetCodiceChaletUnivoco = createAction(
-  '[Chalet] Set_codice_chalet_univoco',
-  props<{ payload: boolean }>()
-);

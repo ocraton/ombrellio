@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Ombrellone } from './../ombrelloni/ombrellone.model';
@@ -45,22 +45,37 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<fromApp.AppState>,
     private subService: SubscriptionService,
+    private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
+    let paramRangeDate = {
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
-    }));
-    this.store.dispatch(PrenotazioniActions.FetchPrenotazioniMappa());
-    this.store.dispatch(PrenotazioniActions.FetchPrenotazioniOmbrelloni());
-    this.prenotazioneState = this.store.select('prenotazioni');
-    this.prenotazioneState.subscribe(pren => {
-      this.prenArray = pren.prenotazione;
-      this.ombrelloniList = pren.ombrellone;
-      this.buildGrid(pren.mappa.numero_righe, pren.mappa.numero_colonne)
-    });
-    this.setSogliaGiorniPrenSmart();
+    };
+    this.route.params
+      .subscribe((params: Params) => {
+
+            if (params.dataInizio && params.dataFine) {
+              paramRangeDate = {
+                startDate: new Date(parseInt(params.dataInizio)), endDate: new Date(parseInt(params.dataFine))
+              };
+              this.range = new FormGroup({
+                dateStart: new FormControl(paramRangeDate.startDate, [Validators.required]),
+                dateEnd: new FormControl(paramRangeDate.endDate, [Validators.required])
+              });
+            }
+      });
+      this.store.dispatch(PrenotazioniActions.FetchPrenotazioni(paramRangeDate));
+      this.store.dispatch(PrenotazioniActions.FetchPrenotazioniMappa());
+      this.store.dispatch(PrenotazioniActions.FetchPrenotazioniOmbrelloni());
+      this.prenotazioneState = this.store.select('prenotazioni');
+      this.prenotazioneState.subscribe(pren => {
+        this.prenArray = pren.prenotazione;
+        this.ombrelloniList = pren.ombrellone;
+        this.buildGrid(pren.mappa.numero_righe, pren.mappa.numero_colonne)
+      });
+      this.setSogliaGiorniPrenSmart();
   }
 
   generatePDF() {
@@ -82,7 +97,8 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
       let fileHeight = canvas.height * fileWidth / canvas.width;
       const FILEURI = canvas.toDataURL('image/png')
       pdf.addImage(FILEURI, 'PNG', 20, 20, fileWidth, fileHeight)
-      pdf.save('MappaOmbrelloni.pdf');
+      // pdf.save('MappaOmbrelloni.pdf');
+      window.open(URL.createObjectURL(pdf.output("blob")))
     });
   }
 
@@ -122,13 +138,14 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
   }
 
   findPrenotazione() {
+    if (this.range.value['dateEnd']){
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: this.range.value['dateStart'], endDate: this.range.value['dateEnd']
     }));
     this.prenotazioneState.subscribe(p => {
       p.dataInizio = this.range.value['dateStart'];
       p.dataFine = this.range.value['dateEnd'];
-    });
+    });}
   }
 
   ngOnDestroy(): void {

@@ -2,10 +2,12 @@
   <mat-icon class="icon mr5 valmiddle">euro</mat-icon>
   Listino
 </h2>
-<button mat-raised-button
-color="primary"
- routerLink="/user/listino/edit">MODIFICA
-<mat-icon>edit</mat-icon></button>
+
+<button routerLink="/user/listino/edit" mat-fab
+  class="mat-button-bottom-r" color="primary" aria-label="Modifica">
+  <mat-icon>edit</mat-icon>
+</button>
+
 <div *ngIf="!(listinoState | async).loading">
 
 <br>

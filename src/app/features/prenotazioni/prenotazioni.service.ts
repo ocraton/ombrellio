@@ -36,14 +36,14 @@ export class PrenotazioniService {
           var prenotazioni = this.db.collection(`chalet/${this.chaletUID}/prenotazioni`, ref =>
             ref.where('data_inizio', '<=', endDate)
               .where('anno_inizio', '==', startDate.getFullYear())
-              .where('anno_fine', '==', endDate.getFullYear())
+              .where('anno_fine', '==', endDate.getFullYear()).limit(10000)
           );
 
       } else {
 
         var prenotazioni = this.db.collection(`chalet/${this.chaletUID}/prenotazioni`, ref =>
                 ref.where('data_inizio', '<=', endDate)
-                  .where('anno_fine', '==', endDate.getFullYear())
+            .where('anno_fine', '==', endDate.getFullYear()).limit(10000)
         );
         for (let j = startDate.getUTCFullYear(); j < endDate.getUTCFullYear(); j++) {
           prenotazioni.ref.where('anno_inizio', '==', j)
@@ -67,7 +67,7 @@ export class PrenotazioniService {
 
     let prenotazioni = this.db.collection(`chalet/${this.chaletUID}/prenotazioni`, ref =>
       ref.orderBy('data_prenotazione', 'desc')
-        .limit(5000)
+        .limit(10000)
     );
 
     return prenotazioni.snapshotChanges().pipe(
@@ -118,7 +118,7 @@ export class PrenotazioniService {
 
     let clienti = this.db.collection(`chalet/${this.chaletUID}/clienti`, ref =>
       ref.orderBy('cognome')
-      .limit(1000)
+      .limit(3000)
     );
 
     return clienti.snapshotChanges().pipe(
@@ -135,7 +135,7 @@ export class PrenotazioniService {
 
     let attrezzature = this.db.collection(`chalet/${this.chaletUID}/attrezzature`, ref =>
       ref.orderBy('ordinamento')
-      .limit(1000)
+      .limit(100)
     );
 
     return attrezzature.snapshotChanges().pipe(

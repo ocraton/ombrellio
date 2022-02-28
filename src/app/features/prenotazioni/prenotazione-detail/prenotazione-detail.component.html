@@ -47,7 +47,7 @@
           <button mat-raised-button color="accent" (click)="openPrenotaDialog(element.id, data.ombrellone, element.data_inizio, element.data_fine, element.data_prenotazione, element.uid_cliente)" title="Modifica Prenotazione">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-raised-button color="warn" (click)="cancellaPrenotazione(element.id, i)" title="Cancella Prenotazione">
+          <button mat-raised-button color="warn" (click)="openCancellaDialog(element.id, i, data.ombrellone)" title="Cancella Prenotazione">
             <mat-icon>delete</mat-icon>
           </button>
     </mat-action-row>

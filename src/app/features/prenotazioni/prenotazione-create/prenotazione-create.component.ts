@@ -126,6 +126,8 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     this.note = this.pagamentiForm.get('noteForm').value;
     var note = this.note;
     var rangeDate: any = this.data.rangeDate;
+    let dataInizioOrigine = this.data.rangeDate.dataInizio;
+    let dataFineOrigine = this.data.rangeDate.dataFine;
     if (!this.prenotazioneSmart){
       var ombrellone: Ombrellone = this.data.ombrellone;
       this.store.dispatch(PrenotazioniActions.CreatePrenotazione({
@@ -149,10 +151,13 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
             ombrellone, cliente, rangeDate, attrezzature, isPagato, isStagionale, acconto, prezzo, note
           }));
       }
-      this.store.select('prenotazioni').subscribe(() => {
+      this.store.select('prenotazioni').subscribe((pren) => {
         this.prenotazioneEffettuata = true
       });
-      return this.router.navigate(['/user/prenotazioni']);
+
+      return this.router.navigate(['/user/prenotazioni',
+                                  { dataInizio: dataInizioOrigine.getTime(),
+                                    dataFine: dataFineOrigine.getTime()}]);
     }
     this.store.dispatch(PrenotazioniActions.FetchPrenotazioni({
       startDate: rangeDate.dataInizio, endDate: rangeDate.dataFine
@@ -203,34 +208,40 @@ export class PrenotazioneCreateComponent implements OnInit, OnDestroy {
     let arrayPrezziGiorno = [];
     let contaGiorni = 0;
     let prezzoFinale = null;
+    const giorniTotali = this.numeroGiorniTra2Date(dataInizio, dataFine);
     const theDate = dataInizio;
     let currentMonth = dataInizio.getMonth()+1;
-    while (theDate.getTime() <= dataFine.getTime()) {
+    if (giorniTotali == 0) {
+      arrayPrezziGiorno.push(this.getPrezzoDaListino(1, 1, currentMonth));
+    } else {
+      while (theDate.getTime() <= dataFine.getTime()) {
 
-      if (theDate.getMonth()+1 == currentMonth){
-        contaGiorni++;
-      } else {
-        arrayPrezziGiorno.push(this.getPrezzoDaListino(contaGiorni, currentMonth));
-        contaGiorni = 1;
-        currentMonth = theDate.getMonth()+1;
+        if (theDate.getMonth() + 1 == currentMonth) {
+          contaGiorni++;
+        } else {
+          arrayPrezziGiorno.push(this.getPrezzoDaListino(contaGiorni, giorniTotali, currentMonth));
+          contaGiorni = 1;
+          currentMonth = theDate.getMonth() + 1;
+        }
+
+        theDate.setDate(theDate.getDate() + 1);
       }
-
-      theDate.setDate(theDate.getDate() + 1);
     }
-    arrayPrezziGiorno.push(this.getPrezzoDaListino(contaGiorni, currentMonth));
+
+    arrayPrezziGiorno.push(this.getPrezzoDaListino(contaGiorni, giorniTotali, currentMonth));
     let sommau = arrayPrezziGiorno.reduce((partialSum, a) => partialSum + a, 0);
     prezzoFinale = sommau;
     arrayPrezziGiorno = [];
     return prezzoFinale == 0 ? null : prezzoFinale;
   }
 
-  getPrezzoDaListino(giorniInPrenotazione, mese){
+  getPrezzoDaListino(giorniInPrenotazione, giorniTotali, mese){
     let listinoMese = this.listino.filter(res => res.numero_mese == mese );
     if (listinoMese[0] != null) {
       let listinoMesePrezzi = listinoMese[0].prezzi;
       for (let oj in listinoMesePrezzi){
-        if (giorniInPrenotazione >= listinoMesePrezzi[oj].range_inizio
-            && giorniInPrenotazione <= listinoMesePrezzi[oj].range_fine) {
+        if (giorniTotali >= listinoMesePrezzi[oj].range_inizio
+          && giorniTotali <= listinoMesePrezzi[oj].range_fine) {
               return listinoMesePrezzi[oj].prezzo * giorniInPrenotazione
             }
       }

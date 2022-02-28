@@ -11,18 +11,13 @@
           <mat-label>Data Inizio e Data Fine</mat-label>
           <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
             <input matStartDate placeholder="Data Inizio" formControlName="dateStart" readonly>
-            <input matEndDate placeholder="Data Fine" formControlName="dateEnd" readonly>
+            <input matEndDate placeholder="Data Fine"
+            (dateChange)="findPrenotazione()"
+             formControlName="dateEnd" readonly>
           </mat-date-range-input>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
-      </div>
-      <div class="col0">
-        <button id="btnFindPren" style="margin: 10px"
-        [disabled]="!range.valid" mat-raised-button color="primary"
-          (click)="findPrenotazione()">CERCA
-        <mat-icon class="icon">search</mat-icon>
-        </button>
       </div>
       <div class="col0">
         <button id="btnStampaMappa" style="margin: 10px"
@@ -64,7 +59,8 @@
         <!-- <div class="rowColIndicator"><p>Fila {{ tile.iRiga }}:{{ tile.iColonna }}</p></div> -->
         <div class="rowCardIndicator">
           <app-prenotazione-edit *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone;"
-            [ombrellone]="ombrellone" [ombrellonename]="ombrellonename" [prenArray]="checkPrenotazione(ombrellone.id)"
+            [ombrellone]="ombrellone" [ombrellonename]="ombrellonename"
+            [prenArray]="checkPrenotazione(ombrellone.id)"
             [rangeDate]="{dataInizio:range.value['dateStart'],dataFine:range.value['dateEnd']}"></app-prenotazione-edit>
         </div>
       </mat-grid-tile>

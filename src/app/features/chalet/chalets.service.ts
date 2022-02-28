@@ -60,7 +60,7 @@ export class ChaletsService {
             'chalet_uid': chaletItem.id
           })
 
-          this.db.collection('codiciChalet').doc(chaletItem.id).set({ 'codice': chalet.codice_accesso })
+
           this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': nColonne, 'numero_righe': Number(numeroFile) })
 
         });
@@ -68,18 +68,9 @@ export class ChaletsService {
     }
 
     updateChalet(chalet: Chalet) {
-      this.db.collection('codiciChalet').doc(chalet.id).update({
-        'codice': chalet.codice_accesso
-      })
       let id = chalet.id;
       delete chalet.id;
       return this.db.doc(`chalet/${id}`).update(chalet)
-    }
-
-    checkUniqueCode(codice_accesso){
-      return this.db.collection('codiciChalet', ref =>
-        ref.where('codice', '==', codice_accesso).limit(500)
-      ).valueChanges();
     }
 
 }

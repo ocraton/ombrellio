@@ -58,21 +58,5 @@ export class ChaletEffects {
   );
 
 
-  codiceUnivocoFetch$: Observable<Action> = createEffect(() =>
-    this.actions.pipe(
-      ofType(ChaletActions.CheckCodiceUnivoco),
-      switchMap((res) => {
-        return this.chaletService.checkUniqueCode(res.codice_accesso).pipe(
-          takeUntil(this.subService.unsubscribe$)
-        )
-      }),
-      map((data) => {
-        let chaletuniquecode = true;
-        if (data.length >= 1) chaletuniquecode = false;
-        return ChaletActions.SetCodiceChaletUnivoco({ payload: chaletuniquecode });
-      })
-    )
-  );
-
 
 }

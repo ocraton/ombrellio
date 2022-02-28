@@ -11,23 +11,6 @@
             Ragione Sociale obbligatorio
           </mat-error>
         </mat-form-field>
-        <mat-form-field>
-          <input matInput
-          (keyup)="onKeyChange()"
-          placeholder="Codice Accesso"
-          formControlName="codice_accesso" >
-          <mat-hint><strong>digitare il codice, non fare copia-incolla</strong> </mat-hint>
-          <mat-error *ngIf="!chaletForm.get('codice_accesso').valid && chaletForm.get('codice_accesso').touched">
-            Codice Accesso obbligatorio
-          </mat-error>
-        </mat-form-field>
-        <p class="showChangeCodiceChalet" *ngIf="showAdvise">
-          Attenzione! Cambiando codice chalet impedirai a tutti quelli
-          che hanno il codice "{{ caOrigin }}" di effettuare ordini. <br><br>
-          <span class="showChangeCodiceChalet" *ngIf="!(chaletState | async).codicechaletUnivoco">
-          Attenzione! Il codice inserito non è utilizzabile. Modificalo!
-        </span>
-        </p>
         <br><br>
         <mat-form-field>
           <input matInput placeholder="Telefono" formControlName="telefono" >
@@ -77,7 +60,7 @@
         <button mat-raised-button color="primary"
             *ngIf="!(chaletState | async).loading"
             class="w-100" type="submit"
-            [disabled]="!chaletForm.valid || !(chaletState | async).codicechaletUnivoco">
+            [disabled]="!chaletForm.valid">
           Salva
         </button>
         <mat-spinner style="margin: 0 auto" *ngIf="(chaletState | async).loading"></mat-spinner>

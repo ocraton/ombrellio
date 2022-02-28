@@ -5,8 +5,8 @@
     style="box-shadow: none;"
   (click)="prenArray.length > 0 ? openDetailDialog() : openPrenotaDialog()"
   class="example-card" [ngClass]="{'ombrelloneLibero' : prenArray.length == 0,
+                                    'ombrelloneStagionale': prenArray.length > 0 && getIfStagionale(),
                                    'ombrelloneOccupato': prenArray.length > 0,
-                                   'ombrelloneStagionale': prenArray.length > 0 && prenArray[0].is_stagionale,
                                   'highlightedOmbrellone' : ombrellone.numero.includes(ombrellonename) && ombrellonename != ''}">
     <mat-card-header>
       <mat-card-title>

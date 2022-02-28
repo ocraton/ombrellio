@@ -45,6 +45,10 @@ export class PrenotazioneEditComponent implements OnInit {
     });
   }
 
+  getIfStagionale(){
+    return this.prenArray.find(res => res.is_stagionale) ? true : false;
+  }
+
   getTooltipText() {
     let prenTooltip = '';
     if (this.prenArray.length > 0) {

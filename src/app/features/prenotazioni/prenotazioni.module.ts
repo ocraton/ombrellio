@@ -20,6 +20,7 @@ import { PrenotazioneClienteCreateComponent } from './prenotazione-cliente-creat
 import { PrenotazioniListComponent } from './prenotazione-list/prenotazioni-list.component';
 import { DetailPrenotazioneDialogComponent } from './prenotazione-list/detail-prenotazione-dialog.component';
 import { PrenotazioneListDeleteComponent } from './prenotazione-list/prenotazione-list-delete/prenotazione-list-delete.component';
+import { PrenotazioneDetailDeleteComponent } from './prenotazione-detail/prenotazione-detail-delete/prenotazione-detail-delete.component';
 import { PrenotazioneIntelligenteComponent } from './prenotazione-intelligente/prenotazione-intelligente.component';
 
 
@@ -32,6 +33,7 @@ import { PrenotazioneIntelligenteComponent } from './prenotazione-intelligente/p
     PrenotazioneCreateComponent,
     PrenotazioneClienteCreateComponent,
     PrenotazioneListDeleteComponent,
+    PrenotazioneDetailDeleteComponent,
     PrenotazioneIntelligenteComponent,
     LegendaDialogComponent,
     DetailPrenotazioneDialogComponent

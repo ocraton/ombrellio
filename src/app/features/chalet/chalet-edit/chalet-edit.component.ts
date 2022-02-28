@@ -26,7 +26,6 @@ export class ChaletEditComponent implements OnInit {
   indirizzo: FormGroup;
   caOrigin:string = '';
   showAdvise = false;
-  codiceChaletUnivoco: boolean = false;
 
   @ViewChild('formDirective') formDirective;
 
@@ -49,22 +48,12 @@ export class ChaletEditComponent implements OnInit {
     this.store.select(fromApp.getAuthUID).subscribe(res => this.authUID = res);
   }
 
-  onKeyChange() {
-    this.store.dispatch(ChaletActions.CheckCodiceUnivoco({ codice_accesso: this.chaletForm.get('codice_accesso').value }))
-    this.store.select('chalet').subscribe(chalet => {
-      this.codiceChaletUnivoco = chalet.codicechaletUnivoco;
-    });
-    (this.chaletForm.get('codice_accesso').value == this.caOrigin || this.caOrigin == '')
-        ? this.showAdvise = false : this.showAdvise = true
-  }
 
   onSave() {
     this.chalet = this.chaletForm.value;
     (this.editMode) ? this.chalet.id = this.id.toString() : this.chalet.id = null;
     this.chalet.utente_uid = this.authUID
     this.chalet.created_at = new Date()
-
-    if (this.codiceChaletUnivoco) {
 
       if (this.editMode) {
         this.showAdvise = false;
@@ -92,16 +81,13 @@ export class ChaletEditComponent implements OnInit {
         }
         ).unsubscribe()
 
-    } else {
-      this.codiceChaletUnivoco = false;
-    }
+
   }
 
   initForm() {
 
     let ragione_sociale = '';
     let telefono = '';
-    let codice_accesso = '';
     let indirizzo = {
       provincia: '',
       citta: '',
@@ -117,8 +103,6 @@ export class ChaletEditComponent implements OnInit {
             if(c.id == this.id.toString()) {
               ragione_sociale = c.ragione_sociale;
               telefono = c.telefono;
-              codice_accesso = c.codice_accesso;
-              this.caOrigin = codice_accesso;
               indirizzo = c.indirizzo;
             }
           }
@@ -130,7 +114,6 @@ export class ChaletEditComponent implements OnInit {
     this.chaletForm = this.fb.group({
       'ragione_sociale': [ragione_sociale, Validators.compose([ Validators.required, Validators.minLength(3) ])],
       'telefono': [telefono, Validators.compose([Validators.required, Validators.minLength(3)])],
-      'codice_accesso': [codice_accesso, Validators.compose([Validators.required, Validators.minLength(6)])],
       indirizzo: this.fb.group({
         'provincia': [indirizzo.provincia, Validators.compose([Validators.required, Validators.minLength(2) ])],
         'citta': [indirizzo.citta, Validators.compose([Validators.required, Validators.minLength(2) ])],
@@ -153,7 +136,6 @@ export class ChaletEditComponent implements OnInit {
   }
 
   showSuccessMessage(message: string) {
-    this.codiceChaletUnivoco = true
     if(!this.editMode) {
       this.formDirective.resetForm();
       this.chaletForm.reset();
