@@ -35,7 +35,7 @@
 
 
 <mat-horizontal-stepper linear #stepper *ngIf="!prenotazioneEffettuata; else prenotazioneEffettuataMsg">
-  <mat-step [editable]="true" [completed]="clientePren == null ? false : true">
+    <mat-step [editable]="true" [completed]="clientePren == null ? false : true">
     <ng-template matStepLabel>Cliente</ng-template>
                 <mat-card class="mat-elevation-z0 stepCard">
                   <mat-card-title style="font-size: 1.2rem;">
@@ -115,103 +115,106 @@
         </div>
               </mat-card-content>
               </mat-card>
-   </mat-step>
-  <mat-step [editable]="true">
-    <ng-template matStepLabel>Attrezzature</ng-template>
-            <mat-card class="mat-elevation-z0 stepCard">
+    </mat-step>
+    <mat-step [editable]="true">
+
+      <ng-template matStepLabel>Attrezzature & Pagamenti</ng-template>
+
+          <div class="container stepCard">
+
+            <mat-card class="mat-elevation-z0" style="width:32%">
               <mat-card-title style="font-size: 1.2rem;">
                 Attrezzature
               </mat-card-title>
               <mat-card-content>
-        <div *ngIf="!(prenotazioniState | async).loadingAttrezzature">
-          <mat-list role="list" *ngIf="(prenotazioniState | async).attrezzature.length > 0; else noAttrezzature">
-            <ng-container *ngFor="let attrezzatura of (prenotazioniState | async).attrezzature; let i = index">
-                <mat-list-item role="listitem" *ngIf="attrezzatura.visibile">
-                  <div style="width:30%" [ngStyle]="checkAttrezzaturaQuantitaValueById(attrezzatura.id) > 0 && { 'font-weight': 'bold', 'color': '#673BB6' }">
-                    {{ attrezzatura.nome }}</div>
-                  <div>
-                    <button mat-mini-fab mat-primary
-                    [disabled]="checkAttrezzaturaQuantitaValueById(attrezzatura.id) == 0 "
-                      (click)="attrezzaturaAddRemove(attrezzatura, 'remove')" aria-label="aggiungi" class="mat-elevation-z0">
-                      <mat-icon>remove</mat-icon>
-                    </button>
+                <div *ngIf="!(prenotazioniState | async).loadingAttrezzature">
+                  <mat-list role="list" *ngIf="(prenotazioniState | async).attrezzature.length > 0; else noAttrezzature">
+                    <ng-container *ngFor="let attrezzatura of (prenotazioniState | async).attrezzature; let i = index">
+                        <mat-list-item role="listitem" *ngIf="attrezzatura.visibile">
+                          <div style="width:30%" [ngStyle]="checkAttrezzaturaQuantitaValueById(attrezzatura.id) > 0 && { 'font-weight': 'bold', 'color': '#673BB6' }">
+                            {{ attrezzatura.nome }}</div>
+                          <div>
+                            <button mat-mini-fab mat-primary
+                            [disabled]="checkAttrezzaturaQuantitaValueById(attrezzatura.id) == 0 "
+                              (click)="attrezzaturaAddRemove(attrezzatura, 'remove')" aria-label="aggiungi" class="mat-elevation-z0">
+                              <mat-icon>remove</mat-icon>
+                            </button>
 
-                    <input type="text" class="form-control inputAttrezzature" id="valat_{{i}}"
-                      [value]="checkAttrezzaturaQuantitaValueById(attrezzatura.id)" readonly>
+                            <input type="text" class="form-control inputAttrezzature" id="valat_{{i}}"
+                              [value]="checkAttrezzaturaQuantitaValueById(attrezzatura.id)" readonly>
 
-                    <button mat-mini-fab mat-primary (click)="attrezzaturaAddRemove(attrezzatura, 'add')" aria-label="diminuisci"
-                      class="mat-elevation-z0">
-                      <mat-icon>add</mat-icon>
-                    </button>
-                  </div>
-                </mat-list-item>
-            </ng-container>
-          </mat-list>
-          <ng-template #noAttrezzature>
-            <h3 style="font-weight: 300;">Non ci sono attrezzature, se vuoi crearle vai nella sezione <b>Attrezzature</b></h3>
-          </ng-template>
+                            <button mat-mini-fab mat-primary (click)="attrezzaturaAddRemove(attrezzatura, 'add')" aria-label="diminuisci"
+                              class="mat-elevation-z0">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                          </div>
+                        </mat-list-item>
+                    </ng-container>
+                  </mat-list>
+                  <ng-template #noAttrezzature>
+                    <h3 style="font-weight: 300;">Non ci sono attrezzature, se vuoi crearle vai nella sezione <b>Attrezzature</b></h3>
+                  </ng-template>
 
-        </div>
-        <div align="right">
-          <button mat-button color="primary" matStepperPrevious>Indietro</button>
-          <button mat-button color="primary" matStepperNext>Avanti</button>
-        </div>
-      </mat-card-content>
+                </div>
+              </mat-card-content>
             </mat-card>
-  </mat-step>
-  <mat-step [editable]="true">
-    <ng-template matStepLabel>Pagamenti & Note</ng-template>
-        <mat-card class="mat-elevation-z0 stepCard">
-          <mat-card-title style="font-size: 1.2rem;">
-            Pagamenti & Note
-          </mat-card-title>
-          <mat-card-content>
-            <form [formGroup]="pagamentiForm" #formDirective="ngForm" class="form-container">
-              <div class="row">
-                <div class="column">
-                  <mat-slide-toggle class="mb20" [checked]="isPagato"
-                    (change)="selectIsPagato($event)">
-                    Pagato</mat-slide-toggle>
+
+            <mat-card class="mat-elevation-z0" style="width:60%">
+              <mat-card-title style="font-size: 1.2rem;">
+                Pagamenti & Note
+              </mat-card-title>
+              <mat-card-content>
+                <form [formGroup]="pagamentiForm" #formDirective="ngForm" class="form-container">
+                  <div class="container" style="padding-bottom: 8px;">
+                      <div style="width: 50%;">
+                        <mat-slide-toggle class="mb20" [checked]="isPagato"
+                          (change)="selectIsPagato($event)">
+                          Pagato</mat-slide-toggle>
+                      </div>
+                      <div style="width: 50%;">
+                        <mat-slide-toggle class="mb20" [checked]="isStagionale"
+                          (change)="selectIsStagionale($event)">
+                          Stagionale</mat-slide-toggle>
+                      </div>
+                    </div>
+                    <div class="container">
+                      <div style="width: 50%;">
+                        <mat-form-field>
+                          <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control"
+                            placeholder="Prezzo" formControlName="prezzoForm">
+                          <mat-error *ngIf="!pagamentiForm.get('prezzoForm').valid && pagamentiForm.get('prezzoForm').touched">
+                            Inserire un numero esempio: 10.50
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div style="width: 50%;">
+                        <mat-form-field>
+                          <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control" placeholder="Acconto" formControlName="accontoForm">
+                          <mat-error *ngIf="!pagamentiForm.get('accontoForm').valid && pagamentiForm.get('accontoForm').touched">
+                            Inserire un numero esempio: 10.50
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                  </div>
+                  <div class="container">
+                    <div style="width: 80%;">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Note</mat-label>
+                        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="noteForm"
+                          cdkAutosizeMinRows="5" cdkAutosizeMaxRows="15"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+                <div align="right">
+                  <button mat-button color="primary" matStepperPrevious>Indietro</button>
+                  <button mat-button color="primary" matStepperNext>Avanti</button>
                 </div>
-                <div class="column">
-                  <mat-slide-toggle class="mb20" [checked]="isStagionale"
-                    (change)="selectIsStagionale($event)">
-                    Stagionale</mat-slide-toggle>
-                </div>
-                <div class="column">
-                  <mat-form-field>
-                    <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control" placeholder="Acconto" formControlName="accontoForm">
-                    <mat-error *ngIf="!pagamentiForm.get('accontoForm').valid && pagamentiForm.get('accontoForm').touched">
-                      Inserire un numero esempio: 10.50
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="column">
-                  <mat-form-field>
-                    <input matInput (keypress)="keyPressNumbersWithDecimal($event)" type="text" class="form-control" placeholder="Prezzo" formControlName="prezzoForm">
-                    <mat-error *ngIf="!pagamentiForm.get('prezzoForm').valid && pagamentiForm.get('prezzoForm').touched">
-                      Inserire un numero esempio: 10.50
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="column">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Note</mat-label>
-                    <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" formControlName="noteForm"
-                      cdkAutosizeMinRows="5" cdkAutosizeMaxRows="15"></textarea>
-                  </mat-form-field>
-                </div>
-              </div>
-            </form>
-            <div align="right">
-              <button mat-button color="primary" matStepperPrevious>Indietro</button>
-              <button mat-button color="primary" matStepperNext>Avanti</button>
-            </div>
-          </mat-card-content>
-        </mat-card>
-  </mat-step>
+              </mat-card-content>
+            </mat-card>
+
+          </div>
+        </mat-step>
     <mat-step [editable]="true">
       <ng-template matStepLabel>Riepilogo & Prenotazione</ng-template>
     <mat-card class="mat-elevation-z0 stepCard">

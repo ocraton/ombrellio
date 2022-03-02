@@ -46,3 +46,11 @@
   display: table;
   clear: both;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  }
+
+  :host ::ng-deep .mat-list-item-content { padding: 0!important; }
