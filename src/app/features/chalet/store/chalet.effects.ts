@@ -33,8 +33,8 @@ export class ChaletEffects {
     this.actions.pipe(
       ofType(ChaletActions.CreateChalet),
       map(action => action.payload),
-      switchMap((payload: { chalet: Chalet, numeroOmbrelloni: number, numeroTavoli: number, numeroFile: number }) => {
-        return this.chaletService.createChalet(payload.chalet, payload.numeroOmbrelloni, payload.numeroTavoli, payload.numeroFile).then(
+      switchMap((payload: { chalet: Chalet }) => {
+        return this.chaletService.createChalet(payload.chalet).then(
           res => ChaletActions.CreateChaletSuccess()
         ).catch(
           error => ChaletActions.CreateChaletFail(error)

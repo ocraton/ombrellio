@@ -1,2 +1,30 @@
+<div *ngIf="!(ombrelloniState | async).ombrelloni[0]; else ombrelloniPanel">
+  <mat-card class="cardcreanuovo" style="margin-top: 40px;">
+    <h2 style="font-weight: 100;">
+      Non hai ancora ombrelloni perché non hai ancora attivato la mappa!
+    </h2>
+    <br>
+    <h3 style="font-weight: 100;">Per attivare la mappa contattaci su Messanger: <a mat-icon-button
+        class="example-icon favorite-icon " href="https://m.me/ombrel.io" target="_blank"
+        matTooltip="Scrivici qui se hai bisogno di aiuto" aria-label="Supporto">
+        <mat-icon svgIcon="messanger"></mat-icon>
+      </a>
+      oppure su
+      <a href="mailto:supporto@ombrel.io?subject=attivazione mappa"
+        style="font-weight: bold;color: blueviolet;">supporto@ombrel.io</a>
+      inviando una foto della tua mappa degli ombrelloni.
+    </h3>
+    <br>
+    <h3>Nel frattempo puoi aggiungere le
+      <a routerLink="/user/attrezzature" style="font-weight: bold;color: blueviolet;">attrezzature</a>
+      e il
+      <a routerLink="/user/categorie" style="font-weight: bold;color: blueviolet;">menù</a>
+    </h3>
+  </mat-card>
+</div>
+<ng-template #ombrelloniPanel>
 
-  <app-ombrelloni-list></app-ombrelloni-list>
+    <app-ombrelloni-list></app-ombrelloni-list>
+</ng-template>
+
+

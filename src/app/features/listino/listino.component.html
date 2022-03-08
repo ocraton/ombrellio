@@ -3,21 +3,32 @@
   Listino
 </h2>
 
-<button routerLink="/user/listino/edit" mat-fab
-  class="mat-button-bottom-r" color="primary" aria-label="Modifica">
+<div *ngIf="!(listinoState | async).listino[0]; else listinoPanel">
+  <mat-card class="cardcreanuovo" style="margin-top: 40px;">
+    <h3 style="font-weight: 100;">Non hai ancora creato un listino. Se vuoi puoi aggiungerlo qui
+      <br><br>
+      <button routerLink="/user/listino/edit" color="primary" mat-raised-button>
+      Crea Listino <mat-icon>edit</mat-icon>
+      </button>
+    </h3>
+  </mat-card>
+</div>
+
+<ng-template #listinoPanel>
+
+<button routerLink="/user/listino/edit" mat-fab class="mat-button-bottom-r" color="primary" aria-label="Modifica">
   <mat-icon>edit</mat-icon>
 </button>
 
 <div *ngIf="!(listinoState | async).loading">
 
-<br>
+  <br>
 
-  <mat-expansion-panel *ngFor="let mese of listino"
-  style="margin-bottom: 8px;">
+  <mat-expansion-panel *ngFor="let mese of listino" style="margin-bottom: 8px;">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <span class="meseTitle">
-         {{ getMese(mese.numero_mese) }}
+          {{ getMese(mese.numero_mese) }}
         </span>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -26,9 +37,9 @@
       <mat-selection-list>
         <mat-list-item *ngFor="let item of mese.prezzi | keyvalue">
           <div matLine>
-          <div class="rangeItem">Dal giorno {{ item.value.range_inizio }}
-             al giorno {{ item.value.range_fine }}</div>
-          <div class="prezzoItem">{{ item.value.prezzo }} €</div>
+            <div class="rangeItem">Dal giorno {{ item.value.range_inizio }}
+              al giorno {{ item.value.range_fine }}</div>
+            <div class="prezzoItem">{{ item.value.prezzo }} €</div>
           </div>
         </mat-list-item>
       </mat-selection-list>
@@ -42,3 +53,5 @@
 <div>
   <mat-progress-bar mode="indeterminate" *ngIf="(listinoState | async).prodottiCategorieLoading"></mat-progress-bar>
 </div>
+
+</ng-template>

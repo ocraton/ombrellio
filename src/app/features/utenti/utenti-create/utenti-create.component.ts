@@ -26,6 +26,7 @@ export class UtentiCreateComponent implements OnInit {
   @ViewChild('formDirective') formDirective;
 
   constructor(private store: Store<fromApp.AppState>,
+    private router: Router,
               private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -38,7 +39,9 @@ export class UtentiCreateComponent implements OnInit {
     this.utente.chalet_uid = '';
     this.utente.userType = 'demo';
     this.utente.data_rinnovo = new Date();
-    this.utente.data_scadenza = new Date(2022, 11, 31); //scadenza impostata al 31 dicembre 2022
+    const yesterday = new Date(this.utente.data_rinnovo);
+    yesterday.setDate(yesterday.getDate() - 1);
+    this.utente.data_scadenza = yesterday; // scadenza impostata a "ieri"
     if (this.utenteForm.valid){
       this.store.dispatch(UtentiActions.CreateUtente({ payload: { utente: this.utente } }));
       this.store.select('utenti')
@@ -95,7 +98,7 @@ export class UtentiCreateComponent implements OnInit {
   }
 
   reloadPage(){
-    window.location.reload();
+    return this.router.navigate(['/login']);
   }
 
 }

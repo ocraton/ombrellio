@@ -41,6 +41,8 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
     dateEnd: new FormControl(new Date(), [Validators.required])
   });
   sogliaGiorni = 7;
+  mappaNumeroRighe = 0;
+  mappaNumeroColonne = 0;
 
 
   constructor(private store: Store<fromApp.AppState>,
@@ -71,9 +73,13 @@ export class PrenotazioniComponent implements OnInit, OnDestroy {
       this.store.dispatch(PrenotazioniActions.FetchPrenotazioniOmbrelloni());
       this.prenotazioneState = this.store.select('prenotazioni');
       this.prenotazioneState.subscribe(pren => {
-        this.prenArray = pren.prenotazione;
-        this.ombrelloniList = pren.ombrellone;
-        this.buildGrid(pren.mappa.numero_righe, pren.mappa.numero_colonne)
+        if(pren.mappa){
+          this.prenArray = pren.prenotazione;
+          this.ombrelloniList = pren.ombrellone;
+          this.mappaNumeroRighe = pren.mappa.numero_righe;
+          this.mappaNumeroColonne = pren.mappa.numero_colonne;
+          this.buildGrid(this.mappaNumeroRighe, this.mappaNumeroColonne);
+        }
       });
       this.setSogliaGiorniPrenSmart();
   }

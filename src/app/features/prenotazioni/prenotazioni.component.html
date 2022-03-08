@@ -1,3 +1,27 @@
+<div *ngIf="!(prenotazioneState | async).mappa; else prenotazioniPanel">
+<mat-card class="cardcreanuovo" style="margin-top: 40px;">
+  <h2 style="font-weight: 100;">Hai creato il tuo stabilimento!
+    <br>
+    Tra poco potrai iniziare
+    a prendere le prenotazioni per la tua spiaggia !</h2>
+  <br>
+  <h3 style="font-weight: 100;">Per attivare la mappa contattaci su Messanger: <a mat-icon-button class="example-icon favorite-icon " href="https://m.me/ombrel.io" target="_blank"
+    matTooltip="Scrivici qui se hai bisogno di aiuto" aria-label="Supporto">
+    <mat-icon svgIcon="messanger"></mat-icon>
+  </a>
+oppure su
+<a href="mailto:supporto@ombrel.io?subject=attivazione mappa" style="font-weight: bold;color: blueviolet;">supporto@ombrel.io</a>
+inviando una foto della tua mappa degli ombrelloni.
+</h3>
+<br>
+  <h3>Nel frattempo puoi aggiungere le
+    <a routerLink="/user/attrezzature" style="font-weight: bold;color: blueviolet;">attrezzature</a>
+    e il
+    <a routerLink="/user/categorie" style="font-weight: bold;color: blueviolet;">menù</a>
+  </h3>
+</mat-card>
+</div>
+<ng-template #prenotazioniPanel>
 <div class="flex-grid" style="height: 80px;">
   <div style="width: 30%;">
     <h2 class="titleSection">
@@ -6,45 +30,35 @@
     </h2>
   </div>
   <div style="width: 60%;" class="flex-grid">
-      <div class="col0">
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Data Inizio e Data Fine</mat-label>
-          <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
-            <input matStartDate placeholder="Data Inizio" formControlName="dateStart" readonly>
-            <input matEndDate placeholder="Data Fine"
-            (dateChange)="findPrenotazione()"
-             formControlName="dateEnd" readonly>
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-      </div>
-      <div class="col0">
-        <button id="btnStampaMappa" style="margin: 10px"
-        [disabled]="!range.valid" mat-raised-button color="accent"
-        matTooltip="STAMPA"
-        (click)="generatePDF()"
-        *ngIf="!loadStampa"
-          ><mat-icon class="icon">print</mat-icon> </button>
-          <mat-spinner
-          mode="indeterminate"
-          color="accent"
-          style="margin:15px"
-          diameter="30" *ngIf="loadStampa"></mat-spinner>
-      </div>
-      <div class="col0">
-        <button id="btnFindPren" style="margin: 10px"
-        [disabled]="setSogliaGiorniPrenSmart() >= sogliaGiorni"
-        (click)="loadPrenotazioniSmart()"
-        mat-raised-button color="primary" matTooltip="PRENOTAZIONE SMART">
-          <mat-icon class="icon">auto_fix_high</mat-icon>
-        </button>
-      </div>
+    <div class="col0">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Data Inizio e Data Fine</mat-label>
+        <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
+          <input matStartDate placeholder="Data Inizio" formControlName="dateStart" readonly>
+          <input matEndDate placeholder="Data Fine" (dateChange)="findPrenotazione()" formControlName="dateEnd"
+            readonly>
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
     </div>
+    <div class="col0">
+      <button id="btnStampaMappa" style="margin: 10px" [disabled]="!range.valid" mat-raised-button color="accent"
+        matTooltip="STAMPA" (click)="generatePDF()" *ngIf="!loadStampa">
+        <mat-icon class="icon">print</mat-icon>
+      </button>
+      <mat-spinner mode="indeterminate" color="accent" style="margin:15px" diameter="30" *ngIf="loadStampa">
+      </mat-spinner>
+    </div>
+    <div class="col0">
+      <button id="btnFindPren" style="margin: 10px" [disabled]="setSogliaGiorniPrenSmart() >= sogliaGiorni"
+        (click)="loadPrenotazioniSmart()" mat-raised-button color="primary" matTooltip="PRENOTAZIONE SMART">
+        <mat-icon class="icon">auto_fix_high</mat-icon>
+      </button>
+    </div>
+  </div>
   <div style="width: 10%;">
-    <button mat-stroked-button
-    (click)="openLegendaDialog()"
-    style="margin-top: 10px;float: right;">Legenda</button>
+    <button mat-stroked-button (click)="openLegendaDialog()" style="margin-top: 10px;float: right;">Legenda</button>
   </div>
 </div>
 
@@ -52,15 +66,14 @@
   <mat-form-field style="width: 100%">
     <input matInput placeholder="Cerca Ombrellone" #term (keyup)="setSearch(term.value)" style="width: 100%" />
   </mat-form-field>
-  <div class="gridListContainer" >
+  <div class="gridListContainer">
     <mat-grid-list id="gridMappa" [ngStyle]="" [style.width]="42*(prenotazioneState | async).mappa.numero_colonne+'px'"
       [cols]="(prenotazioneState | async).mappa.numero_colonne" rowHeight="42px">
       <mat-grid-tile *ngFor="let tile of mappaGrid; index as i;">
         <!-- <div class="rowColIndicator"><p>Fila {{ tile.iRiga }}:{{ tile.iColonna }}</p></div> -->
         <div class="rowCardIndicator">
           <app-prenotazione-edit *ngIf="getOmbrelloneIfExist(tile.iRiga, tile.iColonna) as ombrellone;"
-            [ombrellone]="ombrellone" [ombrellonename]="ombrellonename"
-            [prenArray]="checkPrenotazione(ombrellone.id)"
+            [ombrellone]="ombrellone" [ombrellonename]="ombrellonename" [prenArray]="checkPrenotazione(ombrellone.id)"
             [rangeDate]="{dataInizio:range.value['dateStart'],dataFine:range.value['dateEnd']}"></app-prenotazione-edit>
         </div>
       </mat-grid-tile>
@@ -74,3 +87,6 @@
 <div>
   <mat-progress-bar mode="indeterminate" *ngIf="(prenotazioneState | async).loading"></mat-progress-bar>
 </div>
+</ng-template>
+
+

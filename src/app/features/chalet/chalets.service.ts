@@ -36,33 +36,14 @@ export class ChaletsService {
               );
     }
 
-  createChalet(chalet, numOmbrelloni: number, numeroTavoli: number, numeroFile: number) {
+  createChalet(chalet) {
       delete chalet.id;
 
-      let nColonne = Math.floor(numOmbrelloni / numeroFile) * 2;
       return this.db.collection('chalet').add(chalet)
         .then((chaletItem) => {
-          let nColonnaIndex = 1;
-          let currentRiga = 1;
-          for(let i = 1; i<=numOmbrelloni; i++){
-            this.db.collection(`chalet/${chaletItem.id}/ombrelloni`).add({
-              'numero': i.toString(),
-              'colonna': nColonnaIndex > nColonne ? (nColonnaIndex = 1) : (nColonnaIndex += 2) - 2,
-              'riga': nColonnaIndex > nColonne ? currentRiga++ : (currentRiga = currentRiga)
-            })
-          }
-          for (let i = 1; i <= numeroTavoli; i++){
-            this.db.collection(`chalet/${chaletItem.id}/tavoli`).add({
-              'numero': i.toString()
-            })
-          }
           this.db.collection('utenti').doc(this.authUID).update({
             'chalet_uid': chaletItem.id
           })
-
-
-          this.db.collection(`chalet/${chaletItem.id}/mappa`).add({ 'numero_colonne': nColonne, 'numero_righe': Number(numeroFile) })
-
         });
 
     }
